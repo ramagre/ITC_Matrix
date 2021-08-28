@@ -17,7 +17,7 @@ pipeline {
                 checkout([$class: 'GitSCM', branches: [
                     [name: "master"]
                 ], userRemoteConfigs: [
-                    [url: "https://github.com/ramagre/-DIGO-.git"]
+                    [url: "https://github.com/ramagre/ITC_Matrix.git"]
                 ]])
 
             }
@@ -29,7 +29,7 @@ pipeline {
                 dir('.nuget') {
 
                     bat '''
-                       C://Nuget//Nuget.exe restore "C://DATA//GitRepo//DIGO//ITC_Matrix.sln"
+                       C://Nuget//Nuget.exe restore "C://DATA//GitRepo//-DIGO-//ITC_Matrix.sln"
                     '''
 
                 }
