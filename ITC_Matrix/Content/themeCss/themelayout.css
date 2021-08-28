@@ -1,0 +1,98 @@
+#colorSelectorSiteBackground, #colorSelectorHeaderBackgroundColor, #colorSelectorMenuBackgroundColor, #colorSelectorSubmenuBackgroundColor
+,#colorSelectorFormControlFontColor, #colorSelectorFormControlBordercolor, #colorSelectorGridHeaderBackgroundcolor, #colorSelectorGridFooterBackgroundcolor, #colorSelectorGridRowBackgroundcolor
+,#colorSelectorGridRowAlternateBackgroundcolor, #colorSelectorHeaderFontStyleFontColor
+,#colorSelectorMenuFontStyleFontColor, #colorSelectorSubmenuFontStyleFontColor, #colorSelectorFormHeaderFontStyleFontColor
+,#colorSelectorFormLableFontStyleFontColor, #colorSelectorFormControlFontStyleFontColor
+,#colorSelectorClientTileBackgroundColor
+,#colorSelectorAccountsTileBackgroundColor, #colorSelectorPrivilegesTileBackgroundColor, #colorSelectorDevicesTileBackgroundColor
+,#colorSelectorReportsTileBackgroundColor, #colorSelectorRolesTileBackgroundColor, #colorSelectorAdministrationTileBackgroundColor
+,#colorSelectorToolsTileBackgroundColor, #colorSelectorAppearanceTileBackgroundColor
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 30px;
+	height: 30px;
+	background: url(../themeimages/select2.png);
+}
+#colorSelectorSiteBackground div, #colorSelectorHeaderBackgroundColor div, #colorSelectorMenuBackgroundColor div, #colorSelectorSubmenuBackgroundColor div
+,#colorSelectorFormControlFontColor div, #colorSelectorFormControlBordercolor div, #colorSelectorGridHeaderBackgroundcolor div, #colorSelectorGridFooterBackgroundcolor div, #colorSelectorGridRowBackgroundcolor div
+,#colorSelectorGridRowAlternateBackgroundcolor div, #colorSelectorHeaderFontStyleFontColor div
+,#colorSelectorMenuFontStyleFontColor div, #colorSelectorSubmenuFontStyleFontColor div, #colorSelectorFormHeaderFontStyleFontColor div
+,#colorSelectorFormLableFontStyleFontColor div, #colorSelectorFormControlFontStyleFontColor div
+,#colorSelectorClientTileBackgroundColor div
+,#colorSelectorAccountsTileBackgroundColor div, #colorSelectorPrivilegesTileBackgroundColor div, #colorSelectorDevicesTileBackgroundColor div
+,#colorSelectorReportsTileBackgroundColor div, #colorSelectorRolesTileBackgroundColor div, #colorSelectorAdministrationTileBackgroundColor div
+,#colorSelectorToolsTileBackgroundColor div, #colorSelectorAppearanceTileBackgroundColor div
+{
+	position: absolute;
+	top: 4px;
+	left: 4px;
+	width: 25px;
+	height: 25px;
+	background: url(../themeimages/select2.png) center;
+}
+#colorpickerHolder
+{
+	top: 32px;
+	left: 0;
+	width: 356px;
+	height: 0;
+	overflow: hidden;
+	position: absolute;
+}
+#colorpickerHolder .colorpicker
+{
+	background-image: url(../themeimages/custom_background.png);
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+#colorpickerHolder .colorpicker_hue div
+{
+	background-image: url(../themeimages/custom_indic.gif);
+}
+#colorpickerHolder .colorpicker_hex
+{
+	background-image: url(../themeimages/custom_hex.png);
+}
+#colorpickerHolder .colorpicker_rgb_r
+{
+	background-image: url(../themeimages/custom_rgb_r.png);
+}
+#colorpickerHolder .colorpicker_rgb_g
+{
+	background-image: url(../themeimages/custom_rgb_g.png);
+}
+#colorpickerHolder .colorpicker_rgb_b
+{
+	background-image: url(../themeimages/custom_rgb_b.png);
+}
+#colorpickerHolder .colorpicker_hsb_s
+{
+	background-image: url(../themeimages/custom_hsb_s.png);
+	display: none;
+}
+#colorpickerHolder .colorpicker_hsb_h
+{
+	background-image: url(../themeimages/custom_hsb_h.png);
+	display: none;
+}
+#colorpickerHolder .colorpicker_hsb_b
+{
+	background-image: url(../themeimages/custom_hsb_b.png);
+	display: none;
+}
+#colorpickerHolder .colorpicker_submit
+{
+	background-image: url(../themeimages/custom_submit.png);
+}
+#colorpickerHolder .colorpicker input
+{
+	color: #778398;
+}
+#customWidget {
+	position: absolute;
+	height: 36px;
+    width: 30px !important;
+}

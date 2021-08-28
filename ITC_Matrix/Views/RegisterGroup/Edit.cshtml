@@ -1,0 +1,183 @@
+﻿@using ITC_Matrix.Common;
+@model ITC_Matrix.Models.RegisterGroup
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Menu = "devices";
+    ViewBag.SubMenu = "registerGroupsNode";
+
+    var temchkname = string.Empty;
+}
+
+<script src="~/Assets/js/RegisterGroupCreate.js"></script>
+
+@using (Html.BeginForm())
+{
+    @Html.Hidden("selectedDeviceCR")
+    @Html.Hidden("selecteddepartmentCR")
+    <section class="mainTable-right">
+
+        @Html.AntiForgeryToken()
+        <section class="contentLimit-box content" id="content-1">
+            <section class="contentLimit-boxInner">
+                <section class="formBox-row fullwidth">
+                    <section class="heading">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Edit) @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Device_Group)</section>
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.Hidden("selectedProductString")
+                    @Html.Hidden("selectedProductString")
+
+                    <section class="formBox-content">
+
+                        <section class="leftDiv half" style="width: 400px;">
+
+                            <section class="feildRow">
+                                <section class="labelWraper" style="width: 110px;">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Code):</label>
+                                </section>
+                                <section class="feildWraper">
+                                    @Html.TextBoxFor(model => model.CODE, new { @readOnly = true, @data_Val = false })
+                                    @Html.ValidationMessageFor(model => model.CODE, "", new { @class = "text-danger" })
+                                </section>
+                            </section>
+
+                            <section class="feildRow">
+                                <section class="labelWraper" style="width: 110px;">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Description):</label>
+                                </section>
+                                <section class="feildWraper">
+                                    <section class="feildRow">
+                                        @Html.TextBoxFor(model => model.DSCR, new { @maxLength = 40 })
+                                        @Html.ValidationMessageFor(model => model.DSCR, "", new { @class = "text-danger" })
+                                    </section>
+                                </section>
+                            </section>
+
+                        </section>
+
+                        <section class="formBox-row fullwidth" style="padding-top:2%;">
+
+                            <section class="leftDiv half">
+                                <section class="departCode-box" id="DeviceCR">
+                                    <h4>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Device_Charging_Restriction)</h4>
+                                    <section class="departCode-row headTitle">
+                                        <section class="half" style="width:30%;float:left"></section>
+                                        <section class="half" style="width:33%;float:left">
+                                           @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Code)
+                                        </section>
+                                        <section class="half" style="width:37%;float:left">
+                                           @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Description)
+                                        </section>
+                                    </section>
+
+                                    <section class="departCode-row">
+                                        <section class="half" style="width:30%;float:left">  </section>
+                                        <section class="half" style="width:33%;float:left;text-align:right">
+                                            @Html.CheckBox("SelectAllDevice", false, new { @id = "SelectAllDevice" })
+                                            <label for="SelectAllDevice" class="checkbox-inline"><span></span><div class="label-txt"></div></label>   
+                                        </section>
+                                        <section class="half" style="width:33%;float:left;padding-top:20px;">
+                                            Select All     
+                                        </section>
+                                    </section>
+
+                                    @{
+                                        if (ViewBag.ProfilesDeviceCharge != null)
+                                        {
+                                            foreach (var profile in ViewBag.ProfilesDeviceCharge)
+                                            {
+                                                temchkname = "device_" + profile.CODE;
+
+                                                <section class="departCode-row">
+                                                    <section class="half" style="width:30%;float:left;text-align:right;padding-top:20px;">
+                                                        @profile.CODE
+                                                    </section>
+                                                    <section class="half" style="width:33%;float:left;padding-bottom:10px;">
+                                                        @Html.CheckBox(temchkname, (bool)profile.isSelected, new { @id = temchkname })
+                                                        <label for=@temchkname class="checkbox-inline"><span></span><div class="label-txt"></div></label>
+                                                    </section>
+                                                    <section class="half" style="width:33%;float:left;padding-top:20px;">
+                                                        @profile.DSCR
+                                                    </section>
+                                                </section>
+                                            }
+                                        }
+                                    }
+                                </section>
+                            </section>
+
+                            <section class="rightDiv half">
+                                <section class="departCode-box" id="departmentCR">
+                                    <h4>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Departmental_Charging_Restriction)</h4>
+                                    <section class="departCode-row headTitle">
+                                        <section class="half" style="width:30%;float:left"></section>
+                                        <section class="half" style="width:33%;float:left">
+                                           @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Code)
+                                        </section>
+                                        <section class="half" style="width:37%;float:left">
+                                           @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Description)
+                                        </section>
+                                    </section>
+
+                                    <section class="departCode-row">
+                                        <section class="half" style="width:30%;float:left">  </section>
+                                        <section class="half" style="width:33%;float:left;text-align:right">
+                                                  @Html.CheckBox("SelectAllDepartment", false, new { @id = "SelectAllDepartment" })
+                                            <label for="SelectAllDepartment" class="checkbox-inline"><span></span><div class="label-txt"></div></label> 
+                                                 </section>
+                                        <section class="half" style="width:33%;float:left;padding-top:20px;">
+                                            Select All
+                                        </section>
+                                    </section>
+
+                                    @{
+                                        if (ViewBag.ProfilesDepartmentalCharge != null)
+                                        {
+                                            foreach (var profile in ViewBag.ProfilesDepartmentalCharge)
+                                            {
+                                                temchkname = "department_" + profile.CODE;
+
+                                                <section class="departCode-row">
+                                                    <section class="half" style="width:30%;float:left;text-align:right;padding-top:20px;">
+                                                        @profile.CODE
+                                                    </section>
+                                                    <section class="half" style="width:33%;float:left;padding-bottom:10px;">
+                                                        @Html.CheckBox(temchkname, (bool)profile.isSelected, new { @id = temchkname })
+                                                        <label for=@temchkname class="checkbox-inline"><span></span><div class="label-txt"></div></label>
+                                                    </section>
+                                                    <section class="half" style="width:33%;float:left;padding-top:20px;">
+                                                        @profile.DSCR
+                                                    </section>
+                                                </section>
+                                            }
+                                        }
+                                    }
+                                </section>
+                            </section>
+
+                        </section>
+
+
+                    </section>
+
+                </section>
+                <section class="formBox-row fullwidth">
+
+                    <section class="formBox-content">
+
+                        <section class="floatRight row">
+                            <section class="small-formBtn">
+                                <input type="submit" value="@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Save)" class="pink-btn" />
+                            </section>
+                            <section class="small-formBtn">
+                                <a href='@Url.Action("Index", "RegisterGroup")' class="blue-btn">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Cancel)</a>
+                                @*<a href="/RegisterGroup/Index"><input type="button" class="blue-btn" value="Cancel"></a>*@
+                            </section>
+                        </section>
+
+                    </section>
+                </section>
+            </section>
+        </section>
+        <section class="clear"></section>
+    </section>
+                                        }

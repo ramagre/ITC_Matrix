@@ -1,0 +1,14 @@
+﻿@using ITC_Matrix.Common;
+<section class="leftPanel-wrapper">
+    <section id="menu" class="navigation">
+        <ul>
+            <li><a href="/Dashboard" class="home">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Home)</a></li>
+            @if (ViewBag.LeftMenu != null)
+            {
+                @Html.Raw(ViewBag.LeftMenu)
+            }
+            <li><a href="#" class="help">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Help)</a></li>
+        </ul>
+    </section>
+</section>
+

@@ -1,0 +1,108 @@
+﻿@using ITC_Matrix.Common;
+@model ITC_Matrix.Models.AccountCode
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Menu = "clients";
+    ViewBag.SubMenu = "accountCodesNode";
+}
+
+<script type="text/javascript" src="~/Assets/JS/Departments.js"></script>
+
+<section class="mainTable-right">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <h3>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.EditDepartment) </h3>
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.Hidden("selectedProductString")
+
+        if (ViewBag.Message != null)
+        {
+            <section class="@ViewBag.MessageClass">@ViewBag.Message</section>
+        }
+
+        <section class="contentLimit-box content" id="content-1">
+            <section class="contentLimit-boxInner">
+                <section class="formBox-row fullwidth">
+                    <section class="heading">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.General_Information)</section>
+                    <section class="formBox-content">
+                        <section class="leftDiv half">
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Code):</label>
+                                </section>
+                                <section class="feildWraper">
+                                   @Html.EditorFor(model => model.AccCode, new { htmlAttributes = new { @readonly = "readonly", @data_val = "false" } })
+                                   @Html.ValidationMessageFor(model => model.AccCode, "", new { @class = "text-danger" })
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Cost_Center):</label>
+                                </section>
+                                <section class="feildWraper">
+                                    <label class="customeFeild selectTag">
+                                        @Html.DropDownList("CostCentreList")
+                                        @Html.ValidationMessageFor(model => model.CostCentreID, "", new { @class = "text-danger" })
+                                    </label>
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Description):</label>
+                                </section>
+                                <section class="feildWraper">
+                                    @Html.EditorFor(model => model.Description)
+                                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                </section>
+                            </section>
+                        </section>
+                        <section class="rightDiv half">
+                            <section class="fullwidth initialized_ac">
+                                <section class="feildRow">
+                                    <h3 class="headTitle2">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Accounts):</h3>
+                                    <section class="row">
+                                        <section class="half">
+                                            <section class="feildRow">
+                                                <section class="bloc">
+                                                    @Html.ListBoxFor(m => m.Selectaccountslist, (MultiSelectList)ViewBag.NotSelActCodelist, htmlAttributes: new { id = "ChooseLeft", @class = "multiple" })
+                                                </section>
+                                            </section>
+                                        </section>
+                                        <section class="half">
+                                            <section class="feildRow">
+                                                <section class="bloc">
+                                                    @Html.ListBoxFor(m => m.Accountslist, (MultiSelectList)TempData["SelActCodelist"], htmlAttributes: new { id = "ChooseRight", @class = "multiple",  @style = "text-align: right;" })
+                                                    @Html.ValidationMessageFor(model => model.Accounts, "", new { @class = "text-danger" })
+                                                </section>
+                                            </section>
+                                        </section>
+                                        <section class="addNremove-wraper">
+                                            <input id="ShiftRight" type="button" class="green-btn addList" value="">
+                                            <input id="ShiftLeft" type="button" class="green-btn removeList" value="">
+                                        </section>
+                                    </section>
+                                </section>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+                <section class="formBox-row fullwidth">
+                    <section class="formBox-content">
+                        <section class="floatRight row">
+                            <section class="small-formBtn">
+                                <input type="submit" value="@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Save)" class="pink-btn" id="btnSave" />
+                            </section>
+                            <section class="small-formBtn">                            
+                                <a href='@Url.Action("Index", "AccountCodes")' class="blue-btn">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Cancel)</a>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="clear"></section>
+        </section>
+    }
+</section>

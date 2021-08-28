@@ -1,0 +1,136 @@
+﻿@using ITC_Matrix.Common;
+
+@model ITC_Matrix.Models.Install
+@{
+    ViewBag.Title = "Index";
+}
+
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+    <script src="~/Scripts/jquery-2.1.4.js"></script>
+    <script src="~/Scripts/jquery-ui-1.11.4.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+    <meta charset="utf-8">
+    <title>ITC Systems - Matrix Manager&#8482;</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="~/Assets/CSS/master.css" rel="stylesheet" />
+
+    @if ((Session["DefaultTheme"]) != null)
+    {
+        <link rel="stylesheet" href='@(Session["DefaultTheme"])'>
+    }
+    else
+    {
+        <link rel="stylesheet" href="~/Assets/CSS/default-theme.css">
+    }
+
+    <!--[if lt IE 9]>
+        <script src="assets/js/html5.js"></script>
+    <![endif]-->
+
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800" rel="stylesheet" type="text/css">
+</head>
+@using (Html.BeginForm("Install", "Login", FormMethod.Post))
+{
+    <body>
+        <section class="container">
+            <header class="mainHeader fullwidth">
+                <a href="@Url.Action("Index", "Login")" class="logo">
+                </a>
+                <section class="exclusiveDiv">
+                    Exclusive to ITC Systems
+                    <span>Fast. Simple. Efficient.</span>
+                </section>
+            </header>
+
+            <section class="fullwidth loginContainer">
+
+                <section class="loginBox" style="width:500px;">
+                    <section class="blueHeading-bg">
+                        <h2>Install</h2>
+                    </section>
+                    <section class="leftDiv half" style="padding:10px;">
+                        <section class="clear">&nbsp;</section>
+                        <section class="feildRow">
+                            @if (ViewBag.Message != null)
+                            {
+                                <section class="@ViewBag.MessageClass">@ViewBag.Message</section>
+                            }                           
+                        </section>
+                        <section class="feildRow">
+                            <section class="formBox-content half labelWraper label" style="float:left;width:155px;">
+                                <label>Host Name :</label>
+                            </section>
+                            <section class="feildWraper" style="float:left;width:50%;">
+                                @Html.EditorFor(model => model.HostName)
+                                @Html.ValidationMessageFor(model => model.HostName, "", new { @class = "text-danger" })
+                            </section>
+                        </section>
+                        <section class="feildRow">
+                            <section class="formBox-content half labelWraper label" style="float:left;width:155px;">
+                                <label>Multiplan Database :</label>
+                            </section>
+                            <section class="feildWraper" style="float:left;width:50%;">
+                                @Html.EditorFor(model => model.DBMultiplan)
+                                @Html.ValidationMessageFor(model => model.DBMultiplan, "", new { @class = "text-danger" })
+                            </section>
+                        </section>
+                        <section class="feildRow">
+                            <section class="formBox-content half labelWraper label" style="float:left;width:155px;">
+                                <label>WMM Database :</label>
+                            </section>
+                            <section class="feildWraper" style="float:left;width:50%;">
+                                @Html.EditorFor(model => model.DBWMM)
+                                @Html.ValidationMessageFor(model => model.DBWMM, "", new { @class = "text-danger" })
+                            </section>
+                        </section>
+                        <section class="feildRow">
+                            <section class="formBox-content half labelWraper label" style="float:left;width:155px;">
+                                <label>User ID :</label>
+                            </section>
+                            <section class="feildWraper" style="float:left;width:50%;">
+                                @Html.EditorFor(model => model.UserID)
+                                @Html.ValidationMessageFor(model => model.UserID, "", new { @class = "text-danger" })
+                            </section>
+                        </section>
+                        <section class="feildRow">
+                            <section class="formBox-content half labelWraper label" style="float:left;width:155px;">
+                                <label>Password :</label>
+                            </section>
+                            <section class="feildWraper" style="float:left;width:50%;">
+                                @Html.EditorFor(model => model.Password)
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                            </section>
+                        </section>
+                        <section class="floatRight">
+                            <section class="small-formBtn">
+                                <input type="submit" class="pink-btn" name="Command" value="Save">                                
+                            </section>
+                            <section class="small-formBtn">
+                                <input type="submit" class="blue-btn" name="Command" value="Test Connection">
+                            </section>
+                        </section>  
+                        <section class="clear"></section>                 
+                    </section>
+                    <section class="clear"></section>
+                </section>
+            </section>
+            <footer class="fullwidth mainFooter">
+                Matrix Manager™ ITC Systems. All rights reserved.
+            </footer>
+            <section class="clear"></section>
+        </section>
+    </body>
+}
+</html>
+

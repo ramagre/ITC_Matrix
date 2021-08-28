@@ -1,0 +1,50 @@
+﻿@using ITC_Matrix.Common;
+@model ITC_Matrix.Models.Menus
+
+@{
+    ViewBag.Title = "Manage Menu Activations";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Menu = "admin";
+    ViewBag.SubMenu = "managemenuNode";
+}
+
+<script type="text/javascript" src="~/Assets/JS/ManageMenu.js"></script>
+
+<section class="mainTable-right">
+    @using (@Html.BeginForm("Index", "ManageMenu", FormMethod.Post))
+    {
+        if (ViewBag.ManageMenuMessage != null)
+        {
+            <section class="@ViewBag.MessageClass">@ViewBag.ManageMenuMessage</section>
+        }
+
+        <section class="contentLimit-box content" id="content-1">
+            <section class="contentLimit-boxInner">
+                <section class="formBox-row fullwidth">
+                    <section class="heading">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Manage_Menu_Activations)</section>
+                    <section class="formBox-content">
+                        <table class="gridTable tabContent" width="100%" cellpadding="0" cellspacing="0">
+                            <tbody>
+                                @if (ViewBag.HtmlStr != null)
+                                {
+                                @Html.Raw(ViewBag.HtmlStr)
+                                }
+                            </tbody>
+                        </table>
+                    </section>
+                </section>
+
+                <section class="formBox-row fullwidth">
+                    <section class="formBox-content" style="padding-top:0;">
+                        <section class="floatRight row">
+                            <section class="small-formBtn">
+                                <input type="submit" class="pink-btn" value="@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Save)">
+                            </section>                          
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="clear"></section>
+        </section>
+    }
+</section>

@@ -1,0 +1,1043 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B2533A3C-5DDA-4D43-A626-8CCFBDE46951}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ITC_Matrix</RootNamespace>
+    <AssemblyName>ITC_Matrix</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisIgnoreGeneratedCode>true</CodeAnalysisIgnoreGeneratedCode>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Common\CheckSessionOutAttribute.cs" />
+    <Compile Include="Common\CommonEnum.cs" />
+    <Compile Include="Common\Functions.cs" />
+    <Compile Include="Common\GlobalVariables.cs" />
+    <Compile Include="Controllers\AccountCodesController.cs" />
+    <Compile Include="Controllers\AccountTypeController.cs" />
+    <Compile Include="Controllers\ActinfoStatementController.cs" />
+    <Compile Include="Controllers\AllLanguagesController.cs" />
+    <Compile Include="Controllers\CardIssuesController.cs" />
+    <Compile Include="Controllers\ClientMealPlansController.cs" />
+    <Compile Include="Controllers\ClientsController.cs" />
+    <Compile Include="Controllers\CredentialsController.cs" />
+    <Compile Include="Controllers\PrefsController.cs" />
+    <Compile Include="Controllers\TranslationController.cs" />
+    <Compile Include="Controllers\CostCenterController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\DeletedClientsController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\ManageMenuController.cs" />
+    <Compile Include="Controllers\MealController.cs" />
+    <Compile Include="Controllers\MealPlansController.cs" />
+    <Compile Include="Controllers\OperatorRolesController.cs" />
+    <Compile Include="Controllers\OperatorsController.cs" />
+    <Compile Include="Controllers\PayMethodController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\RegisterGroupController.cs" />
+    <Compile Include="Controllers\RegistersController.cs" />
+    <Compile Include="Controllers\ThemesController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Account.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Account.Custom.cs" />
+    <Compile Include="Models\AccountCode.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccountTriger.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccProfileWebDeposit.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccProfileWebDeposit.Custom.cs" />
+    <Compile Include="Models\Alert.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AlertGroup.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AlertType.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AllLanguage.cs">
+      <DependentUpon>New_ITC_WMMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ArchiveCommMessage.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Audit.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\auditLog.cs">
+      <DependentUpon>New_ITC_WMMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BalanceTransfer.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BeanStreamSession.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CardIssue.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CardIssue.Custom.cs" />
+    <Compile Include="Models\Client.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Client.Custom.cs" />
+    <Compile Include="Models\ClientAccount.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ClientAccountCode.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ClientAlert.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ClientPlan.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ClientPlan.Custom.cs" />
+    <Compile Include="Models\ClientPlansUnlimited.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CngClientAccount.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\cngClientAccountCustom.cs" />
+    <Compile Include="Models\CommMessage.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CommMessage.Custom.cs" />
+    <Compile Include="Models\corClientPicture.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\corTransDevice.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CostCenter.Custom.cs" />
+    <Compile Include="Models\CostCentre.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\cpyDevicePaper.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\cpyPaper.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\cpyTransaction.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Credential.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Credential.Custom.cs" />
+    <Compile Include="Models\CredentialType.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CreditCardProcessSession.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CustomField.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CustomUserData.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DailyLimit.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DelClient.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DelClient.Custom.cs" />
+    <Compile Include="Models\DeviceGroupProfile.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\deviceType.cs">
+      <DependentUpon>New_ITC_WMMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FieldPicker.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\IDMS_Link.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Install.Custom.cs" />
+    <Compile Include="Models\JobType.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Language.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\loginLog.cs">
+      <DependentUpon>New_ITC_WMMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Meal.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Meal.Custom.cs" />
+    <Compile Include="Models\Menus.cs" />
+    <Compile Include="Models\MetAttribute.cs" />
+    <Compile Include="Models\New_ITC_MultiplanEntities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>New_ITC_MultiplanEntities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\New_ITC_MultiplanEntities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\New_ITC_MultiplanEntities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>New_ITC_MultiplanEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\New_ITC_WMMEntities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>New_ITC_WMMEntities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\New_ITC_WMMEntities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>New_ITC_WMMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\New_ITC_WMMEntities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>New_ITC_WMMEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Operator.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Operator.Custom..cs" />
+    <Compile Include="Models\Param.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ParamsExport.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ParkingCalendar.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ParkingGroup.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ParkingPrice.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PaymenTechSession.cs" />
+    <Compile Include="Models\PayMethod.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PayMethod.Custom.cs" />
+    <Compile Include="Models\permissionsAssigned.cs">
+      <DependentUpon>New_ITC_WMMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\permissionsAssigned.Custom.cs" />
+    <Compile Include="Models\permissionsGrant.cs">
+      <DependentUpon>New_ITC_WMMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\permissionsRolesTask.cs">
+      <DependentUpon>New_ITC_WMMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\permissionsRolesTask.Custom.cs" />
+    <Compile Include="Models\permissionsTask.cs">
+      <DependentUpon>New_ITC_WMMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\permissionsTask.Custom.cs" />
+    <Compile Include="Models\permissionsTasks.Custom.cs" />
+    <Compile Include="Models\Plan.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Plan.Custom.cs" />
+    <Compile Include="Models\PlanLimit.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PlanProfileWebDeposit.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Port.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\pref.cs">
+      <DependentUpon>New_ITC_WMMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Profile.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Profile.Custom.cs" />
+    <Compile Include="Models\ProfileDepositLimit.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\prtMachine.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\prtPrinter.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\prtPrinter.custom.cs" />
+    <Compile Include="Models\prtPrinterGroup.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\prtTransaction.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Register.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Register.Custom.cs" />
+    <Compile Include="Models\RegisterGroup.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RegisterGroup.Custom.cs" />
+    <Compile Include="Models\RegisterGroupPlanLimit.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Report.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\reportLog.cs">
+      <DependentUpon>New_ITC_WMMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\reportrun.cs">
+      <DependentUpon>New_ITC_WMMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\reportschedule.cs">
+      <DependentUpon>New_ITC_WMMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\reportsStored.cs">
+      <DependentUpon>New_ITC_WMMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\reportsStored_preview.cs">
+      <DependentUpon>New_ITC_WMMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RightGroup.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RightGroup.Custom.cs" />
+    <Compile Include="Models\Setup.Custom.cs" />
+    <Compile Include="Models\SiteKey.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblEvent.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TblFont.cs">
+      <DependentUpon>New_ITC_WMMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\theme.cs">
+      <DependentUpon>New_ITC_WMMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Theme.Custom.cs" />
+    <Compile Include="Models\ThemeSetting.cs">
+      <DependentUpon>New_ITC_WMMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\timezone.cs">
+      <DependentUpon>New_ITC_WMMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TMP_Profiles.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\translation.cs">
+      <DependentUpon>New_ITC_WMMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\translationsource.cs">
+      <DependentUpon>New_ITC_WMMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TrnDep.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TrnPayrol.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TrnPlan.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TrnPlan.Custom.cs" />
+    <Compile Include="Models\TrnReg.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TrnReg.Custom.cs" />
+    <Compile Include="Models\TrnRegNoClient.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ViewModel.cs" />
+    <Compile Include="Models\vndItem.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vndMachineItem.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vndTransaction.cs">
+      <DependentUpon>New_ITC_MultiplanEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\volutionSession.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\CSS\blue-theme.css" />
+    <Content Include="Assets\CSS\Common.css" />
+    <Content Include="Assets\CSS\default-theme.css" />
+    <Content Include="Assets\CSS\jquery.mCustomScrollbar.css" />
+    <Content Include="Assets\CSS\master-old.css" />
+    <Content Include="Assets\CSS\master.css" />
+    <Content Include="Assets\CSS\modal.css" />
+    <Content Include="Assets\CSS\passwordscheck.css" />
+    <Content Include="Assets\CSS\SaveClient.css" />
+    <Content Include="Assets\CSS\Template.css" />
+    <Content Include="Assets\Images\accord-close.png" />
+    <Content Include="Assets\Images\accord-open.png" />
+    <Content Include="Assets\Images\account-icon.png" />
+    <Content Include="Assets\Images\ac_details.png" />
+    <Content Include="Assets\Images\add-list.png" />
+    <Content Include="Assets\Images\admin-icon.png" />
+    <Content Include="Assets\Images\Appearance_bg.png" />
+    <Content Include="Assets\Images\arrow1.png" />
+    <Content Include="Assets\Images\arrow2.png" />
+    <Content Include="Assets\Images\blue-theme-img\account-icon.png" />
+    <Content Include="Assets\Images\blue-theme-img\ac_details.png" />
+    <Content Include="Assets\Images\blue-theme-img\admin-icon.png" />
+    <Content Include="Assets\Images\blue-theme-img\arrow.png" />
+    <Content Include="Assets\Images\blue-theme-img\card_icon.png" />
+    <Content Include="Assets\Images\blue-theme-img\clients-icon.png" />
+    <Content Include="Assets\Images\blue-theme-img\delete_icon.png" />
+    <Content Include="Assets\Images\blue-theme-img\devices-icon.png" />
+    <Content Include="Assets\Images\blue-theme-img\edit_icon.png" />
+    <Content Include="Assets\Images\blue-theme-img\help-icon.png" />
+    <Content Include="Assets\Images\blue-theme-img\home-icon.png" />
+    <Content Include="Assets\Images\blue-theme-img\lock-icon.png" />
+    <Content Include="Assets\Images\blue-theme-img\lock_icon_w.png" />
+    <Content Include="Assets\Images\blue-theme-img\mealplan_icon.png" />
+    <Content Include="Assets\Images\blue-theme-img\meal_plan-icon.png" />
+    <Content Include="Assets\Images\blue-theme-img\reactive-icon.png" />
+    <Content Include="Assets\Images\blue-theme-img\reports-icon.png" />
+    <Content Include="Assets\Images\blue-theme-img\sprites-dashboard.png" />
+    <Content Include="Assets\Images\blue-theme-img\sprites_grey-icons.png" />
+    <Content Include="Assets\Images\blue_btn_bg.jpg" />
+    <Content Include="Assets\Images\blue_btn_bg30.jpg" />
+    <Content Include="Assets\Images\body-bg-old.jpg" />
+    <Content Include="Assets\Images\body-bg.jpg" />
+    <Content Include="Assets\Images\card-no.jpg" />
+    <Content Include="Assets\Images\card-no.png" />
+    <Content Include="Assets\Images\card_icon.png" />
+    <Content Include="Assets\Images\change_password.jpg" />
+    <Content Include="Assets\Images\checkbox.png" />
+    <Content Include="Assets\Images\checkbox_check.png" />
+    <Content Include="Assets\Images\checkbox_uncheck.png" />
+    <Content Include="Assets\Images\clients-icon.png" />
+    <Content Include="Assets\Images\Clients_bg.png" />
+    <Content Include="Assets\Images\close.png" />
+    <Content Include="Assets\Images\cross-icon.png" />
+    <Content Include="Assets\Images\dashTools-icon.png" />
+    <Content Include="Assets\Images\dash_accounts.jpg" />
+    <Content Include="Assets\Images\dash_Meal_Plans.jpg" />
+    <Content Include="Assets\Images\dash_read_more.png" />
+    <Content Include="Assets\Images\dash_schedules.jpg" />
+    <Content Include="Assets\Images\delete_icon.png" />
+    <Content Include="Assets\Images\devices-icon.png" />
+    <Content Include="Assets\Images\Devices_bg.png" />
+    <Content Include="Assets\Images\dropdown2.png" />
+    <Content Include="Assets\Images\edit_icon.png" />
+    <Content Include="Assets\Images\green_btn_bg.png" />
+    <Content Include="Assets\Images\green_btn_bg40.jpg" />
+    <Content Include="Assets\Images\grid_header_bg.png" />
+    <Content Include="Assets\Images\grid_main_bg.png" />
+    <Content Include="Assets\Images\grid_white_bg-1.png" />
+    <Content Include="Assets\Images\grid_white_bg.png" />
+    <Content Include="Assets\Images\help-icon.png" />
+    <Content Include="Assets\Images\home-icon.png" />
+    <Content Include="Assets\Images\ITC Logo-vector.png" />
+    <Content Include="Assets\Images\lock-icon.png" />
+    <Content Include="Assets\Images\lock_icon_w.png" />
+    <Content Include="Assets\Images\login_btn_bg.jpg" />
+    <Content Include="Assets\Images\logo.png" />
+    <Content Include="Assets\Images\logout.png" />
+    <Content Include="Assets\Images\mealplan_icon.png" />
+    <Content Include="Assets\Images\meal_plan-icon.png" />
+    <Content Include="Assets\Images\menu-overBg.png" />
+    <Content Include="Assets\Images\menu_arrow.png" />
+    <Content Include="Assets\Images\number-btn.png" />
+    <Content Include="Assets\Images\offline-indi.png" />
+    <Content Include="Assets\Images\online-indi.png" />
+    <Content Include="Assets\Images\orange_btn_bg.jpg" />
+    <Content Include="Assets\Images\password.png" />
+    <Content Include="Assets\Images\profile-icon.png" />
+    <Content Include="Assets\Images\profile_pic.jpg" />
+    <Content Include="Assets\Images\reactive-icon.png" />
+    <Content Include="Assets\Images\remove-list.png" />
+    <Content Include="Assets\Images\reports-icon.png" />
+    <Content Include="Assets\Images\reports_bg.png" />
+    <Content Include="Assets\Images\Roles_bg.png" />
+    <Content Include="Assets\Images\select-dropdown.png" />
+    <Content Include="Assets\Images\setting_icon.png" />
+    <Content Include="Assets\Images\sprites-dashboard.png" />
+    <Content Include="Assets\Images\sprites_grey-icons.png" />
+    <Content Include="Assets\Images\System_Admin_bg.png" />
+    <Content Include="Assets\Images\theme-indicator-img.png" />
+    <Content Include="Assets\Images\tick-icon.png" />
+    <Content Include="Assets\Images\tools-icon.png" />
+    <Content Include="Assets\Images\user.png" />
+    <Content Include="Assets\Install\Install.txt" />
+    <Content Include="Assets\JS\AccountCodesCreate.js" />
+    <Content Include="Assets\JS\AccountTypeEdit.js" />
+    <Content Include="Assets\JS\AccounTypeCreate.js" />
+    <Content Include="Assets\JS\ClientCard.js" />
+    <Content Include="Assets\JS\ClientCreate.js" />
+    <Content Include="Assets\JS\ClientEdit.js" />
+    <Content Include="Assets\JS\ClientProfile.js" />
+    <Content Include="Assets\JS\ClientProfileEdit.js" />
+    <Content Include="Assets\JS\Clients.js" />
+    <Content Include="Assets\JS\Common.js" />
+    <Content Include="Assets\JS\CustomDialog.js" />
+    <Content Include="Assets\JS\DeletedClients.js" />
+    <Content Include="Assets\JS\Departments.js" />
+    <Content Include="Assets\JS\html5.js" />
+    <Content Include="Assets\JS\jquery.mCustomScrollbar.concat.min.js" />
+    <Content Include="Assets\JS\Layout.js" />
+    <Content Include="Assets\JS\ManageClient.js" />
+    <Content Include="Assets\JS\ManageMenu.js" />
+    <Content Include="Assets\JS\MealPlan.js" />
+    <Content Include="Assets\JS\MealPlanScheduler.js" />
+    <Content Include="Assets\JS\modal.js" />
+    <Content Include="Assets\JS\OperatorRolesCreate.js" />
+    <Content Include="Assets\JS\OperatorRolesEdit.js" />
+    <Content Include="Assets\JS\passwordscheck.js" />
+    <Content Include="Assets\JS\Prefs.js" />
+    <Content Include="Assets\JS\Register.js" />
+    <Content Include="Assets\JS\RegisterGroupCreate.js" />
+    <Content Include="Assets\JS\ResetPassword.js" />
+    <Content Include="Assets\JS\script.js" />
+    <Content Include="Assets\JS\SetDefaultTheme.js" />
+    <Content Include="Assets\JS\SetTheme.js" />
+    <Content Include="Assets\JS\Setup.js" />
+    <Content Include="Assets\JS\Translation.js" />
+    <Content Include="bin\Antlr3.Runtime.dll" />
+    <Content Include="bin\Antlr3.Runtime.pdb" />
+    <Content Include="bin\EntityFramework.dll" />
+    <Content Include="bin\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\EntityFramework.SqlServer.xml" />
+    <Content Include="bin\EntityFramework.xml" />
+    <Content Include="bin\ITC_Matrix.dll" />
+    <Content Include="bin\ITC_Matrix.pdb" />
+    <Content Include="bin\log4net.dll" />
+    <Content Include="bin\log4net.xml" />
+    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" />
+    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml" />
+    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="bin\Newtonsoft.Json.dll" />
+    <Content Include="bin\Newtonsoft.Json.xml" />
+    <Content Include="bin\PagedList.dll" />
+    <Content Include="bin\PagedList.Mvc.dll" />
+    <Content Include="bin\PagedList.Mvc.xml" />
+    <Content Include="bin\PagedList.xml" />
+    <Content Include="bin\roslyn\csc.exe" />
+    <Content Include="bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll" />
+    <Content Include="bin\roslyn\System.Collections.Immutable.dll" />
+    <Content Include="bin\roslyn\System.Reflection.Metadata.dll" />
+    <Content Include="bin\roslyn\vbc.exe" />
+    <Content Include="bin\roslyn\VBCSCompiler.exe" />
+    <Content Include="bin\System.Web.Helpers.dll" />
+    <Content Include="bin\System.Web.Helpers.xml" />
+    <Content Include="bin\System.Web.Mvc.dll" />
+    <Content Include="bin\System.Web.Mvc.xml" />
+    <Content Include="bin\System.Web.Optimization.dll" />
+    <Content Include="bin\System.Web.Optimization.xml" />
+    <Content Include="bin\System.Web.Razor.dll" />
+    <Content Include="bin\System.Web.Razor.xml" />
+    <Content Include="bin\System.Web.WebPages.Deployment.dll" />
+    <Content Include="bin\System.Web.WebPages.Deployment.xml" />
+    <Content Include="bin\System.Web.WebPages.dll" />
+    <Content Include="bin\System.Web.WebPages.Razor.dll" />
+    <Content Include="bin\System.Web.WebPages.Razor.xml" />
+    <Content Include="bin\System.Web.WebPages.xml" />
+    <Content Include="bin\WebGrease.dll" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\jquery-ui.css" />
+    <Content Include="Content\PagedList.css" />
+    <Content Include="Content\themeCss\colorpicker.css" />
+    <Content Include="Content\themeCss\themelayout.css" />
+    <Content Include="Content\themeimages\blank.gif" />
+    <Content Include="Content\themeimages\colorpicker_background.png" />
+    <Content Include="Content\themeimages\colorpicker_hex.png" />
+    <Content Include="Content\themeimages\colorpicker_hsb_b.png" />
+    <Content Include="Content\themeimages\colorpicker_hsb_h.png" />
+    <Content Include="Content\themeimages\colorpicker_hsb_s.png" />
+    <Content Include="Content\themeimages\colorpicker_indic.gif" />
+    <Content Include="Content\themeimages\colorpicker_overlay.png" />
+    <Content Include="Content\themeimages\colorpicker_rgb_b.png" />
+    <Content Include="Content\themeimages\colorpicker_rgb_g.png" />
+    <Content Include="Content\themeimages\colorpicker_rgb_r.png" />
+    <Content Include="Content\themeimages\colorpicker_select.gif" />
+    <Content Include="Content\themeimages\colorpicker_submit.png" />
+    <Content Include="Content\themeimages\custom_background.png" />
+    <Content Include="Content\themeimages\custom_hex.png" />
+    <Content Include="Content\themeimages\custom_hsb_b.png" />
+    <Content Include="Content\themeimages\custom_hsb_h.png" />
+    <Content Include="Content\themeimages\custom_hsb_s.png" />
+    <Content Include="Content\themeimages\custom_indic.gif" />
+    <Content Include="Content\themeimages\custom_rgb_b.png" />
+    <Content Include="Content\themeimages\custom_rgb_g.png" />
+    <Content Include="Content\themeimages\custom_rgb_r.png" />
+    <Content Include="Content\themeimages\custom_submit.png" />
+    <Content Include="Content\themeimages\select.png" />
+    <Content Include="Content\themeimages\select2.png" />
+    <Content Include="Content\themeimages\slider.png" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="logs\log.txt" />
+    <Content Include="Mails\ForgotPassword.html" />
+    <Content Include="Models\New_ITC_MultiplanEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>New_ITC_MultiplanEntities.edmx</DependentUpon>
+      <LastGenOutput>New_ITC_MultiplanEntities.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\New_ITC_MultiplanEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>New_ITC_MultiplanEntities.edmx</DependentUpon>
+      <LastGenOutput>New_ITC_MultiplanEntities.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\New_ITC_WMMEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>New_ITC_WMMEntities.edmx</DependentUpon>
+      <LastGenOutput>New_ITC_WMMEntities.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\New_ITC_WMMEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>New_ITC_WMMEntities.edmx</DependentUpon>
+      <LastGenOutput>New_ITC_WMMEntities.cs</LastGenOutput>
+    </Content>
+    <Content Include="NoPermission.html" />
+    <Content Include="obj\Release\ITC_Matrix.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Release\ITC_Matrix.dll" />
+    <Content Include="obj\Release\ITC_Matrix.pdb" />
+    <Content Include="obj\Release\TempPE\Models.New_ITC_MultiplanEntities.cs.dll" />
+    <Content Include="obj\Release\TempPE\Models.New_ITC_MultiplanEntities.Designer.cs.dll" />
+    <Content Include="obj\Release\TempPE\Models.New_ITC_WMMEntities.cs.dll" />
+    <Content Include="obj\Release\TempPE\Models.New_ITC_WMMEntities.Designer.cs.dll" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Compile Include="Models\AccountCode.Custom.cs" />
+    <Content Include="Scripts\colorpicker.js" />
+    <Content Include="_themes\ab\default-theme.css" />
+    <Content Include="_themes\a\Chrysanthemum.jpg" />
+    <Content Include="_themes\a\default-theme.css" />
+    <Content Include="_themes\a\Penguins.jpg" />
+    <Content Include="_themes\a\Tulips.jpg" />
+    <Content Include="_themes\current\body-bg.jpg" />
+    <Content Include="_themes\current\default-theme.css" />
+    <Content Include="_themes\Test Themee\default-theme.css" />
+    <EntityDeploy Include="Models\New_ITC_MultiplanEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>New_ITC_MultiplanEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\New_ITC_MultiplanEntities.edmx.diagram">
+      <DependentUpon>New_ITC_MultiplanEntities.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\New_ITC_WMMEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>New_ITC_WMMEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\New_ITC_WMMEntities.edmx.diagram">
+      <DependentUpon>New_ITC_WMMEntities.edmx</DependentUpon>
+    </Content>
+    <Content Include="Assets\Images\Thumbs.db" />
+    <Content Include="bin\ITC_Matrix.dll.config" />
+    <Content Include="bin\roslyn\Microsoft.CSharp.Core.targets" />
+    <Content Include="bin\roslyn\Microsoft.VisualBasic.Core.targets" />
+    <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
+    <Content Include="obj\Release\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <Content Include="obj\Release\edmxResourcesToEmbed\Models\New_ITC_MultiplanEntities.csdl" />
+    <Content Include="obj\Release\edmxResourcesToEmbed\Models\New_ITC_MultiplanEntities.msl" />
+    <Content Include="obj\Release\edmxResourcesToEmbed\Models\New_ITC_MultiplanEntities.ssdl" />
+    <Content Include="obj\Release\edmxResourcesToEmbed\Models\New_ITC_WMMEntities.csdl" />
+    <Content Include="obj\Release\edmxResourcesToEmbed\Models\New_ITC_WMMEntities.msl" />
+    <Content Include="obj\Release\edmxResourcesToEmbed\Models\New_ITC_WMMEntities.ssdl" />
+    <None Include="Scripts\jquery-2.1.4.intellisense.js" />
+    <Content Include="Scripts\CustomDialog.js" />
+    <Content Include="Scripts\jquery-2.1.4.js" />
+    <Content Include="Scripts\jquery-2.1.4.min.js" />
+    <Content Include="Scripts\jquery-2.1.4.min.map" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui-1.11.4.js" />
+    <Content Include="Scripts\jquery-ui-1.11.4.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Views\CardIssues\Create.cshtml" />
+    <Content Include="Views\CardIssues\Delete.cshtml" />
+    <Content Include="Views\CardIssues\Details.cshtml" />
+    <Content Include="Views\CardIssues\Edit.cshtml" />
+    <Content Include="Views\CardIssues\Index.cshtml" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\AccountCodes\Create.cshtml" />
+    <Content Include="Views\AccountCodes\Delete.cshtml" />
+    <Content Include="Views\AccountCodes\Details.cshtml" />
+    <Content Include="Views\AccountCodes\Edit.cshtml" />
+    <Content Include="Views\AccountCodes\Index.cshtml" />
+    <Content Include="Views\Languages\Create.cshtml" />
+    <Content Include="Views\Languages\Delete.cshtml" />
+    <Content Include="Views\Languages\Details.cshtml" />
+    <Content Include="Views\Languages\Edit.cshtml" />
+    <Content Include="Views\Languages\Index.cshtml" />
+    <Content Include="Views\AccountType\Create.cshtml" />
+    <Content Include="Views\AccountType\Delete.cshtml" />
+    <Content Include="Views\AccountType\Details.cshtml" />
+    <Content Include="Views\AccountType\Edit.cshtml" />
+    <Content Include="Views\AccountType\Index.cshtml" />
+    <Content Include="Views\Clients\Create.cshtml" />
+    <Content Include="Views\Clients\Edit.cshtml" />
+    <Content Include="Views\Clients\Index.cshtml" />
+    <Content Include="Views\Profile\Create.cshtml" />
+    <Content Include="Views\Profile\Delete.cshtml" />
+    <Content Include="Views\Profile\Details.cshtml" />
+    <Content Include="Views\Profile\Edit.cshtml" />
+    <Content Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\CostCenter\Create.cshtml" />
+    <Content Include="Views\CostCenter\Delete.cshtml" />
+    <Content Include="Views\CostCenter\Details.cshtml" />
+    <Content Include="Views\CostCenter\Edit.cshtml" />
+    <Content Include="Views\CostCenter\Index.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
+    <Content Include="Views\DeletedClients\Create.cshtml" />
+    <Content Include="Views\DeletedClients\Delete.cshtml" />
+    <Content Include="Views\DeletedClients\Details.cshtml" />
+    <Content Include="Views\DeletedClients\Edit.cshtml" />
+    <Content Include="Views\DeletedClients\Index.cshtml" />
+    <Content Include="Views\Clients\AccountInfo.cshtml" />
+    <Content Include="Views\Login\ForgotPassword.cshtml" />
+    <Content Include="Views\ActinfoStatement\ShowStatements.cshtml" />
+    <Content Include="Views\Login\ResetPassword.cshtml" />
+    <Content Include="Views\Operators\Create.cshtml" />
+    <Content Include="Views\Operators\Edit.cshtml" />
+    <Content Include="Views\Operators\Index.cshtml" />
+    <Content Include="Views\ClientMealPlans\Delete.cshtml" />
+    <Content Include="Views\ClientMealPlans\Details.cshtml" />
+    <Content Include="Views\ClientMealPlans\Edit.cshtml" />
+    <Content Include="Views\ClientMealPlans\Index.cshtml" />
+    <Content Include="Views\ClientMealPlans\Purchase.cshtml" />
+    <Content Include="Views\Operators\ChangePassword.cshtml" />
+    <Content Include="Views\Operators\UpdateProfile.cshtml" />
+    <Content Include="Views\ClientMealPlans\GenerateStatement.cshtml" />
+    <Content Include="Views\PayMethod\Create.cshtml" />
+    <Content Include="Views\PayMethod\Delete.cshtml" />
+    <Content Include="Views\PayMethod\Details.cshtml" />
+    <Content Include="Views\PayMethod\Edit.cshtml" />
+    <Content Include="Views\PayMethod\Index.cshtml" />
+    <Content Include="Views\ManageMenu\Index.cshtml" />
+    <Content Include="Views\AllLanguages\Create.cshtml" />
+    <Content Include="Views\AllLanguages\Edit.cshtml" />
+    <Content Include="Views\AllLanguages\Index.cshtml" />
+    <Content Include="Views\Meal\Create.cshtml" />
+    <Content Include="Views\Meal\Edit.cshtml" />
+    <Content Include="Views\Meal\Index.cshtml" />
+    <Content Include="Views\RegisterGroup\Create.cshtml" />
+    <Content Include="Views\RegisterGroup\Edit.cshtml" />
+    <Content Include="Views\RegisterGroup\Index.cshtml" />
+    <Content Include="Views\Registers\Create.cshtml" />
+    <Content Include="Views\Registers\Edit.cshtml" />
+    <Content Include="Views\Registers\Index.cshtml" />
+    <Content Include="Views\MealPlans\Create.cshtml" />
+    <Content Include="Views\MealPlans\Delete.cshtml" />
+    <Content Include="Views\MealPlans\Details.cshtml" />
+    <Content Include="Views\MealPlans\Edit.cshtml" />
+    <Content Include="Views\MealPlans\Index.cshtml" />
+    <Content Include="Views\MealPlans\SetPlanSchedule.cshtml" />
+    <Content Include="Views\ManageMenu\LeftMenu.cshtml" />
+    <Content Include="Views\Dashboard\footer.cshtml" />
+    <Content Include="Views\ClientMealPlans\Manage.cshtml" />
+    <Content Include="Views\ClientMealPlans\LookUp.cshtml" />
+    <Content Include="Views\Themes\Index.cshtml" />
+    <Content Include="Views\Themes\Create.cshtml" />
+    <Content Include="Views\OperatorRoles\Create.cshtml" />
+    <Content Include="Views\OperatorRoles\Index.cshtml" />
+    <Content Include="Views\Themes\Edit.cshtml" />
+    <Content Include="Views\Themes\Preview.cshtml" />
+    <Content Include="Views\Shared\NoAccess.cshtml" />
+    <Content Include="Views\OperatorRoles\Edit.cshtml" />
+    <Content Include="Views\Translation\Edit.cshtml" />
+    <Content Include="Views\Translation\Index.cshtml" />
+    <Content Include="Views\Prefs\Index.cshtml" />
+    <Content Include="Views\Credentials\Index.cshtml" />
+    <Content Include="Views\Credentials\Edit.cshtml" />
+    <Content Include="Views\Login\Setup.cshtml" />
+    <Content Include="Views\Credentials\Create.cshtml" />
+    <Content Include="Views\Login\Install.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="packages.config" />
+    <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>52531</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:52531/</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://localhost:52531/</IISAppRootUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

@@ -1,0 +1,196 @@
+﻿@using ITC_Matrix.Common;
+@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<ITC_Matrix.Models.Client>
+@{
+    ViewBag.Title = "Clients";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Menu = "clients";
+    ViewBag.SubMenu = "clientsNode";
+}
+
+<script src="~/Assets/JS/CustomDialog.js"></script>
+<script src="~/Assets/JS/Clients.js"></script>
+
+<section class="mainTable-right">
+    <section class="filterRow">
+        @using (Html.BeginForm("Index", "Clients", FormMethod.Get))
+        {
+            <h3>Clients</h3>           
+            <text>
+                <h4 style="padding-bottom:5px;">
+                    @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Filter)
+                </h4>
+            </text>
+            <section class="fullwidth">
+                <section class="row">
+                    <section class="selectBy-sort">
+                        <label class="customeFeild selectTag">
+                            @{
+                                if (ViewBag.Profile != null)
+                                {
+                                    @Html.DropDownList("Profile", "All Profiles")
+                                }
+                            }
+                        </label>
+                    </section>
+                    <section class="searchBy">
+                        @Html.TextBox("txtSearch", "", new { @id = "txtSearch", @placeholder = "Search", @maxLength = 25 })
+                    </section>
+                    <section class="cardBy">
+                        @Html.TextBox("txtCard", "", new { @id = "txtCard", @placeholder = "#Card", @maxLength = 10 })
+                    </section>
+                    <section class="small-formBtn">
+                        <input type="submit" value="@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Find)" name="Search" class="pink-btn" />
+                    </section>
+                    <section class="small-formBtn">                     
+                        <a href='@Url.Action("Index", "Clients")' value="Clear" class="blue-btn" data-toggle="tooltip" title="Clear Search">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Clear)</a>
+                    </section>
+                </section>
+            </section>
+        }
+    </section>
+    <div id="divSuccess" class="alert success" style="display: none;"><span class="hide">x</span> <span id="spnSuccessMsg">Sucess Message.</span></div>
+
+
+    <section class="clear">&nbsp;</section>
+    @if (ViewBag.Message != null)
+    {
+        <section class='@ViewBag.Class'>@ViewBag.Message</section>
+    }
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="gridTable">
+        <thead>
+        <tr class="gridHeading">
+                <th width="75px">@Html.ActionLink(@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.ClienID), "Index", new { sortBy = ViewBag.ClientIDSort, searchBy = Request.QueryString["searchBy"], txtSearch = Request.QueryString["txtSearch"], txtCard = Request.QueryString["txtCard"] }, new { @class = "label" })</th>
+
+                <th>@Html.ActionLink(@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.FamilyName)+ "," + @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.GivenName), "Index", new { sortBy = ViewBag.FamilySort, searchBy = Request.QueryString["searchBy"], txtSearch = Request.QueryString["txtSearch"], txtCard = Request.QueryString["txtCard"] }, new { @class = "label" })</th>
+
+                <th width="100px">@Html.ActionLink(@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.NetworkID), "Index", new { sortBy = ViewBag.NetWorkIDSort, searchBy = Request.QueryString["searchBy"], txtSearch = Request.QueryString["txtSearch"], txtCard = Request.QueryString["txtCard"] }, new { @class = "label" })</th>
+
+                <th>@Html.ActionLink(@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Profile), "Index", new { sortBy = ViewBag.ProfileSort, searchBy = Request.QueryString["searchBy"], txtSearch = Request.QueryString["txtSearch"], txtCard = Request.QueryString["txtCard"] }, new { @class = "label" })</th>
+
+                <th>@Html.ActionLink(@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.CardNo), "Index", new { sortBy = ViewBag.CardNumberSort, searchBy = Request.QueryString["searchBy"], txtSearch = Request.QueryString["txtSearch"], txtCard = Request.QueryString["txtCard"] }, new { @class = "label" })</th>
+
+                <th width="125px">@Html.ActionLink("1-General Account Balance", "Index", new { sortBy = ViewBag.FlexAccountBalanceSort, searchBy = Request.QueryString["searchBy"], txtSearch = Request.QueryString["txtSearch"], txtCard = Request.QueryString["txtCard"] }, new { @class = "label" })</th>
+
+                <th width="200px" style="text-align:center;">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Manage)</th>
+
+            </tr>
+        </thead>
+        <tbody class="scrollContent">
+            @if (Model != null)
+            {
+                if (Model.Count() == 0)
+                {
+                    <tr>
+                        <td colspan="7">
+                            Sorry ! no such record found.
+                        </td>
+                    </tr>
+                }
+
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ID_NO)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FAMILY),@Html.DisplayFor(modelItem => item.GIVEN)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NetID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Profile_DSCR)
+                        </td>
+                        <td>
+                            @{
+                                if (item.TAG_NO == string.Empty)
+                                {
+                                    @Html.Raw("-");
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(modelItem => item.TAG_NO)
+                                }
+                            }
+
+                        </td>
+                        <td>
+                            @{
+                                if (item.ACC_BALANCE1 == 0)
+                                {
+                                    @Html.Raw("$ 0.00");
+                                }
+                                else
+                                {
+                                    @Html.Raw(Convert.ToString("$ " + item.ACC_BALANCE1));
+                                }
+                            }
+                        </td>
+                        <td class="manageTable">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tbody>
+                                    <tr>
+                                        <td><a href="@Url.Action("AccountInfo", "Clients", new { id = item.ID_NO })" class="ac_details" data-toggle="tooltip" title="Click to edit this client's account details."></a></td>
+                                        @if (ITC_Matrix.Common.Functions.GetDBStructure() < (int)CommonEnum.DBStructure.Unlimited)
+                                        {
+                                        <td><a href="@Url.Action("Create", "CardIssues", new { id = item.ID_NO })"><span class="card_icon" data-toggle="tooltip" title="Click to edit this client's card details."></span></a></td>
+                                        }
+                                        else
+                                        {
+                                            <td><a href="@Url.Action("Index", "Credentials", new { id = item.ID_NO })"><span class="card_icon" data-toggle="tooltip" title="Click to edit this client's card details."></span></a></td>
+                                        }
+                                        <td><a href="@Url.Action("Index", "ClientMealPlans", new { id = item.ID_NO })"><span class="mealplan_icon" data-toggle="tooltip" title="Click to edit this client's meal plan details."></span></a></td>
+                                        <td><a href="@Url.Action("Edit", "Clients", new { id = item.ID_NO })" class="edit_icon" data-toggle="tooltip" title="Click to edit this client's personal and contact information."></a></td>                                     
+
+                                        @if (ViewBag.isPermission == false)
+                                        {
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td>
+                                                <a class="lnkDelete" data-id="@item.ID_NO" data-toggle="tooltip" title="Click to delete this client."
+                                                   href='@Url.Action("Delete", "Clients", new { id = item.ID_NO })'>
+                                                    <img src="~/Assets/Images/delete_icon.png" />
+                                                </a>
+                                            </td>
+                                        }
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                                    }
+                                }
+        </tbody>
+
+        @*for pagination*@
+
+        <tfoot class="gridFooter">
+            <tr>
+                <td colspan="7">
+                    <section class="floatLeft scroll-btns">
+
+                        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, Profile = Request.QueryString["Profile"], txtSearch = Request.QueryString["txtSearch"], txtCard = Request.QueryString["txtCard"], sortBy = Request.QueryString["sortBy"] }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayItemSliceAndTotal = true })
+                    </section>
+
+                    <section class="floatRight">
+                        <a href='@Url.Action("Create", "Clients")'>
+                            <input type="button" class="orange-btn" value="@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Addnew)">
+                        </a>
+                    </section>
+
+                </td>
+            </tr>
+        </tfoot>
+
+    </table>
+</section>

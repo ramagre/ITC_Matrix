@@ -1,0 +1,90 @@
+﻿@using ITC_Matrix.Common;
+
+@using PagedList;
+@using PagedList.Mvc;
+@using ITC_Matrix.Common;
+@model IPagedList<ITC_Matrix.Models.CommMessage>
+
+
+@{
+    ViewBag.Title = "Themes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Menu = "admin";
+    ViewBag.SubMenu = "translationNode";
+}
+
+<section class="mainTable-right">
+    <section class="filterRow">
+        @using (@Html.BeginForm("Index", "Translation", FormMethod.Get))
+            {
+            <h3>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Translations)</h3>
+            <text>
+                <h4 style="padding-bottom:5px;">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Sort_By)</h4>
+            </text>
+            <section class="fullwidth">
+                <section class="row">
+                    <section class="selectBy-sort">
+                        <label class="customeFeild selectTag">
+                                                                                            
+                            @Html.DropDownList("searchBy")
+                            
+                        </label>
+                    </section>
+
+                    <section class="selectBy-sort">
+                        <label class="customeFeild selectTag">
+                            @Html.DropDownList("Language")                         
+                        </label>
+                    </section>
+                    <section class="small-formBtn">
+                        <input type="submit" value="Find" class="pink-btn" onclick="Index" />
+                    </section>
+                    <section class="small-formBtn">
+                        <a href='@Url.Action("Clear", "Translation")' value="Clear" class="blue-btn" data-toggle="tooltip" title="Clear Search">Clear</a>
+                    </section>
+                </section>
+            </section>
+        }
+    </section>
+    <section class="clear">&nbsp;</section>
+    @if (ViewBag.TranslationMessage != null)
+    {
+        <section class="@ViewBag.Class">@ViewBag.TranslationMessage</section>
+    }
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="gridTable tableFixed-none">
+        <thead>
+            <tr class="gridHeading">
+                <th style="text-align:left;">@Html.ActionLink(@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.MessageID), "Index", new { sortBy = ViewBag.MessageIDSort, searchBy = Request.QueryString["searchBy"], Language = Request.QueryString["Language"] }, new { @class = "label" })</th>
+                <th style="text-align:left;">@Html.ActionLink(@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Description), "Index", new { sortBy = ViewBag.DSCRSort, searchBy = Request.QueryString["searchBy"], Language = Request.QueryString["Language"] }, new { @class = "label" })</th>
+                <th style="text-align:left;">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Translations)</th>
+                <th style="text-align:left;">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Language)</th>
+                <th width="40px" style="text-align:left;"></th>
+            </tr>
+        </thead>
+        <tbody class="scrollContent">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.MessageID)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DSCR)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DefaultMessage)</td>
+                    <td>@Html.DisplayFor(modelItem => item.LanguageName)</td>
+                    <td width="40px"><a href="@Url.Action("Edit", "Translation", new { id = item.CODE })" class="edit_icon" data-toggle="tooltip" title="Click to edit this translation."></a></td>
+                </tr>
+            }
+
+        </tbody>
+        <tfoot class="gridFooter">
+            <tr>
+                <td colspan="5">
+                    <section class="floatLeft scroll-btns">
+
+                        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchBy = Request.QueryString["searchBy"], sortBy = Request.QueryString["sortBy"] }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayItemSliceAndTotal = true })
+
+                    </section>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</section>
+<section class="clear"></section>

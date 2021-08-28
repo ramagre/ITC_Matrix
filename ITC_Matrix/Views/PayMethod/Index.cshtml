@@ -1,0 +1,183 @@
+﻿@using ITC_Matrix.Common;
+@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<ITC_Matrix.Models.PayMethod>
+
+@{
+    ViewBag.Title = "PayMenthod";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Menu = "accounts";
+    ViewBag.SubMenu = "payMethodNode";
+}
+
+<script src="~/Assets/js/Clients.js"></script>
+
+<section class="mainTable-right">
+    <section class="filterRow">
+        @using (Html.BeginForm("Index", "PayMethod", FormMethod.Get))
+        {
+            <h3>Payment Methods</h3>
+            <text>
+                <h4 style="padding-bottom:5px;">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Sort_By)</h4>
+            </text>
+            <section class="fullwidth">
+                <section class="row">
+                    <section class="selectBy-sort">
+
+                        <label class="customeFeild selectTag">
+                            @Html.DropDownList("searchBy", new List<SelectListItem>
+                          {
+                            new SelectListItem { Text = "Code", Value = "1"},
+                            new SelectListItem { Text = "Description", Value = "2"}
+                          })
+                        </label>
+
+                    </section>
+                    <section class="searchBy">
+                        @Html.TextBox("search")
+                    </section>
+
+                    <section class="small-formBtn">
+                        <input type="submit" value="Find" class="pink-btn" onclick="Index" />
+                    </section>
+
+                    <section class="small-formBtn">
+
+                        <a href='@Url.Action("Index", "PayMethod")' value="Clear" class="blue-btn" data-toggle="tooltip" title="Clear Search">Clear</a>
+
+                    </section>
+                </section>
+            </section>
+        }
+    </section>
+
+
+    <section class="clear">&nbsp;</section>
+    @if (ViewBag.PayMethodMessage != null)
+    {
+        <section class="@ViewBag.Class">@ViewBag.PayMethodMessage</section>
+    }
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="gridTable">
+        <thead>
+
+            <tr class="gridHeading">
+                <th width="80px">@Html.ActionLink(@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Code), "Index", new { sortBy = ViewBag.CODESort, searchBy = Request.QueryString["searchBy"], txtSearch = Request.QueryString["search"] }, new { @class = "label" })</th>
+
+                <th>@Html.ActionLink(@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Description), "Index", new { sortBy = ViewBag.DSCRSort, searchBy = Request.QueryString["searchBy"], txtSearch = Request.QueryString["search"] }, new { @class = "label" })</th>
+
+                <th><span class="label">Type </span></th>
+
+                <th style="text-align:left;" colspan="3">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Method)</th>
+            </tr>
+        </thead>
+        <tbody class="scrollContent">
+
+            @if (Model.Count() == 0 && Model == null)
+            {
+              
+                    <tr>
+                        <td colspan="7">
+                            Sorry ! no such record found.
+                        </td>
+                    </tr>
+              
+            }
+
+         
+            @*Display main Content*@
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CODE)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DSCR)
+                    </td>
+                    <td>
+                        @{
+                            if (item.TYPE == "0")
+                            {
+                                @Html.Label("None")
+                            }
+                            else if (item.TYPE == "1")
+                            {
+                                @Html.Label("Cash")
+                            }
+                            else if (item.TYPE == "2")
+                            {
+                                @Html.Label("cheque")
+                            }
+                            else if (item.TYPE == "3")
+                            {
+                                @Html.Label("Card")
+                            }
+                            else
+                            {
+                                @Html.Label("")
+                            }
+                        }
+                    </td>
+                    <td>
+                        @{
+                            if (item.TRANSTYPE == "1")
+                            {
+                                @Html.Label("Add")
+                            }
+                            else
+                            {
+                                @Html.Label("Deduct")
+                            }
+                        }
+                    </td>
+
+
+                    @{
+                        if (ViewBag.isPermission == false)
+                        {
+                            <td width="40px"></td>
+                            <td width="40px"></td>
+                        }
+                        else
+                        {
+                            <td width="40px"><a href="@Url.Action("Edit", "PayMethod", new { id = item.CODE, page = ViewBag.CurrentPage })" class="edit_icon" data-toggle="tooltip" title="Click to edit this payment method."></a></td>
+
+                            <td width="40px">
+                                @if (item.DSCR != "Web Purchase" || item.DSCR != "Value from Meal Plan Purchase")
+                                {
+                                    <a class="lnkDelete" href='@Url.Action("Delete", "PayMethod", new { id = item.CODE })' data-id="@item.CODE" data-toggle="tooltip" title="Click to delete this payment method."><img src="~/Assets/Images/delete_icon.png" /></a>
+                                }
+                            </td>
+                        }
+
+                    }
+                </tr>
+                        }
+        </tbody>
+
+        @*pagination*@
+        <tfoot class="gridFooter">
+            <tr>
+                <td colspan="3">
+                    <section class="floatLeft scroll-btns">
+                        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchBy = Request.QueryString["searchBy"], search = Request.QueryString["search"], sortBy = Request.QueryString["sortBy"] }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayItemSliceAndTotal = true })
+                    </section>
+                </td>
+                <td colspan="3">
+                    @{
+                        if (ViewBag.isPermission != false)
+                        {
+                            <section class="floatRight">
+                                <a href="/PayMethod/Create"><input type="button" class="orange-btn" value="Add New"></a>
+                            </section>
+                        }
+                    }
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</section>

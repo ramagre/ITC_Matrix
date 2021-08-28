@@ -1,0 +1,185 @@
+body {color:#fff; background:#4F5786 /*url(../images/body-bg.jpg) no-repeat top center;*/}
+input, select{background:#E0E8EA /*url(../images/grid_main_bg.png) repeat 0 0*/; border:1px solid #CACFD3; color:#84898c; -webkit-appearance: none; -moz-appearance: none; appearance: none;}
+select option{background: #000;}
+textarea{color:#c4c4c4; background:#E0E8EA /*url(../images/grid_main_bg.png) repeat 0 0*/; border:1px solid #CACFD3; color:#84898c;}
+::-webkit-input-placeholder{color: #84898c; opacity:1;}
+:-moz-placeholder{color: #84898c; opacity:1;} /* Firefox 18- */ 
+::-moz-placeholder{color: #84898c; opacity:1;} /* Firefox 19+ */
+:-ms-input-placeholder{color: #84898c; opacity:1;}
+.selectTag:after{background:#CACFD2 url(../images/blue-theme-img/arrow.png) no-repeat center center;}
+input[type="checkbox"] + label,
+input[type="hidden"] + label{color:#000;}
+input[type="checkbox"] + label span,
+input[type="hidden"] + label span{background-image:url(../images/checkbox.png); background-repeat:no-repeat; background-position: 0 0;}
+input[type="checkbox"]:checked + label span,
+input[type="checkbox"]:checked + input[type="hidden"] + label span{background-image:url(../images/checkbox.png); background-repeat:no-repeat; background-position: -24px -1px;}
+input[type="radio"] + label{color:#000;}
+input[type="radio"] + label span{background-image:url(../images/checkbox.png); background-repeat:no-repeat; background-position: -50px 0;}
+input[type="radio"]:checked + label span { background-image:url(../images/checkbox.png); background-repeat:no-repeat; background-position: -73px 0;}
+
+.loginBox-content{background:#F6FAFB;}
+.loginBox-content .userName:after{background:url(../images/user.png) no-repeat 0 0;}
+.loginBox-content .password:after{background:url(../images/password.png) no-repeat 0 0;}
+.loginBox-content .selectTag select{background:#e0e8ea; color:#84898c; border:1px solid #cacfd3;}
+.loginBox-content input{background:#e0e8ea; color:#84898c; border:1px solid #cacfd3;}
+.loginBox-content .selectTag select option{color:#fff;}
+.loginBox-content .selectTag:after{background:#CACFD2 url(../images/blue-theme-img/arrow.png) no-repeat center center;}
+.loginBox-content input.login-btn{background:#E87475 /*url(../images/login_btn_bg.jpg) repeat-x 0 0*/; color:#fff;}
+.blueHeading-bg h2 {color: #444971;}
+
+.mainFooter{color: #65889B;}
+.loginPage .mainFooter{color: #fff;}
+
+.blueHeading-bg{background:#85E5D7;}
+.blueHeading-bg h3{color:#444971;}
+.blueHeading-bg a.logout-btn{color:#444971; background:url(../images/logout.png) no-repeat right 15px;}
+.mainTable-left{background:#698AC0;}
+.mainTable-right{background:#F6FAFB;}
+.mainTable-right h3{color:#444971;}
+.dashSchedule-icon, .dashAccount-icon, .dashAdmin-icon, .dashAppearences-icon, .dashClient-icon, .dashDevices-icon, .dashMeal-icon, .dashReports-icon,.dashRoles-icon{ background: url(../images/sprites-dashboard.png) no-repeat; display:inline-block; position:relative; z-index:2;}
+.dashSchedule-icon{ background-position: -564px 0; width: 54px; height: 55px;}
+.dashAccount-icon{ background-position: -490px 0; width: 54px; height: 55px;}
+.dashAdmin-icon{ background-position: -429px 0; width: 45px; height: 54px;}
+.dashAppearences-icon{ background-position: -363px -4px; width: 46px; height: 47px;}
+.dashClient-icon{ background-position: -293px -1px; width: 44px; height: 55px;}
+.dashDevices-icon{ background-position: -228px -1px; width: 38px; height: 55px;}
+.dashMeal-icon{ background-position: -148px -2px; width: 53px; height: 55px;}
+.dashReports-icon{ background-position: -71px -1px; width: 54px; height: 55px;}
+.dashRoles-icon{ background-position: 0 0; width: 54px; height: 55px;}
+
+.dashProfile-icon{background:url(../images/profile-icon.png) no-repeat 0 0; width: 61px; height: 55px; display: inline-block; position:relative; z-index:2;}
+.dashTools-icon{background:url(../images/tools-icon.png) no-repeat 0 0; width: 54px; height: 54px; display: inline-block; position:relative; z-index:2;}
+
+.dashClient{background:url(../images/Clients_bg.png) repeat-x 0 0;}
+.dashSchedule{background:url(../images/dash_schedules.jpg) no-repeat 0 0; background-size:100%;}
+.dashRoles{background:url(../images/Roles_bg.png) repeat-x 0 0; background-size:auto 100%;}
+.dashAccount{background:url(../images/dash_accounts.jpg) no-repeat 0 0; background-size:100%;}
+.dashDevices{background:url(../images/Devices_bg.png) repeat-x 0 0;}
+.dashAppearences{background:url(../images/Appearance_bg.png) repeat-x 0 0;}
+.dashReports{background:url(../images/reports_bg.png) repeat-x 0 0;}
+.dashMeal-plans{background:url(../images/dash_Meal_Plans.jpg) no-repeat 0 0; background-size:100%;}
+.dashSystem-admin{background:url(../images/System_Admin_bg.png) repeat-x 0 0;}
+.dashReadmore{background:url(../images/dash_read_more.png) no-repeat right bottom;}
+
+
+
+.navigation ul > li.has-sub > a:after, .navigation ul > li.has-sub > a:before{background: #ffffff;}
+.navigation ul ul > li.has-sub > a:after, .navigation ul ul > li.has-sub > a:before{background: #dddddd;}
+.navigation li{border-top:1px solid #84A0CF;}
+.navigation li.open > a { border-bottom: 1px solid #84A0CF; color:#85E5D7; font-weight:600;}
+.navigation li a{color:#fff;}
+.navigation li a:hover{color:#85E5D7;}
+.navigation li a.home{background:url(../images/blue-theme-img/home-icon.png) no-repeat 0 center;}
+.navigation li a.clients{background:url(../images/blue-theme-img/clients-icon.png) no-repeat 0 center;}
+.navigation li a.accounts{background:url(../images/blue-theme-img/account-icon.png) no-repeat 0 center;}
+.navigation li a.devices{background:url(../images/blue-theme-img/devices-icon.png) no-repeat 0 center;}
+.navigation li a.plans{background:url(../images/blue-theme-img/meal_plan-icon.png) no-repeat 0 center;}
+.navigation li a.report{background:url(../images/blue-theme-img/reports-icon.png) no-repeat 0 center;}
+.navigation li a.admin{background:url(../images/blue-theme-img/admin-icon.png) no-repeat 0 center;}
+.navigation li a.help{background:url(../images/blue-theme-img/help-icon.png) no-repeat 0 center;}
+
+.pink-btn{background:#E87475 /*url(../images/login_btn_bg.jpg) repeat-x 0 0; background-size:100% 100%*/; color:#fff;}
+.blue-btn{background:#65889B /*url(../images/blue_btn_bg30.jpg) repeat-x 0 0; background-size:100% 100%*/; color:#fff;}
+.orange-btn{background:#90D8CD /*url(../images/orange_btn_bg.jpg) repeat-x 0 0; background-size:100% 100%*/; color:#455B58;}
+.green-btn{background:url(../images/green_btn_bg40.jpg) repeat-x 0 0; background-size:100% 100%; color:#fff;}
+
+.ac_details, .card_icon, .delete_icon, .edit_icon, .mealplan_icon{ background: url(../images/blue-theme-img/sprites_grey-icons.png) no-repeat;display: block;}
+.ac_details{ background-position: -201px -4px; width: 24px; height: 19px; margin:0 auto;}
+.card_icon{ background-position: -153px -4px; width: 20px; height: 16px; margin:0 auto;}
+.delete_icon{ background-position: -105px -3px; width: 14px; height: 19px; margin:0 auto;}
+.edit_icon{ background-position: -54px -2px; width: 21px; height: 21px; margin:0 auto;}
+.mealplan_icon{ background-position: 0 0; width: 25px; height: 25px; margin:0 auto;}
+
+.scroll-btns a {color:#fff;}
+.scroll-btns a.prev{background:url(../images/arrow1.png) no-repeat left center;}
+.scroll-btns a.next{background:url(../images/arrow2.png) no-repeat right center;}
+.gridFooter{background:#65889B /*url(../images/grid_header_bg.png) repeat 0 0*/;}
+.gridTable{border:1px solid #D1DBDD; background:#D1DBDD /*url(../images/grid_main_bg.png) repeat 0 0*/;}
+.gridTable td, .gridTable th{border-left:1px solid #fff;}
+.gridTable th{background:#65889B /*url(../images/grid_header_bg.png) repeat 0 0*/; color: #fff;}
+.gridTable td{color:#000; border-top:1px solid #fff;}
+.gridTable > tbody > tr:nth-child(even){background:#D6E0E2 /*url(../images/grid_white_bg.png) repeat 0 0*/;}
+
+.contentLimit-boxInner{background:#D1DBDD /*url(../images/grid_main_bg.png) repeat 0 0*/; border: 1px solid #D1DBDD;}
+.formBox-row .heading{background:#65889B /*url(../images/grid_header_bg.png) repeat 0 0*/;}
+.formBox-content{color:#000;}
+.formBox-content .half .labelWraper label{color:#000;}
+.formBox-content .half .feildWraper{color:#000;}
+.formBox-content .rightDiv .scroll-btns a{color:#000;}
+.departCode-box{border:1px solid #65889B;}
+.departCode-box h4{background:#65889B /*url(../images/grid_header_bg.png) repeat 0 0*/; color:#fff;}
+.departCode-row:nth-child(odd){background:#D6E0E2 /*url(../images/grid_white_bg.png) repeat 0 0*/;}
+.departCode-box .headTitle{background:#E0E8EA /*url(../images/grid_white_bg.png) repeat 0 0*/; color:#65889B;}
+.departCode-terms{border-top:1px solid #65889B;}
+.dashInner-box, .dashInner-box > a{color:#fff;}
+.acInfo-feilds .labelWraper{color:#000;}
+
+.gridTable2{ background: #D1DBDD /*url(../images/grid_main_bg.png) repeat 0 0*/; border: 1px solid #D1DBDD;}
+.gridTable2 th{ background: #65889B /*url(../images/grid_header_bg.png) repeat 0 0*/;}
+.gridTable2 > tbody > tr:nth-child(odd){background:#D6E0E2 /*url(../images/grid_white_bg.png) repeat 0 0*/;}
+.gridTable2 td{ border-top:1px solid #fff; color:#000;}
+.gridTable2 th h3{color:#fff;}
+.gridTable2 .heading{color:#444971;}
+
+.lock_icon{background:url(../images/blue-theme-img/lock-icon.png) no-repeat 0 0;}
+.lock_icon_w{background:url(../images/blue-theme-img/lock_icon_w.png) no-repeat 0 0;}
+.reactive-icon{background:url(../images/blue-theme-img/reactive-icon.png) no-repeat 0 0;}
+
+.formBox-content .mediumDiv .labelWraper label{color:#000;}
+.formBox-content .mediumDiv .feildWraper{color:#fff;}
+.italicTitle{color:#E87475;}
+.cardInfo-table{background:#D1DBDD /*url(../images/grid_main_bg.png) repeat 0 0*/; border: 1px solid #fff;}
+.cardInfo-table td, .cardInfo-table th{border-left:1px solid #fff;}
+.cardInfo-table th{background:#65889B /*url(../images/grid_header_bg.png) repeat 0 0*/; color:#fff;}
+.cardInfo-table td{border-top:1px solid #fff; color:#000;}
+.cardInfo-table > tbody > tr:nth-child(odd){background:#d6e0e2 /*url(../images/grid_white_bg.png) repeat 0 0*/;}
+.cardInfo-table td input[type="button"],
+.gridTable2 input.blue-btn[type="button"]{background:#E87475;}
+.cardNo-btn{background:url(../images/card-no.jpg) no-repeat 0 0;}
+.largeForm .labelWraper{color:#000;}
+hr{background:#D1DBDD;}
+.numberTag::after { background: #00bbcb url(../images/number-btn.png) repeat 0 0;}
+
+.mb-modal{background:#F6FAFB; border: 1px solid #85E5D7;}
+.mb-modal .blueHeading-bg .close-modal{ background: url(../images/close.png) no-repeat right center; color: #444971;}
+.mb-modelContent .blackForm-box{background:#D1DBDD /*url(../images/grid_main_bg.png) repeat 0 0*/; border:1px solid #D1DBDD;}
+.mb-modelContent .cardInfo-table > tbody > tr:nth-child(even){background:#D6E0E2 /*url(../images/grid_white_bg.png) repeat 0 0*/;}
+.mb-modelContent .half .labelWraper{color:#000;}
+.mb-modelContent .half .feildWraper{color: #ffffff;}
+
+.bloc{border: 1px solid #919b9d;}
+select.multiple{background: rgba(101, 136, 155, 0.6); color: #fff;}
+select.multiple option{color: #fff;}
+select.multiple option:nth-child(even){background:url(../images/grid_white_bg.png) repeat 0 0;}
+.initialized_ac .green-btn.add{ background:url(../images/add-list.png) no-repeat right 10px center, url(../images/green_btn_bg40.jpg) repeat-x 0 0 / 100% 100%;}
+.initialized_ac .green-btn.remove{ background:url(../images/remove-list.png) no-repeat left 10px center, url(../images/green_btn_bg40.jpg) repeat-x 0 0 / 100% 100%;}
+.tabs li{border:1px solid #a09383; background:url(../images/grid_header_bg.png) repeat 0 0;}
+.tabs li.active { border: 1px solid #00d6b0;}
+.tabs a{color: #fff;}
+.tabs .active a, .tabs .active a:hover{background: #00d6b0; color: #ffffff;}
+.tabContent td{border-top:1px solid #a09383!important;}
+.tabContent .accordian-icon.close{background:url(../images/accord-close.png) no-repeat center center;}
+.tabContent .accordian-icon.open{background:url(../images/accord-open.png) no-repeat center center;}
+.scheduler{border:1px solid #b1bbbd;}
+.scheduler thead td{background:#65889B; color:#fff;}
+.scheduler th{color:#fff; background:rgba(101,136,155, 0.6);}
+.scheduler th, .scheduler td{border-left:1px solid #b1bbbd;}
+.scheduler td, .scheduler th{border-top:1px solid #b1bbbd;}
+.scheduler a{background:rgba(255,255,255,0.3); border:1px solid rgba(255,255,255,0.45);}
+.scheduler a .icon .fa-times{color:#cf4b4b;}
+.scheduler a .icon .fa-check{color:#00D7B0;}
+.error-msg{background: #D6002E; background:rgba(214, 0, 46, 0.5); border: 1px solid #ea1442; border:1px solid rgba(234, 20, 66, 0.5); color:#fff;}
+.success-msg{background: #00bc96; background:rgba(0, 188, 150, 0.5); border: 1px solid #00d6b0; border:1px solid rgba(0, 214, 176, 0.5); color:#fff;}
+.addNremove-wraper .green-btn.addList{background:url(../images/add-list.png) no-repeat center center, url(../images/green_btn_bg40.jpg) repeat-x 0 0 / 100% 100%;}
+.addNremove-wraper .green-btn.removeList{background:url(../images/remove-list.png) no-repeat center center, url(../images/green_btn_bg40.jpg) repeat-x 0 0 / 100% 100%;}
+
+.setting-dropdown{background: #698AC0; border:1px solid #d1dbdd; border-top:0px;}
+.setting-dropdown:after{border-bottom-color: #698AC0;}
+.setting-dropdown li{border-top:1px solid #84a0cf;}
+.setting-dropdown li a{color:#fff;}
+.setting-dropdown li a:hover{color: #85e5d7;}
+
+/* 24-12-2015 */
+.dashAccount::after{ background: rgba(75, 42, 166, 0.85);}
+.dashSchedule::after{ background: rgba(97, 61, 188, 0.85);}
+.dashMeal-plans::after{ background: rgba(10, 89, 194, 0.85);}

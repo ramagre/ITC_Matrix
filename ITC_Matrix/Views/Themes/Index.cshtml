@@ -1,0 +1,97 @@
+﻿@using ITC_Matrix.Common;
+@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<ITC_Matrix.Models.theme>
+
+@{
+    ViewBag.Title = "Themes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Menu = "admin";
+    ViewBag.SubMenu = "themesNode";
+}
+
+<section class="mainTable-right">
+    <section class="filterRow">
+        @using (@Html.BeginForm("Index", "Themes", FormMethod.Get))
+            {
+            <h3>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Themes)</h3>
+            <text>
+                <h4 style="padding-bottom:5px;">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Sort_By)</h4>
+            </text>
+            <section class="fullwidth">
+                <section class="row">
+                    <section class="selectBy-sort">
+                        <label class="customeFeild selectTag">
+                            @Html.DropDownList("searchBy", new List<SelectListItem>
+                            {
+                                new SelectListItem { Text = "Code", Value = "1"},
+                                new SelectListItem { Text = "Name", Value = "12"},
+                            })
+
+                        </label>
+                    </section>
+                    <section class="searchBy">
+                        @Html.TextBox("search")
+                    </section>
+                    <section class="small-formBtn">
+                        <input type="submit" value="Find" class="pink-btn" onclick="Index" />
+                    </section>
+                    <section class="small-formBtn">
+                        <a href='@Url.Action("Index", "Themes")' value="Clear" class="blue-btn" data-toggle="tooltip" title="Clear Search">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Clear)</a>
+                    </section>
+                </section>
+            </section>
+        }
+    </section>
+    <section class="clear">&nbsp;</section>
+    @if (ViewBag.ThemesMessage != null)
+    {
+        <section class="@ViewBag.Class">@ViewBag.ThemesMessage</section>
+    }
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="gridTable tableFixed-none">
+        <thead>
+            <tr class="gridHeading">
+                <th width="115px" style="text-align:left;">@Html.ActionLink(@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Code), "Index", new { sortBy = ViewBag.CodeSort, searchBy = Request.QueryString["searchBy"], txtSearch = Request.QueryString["txtSearch"] }, new { @class = "label" })</th>
+                <th style="text-align:left;"> @Html.ActionLink(@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Name), "Index", new { sortBy = ViewBag.NameSort, searchBy = Request.QueryString["searchBy"], search = Request.QueryString["search"] }, new { @class = "label" })</th>
+                <th style="text-align:left;">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.status)</th>
+                <th style="text-align:left;" colspan="2">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Manage)</th>
+            </tr>
+        </thead>
+        <tbody class="scrollContent">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.id)</td>
+                    <td>@Html.DisplayFor(modelItem => item.themename)</td>
+                    <td>@Html.DisplayFor(modelItem => item.status)</td>
+                    <td width="40px"><a href="@Url.Action("Edit", "Themes", new { id = item.id })" class="edit_icon" data-toggle="tooltip" title="Click to edit this theme."></a></td>
+                    <td width="40px">
+                        <a class="lnkDelete" data-id="@item.id" data-toggle="tooltip" title="Click to delete this theme."
+                           href='@Url.Action("Delete", "Themes", new { id = item.id })'>
+                            <img src="~/Assets/Images/delete_icon.png" />
+                        </a>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+        <tfoot class="gridFooter">
+            <tr>
+                <td colspan="5">
+                    <section class="floatLeft scroll-btns">
+
+                        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchBy = Request.QueryString["searchBy"], search = Request.QueryString["search"], sortBy = Request.QueryString["sortBy"] }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayItemSliceAndTotal = true })
+
+                    </section>
+                    <section class="floatRight">
+                        <a href='@Url.Action("Create", "Themes")'>
+                            <input type="button" class="orange-btn" value="@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Addnew)">
+                        </a>
+                    </section>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</section>
+<section class="clear"></section>

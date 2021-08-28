@@ -1,0 +1,102 @@
+﻿@model ITC_Matrix.Models.Operator
+@{
+    ViewBag.Title = "Index";
+}
+
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+    <script src="~/Scripts/jquery-2.1.4.js"></script>
+    <script src="~/Scripts/jquery-ui-1.11.4.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+    <meta charset="utf-8">
+    <title>ITC Systems - Matrix Manager&#8482;</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="~/Assets/CSS/master.css" rel="stylesheet" />
+
+    @if ((Session["DefaultTheme"]) != null)
+    {
+        <link rel="stylesheet" href='@(Session["DefaultTheme"])'>
+    }
+    else
+    {
+        <link rel="stylesheet" href="~/Assets/CSS/default-theme.css">
+    }  
+
+    <!--[if lt IE 9]>
+        <script src="assets/js/html5.js"></script>
+    <![endif]-->
+
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800" rel="stylesheet" type="text/css">
+</head>
+@using (Html.BeginForm("Index", "Login", FormMethod.Post))
+{
+    <body>
+
+        <section class="container">
+            <header class="mainHeader fullwidth">
+                <a href="@Url.Action("Index", "Login")" class="logo">
+                </a>
+               
+            </header>
+
+            <section class="fullwidth loginContainer">
+
+                <section class="loginBox">
+                    <section class="blueHeading-bg">
+                        <h2>Login</h2>
+                    </section>
+                    <section class="loginBox-content">
+                        <section class="feildRow">
+                            @if (ViewBag.Message != null)
+                            {
+                                <section class="@ViewBag.MessageClass">@ViewBag.Message</section>
+                            }
+
+                            <label class="customeFeild userName">
+                                @Html.EditorFor(model => model.LOGIN, new { htmlAttributes = new { id = "txtusername", @class = "required", placeholder = "User Name" } })
+                                @Html.ValidationMessageFor(model => model.LOGIN, "Please enter user name.", new { @class = "text-danger" })
+                            </label>
+                        </section>
+                        <section class="feildRow">
+                            <label class="customeFeild password">
+                                @Html.EditorFor(model => model.PASSWORD, new { htmlAttributes = new { id = "txtpassword", @class = "required", placeholder = "Password", type = "password", autocomplete = "off" } })
+                                @Html.ValidationMessageFor(model => model.PASSWORD, "", new { @class = "text-danger" })
+
+                            </label>
+                        </section>
+                        <section class="feildRow">
+                            <label class="customeFeild selectTag">
+                                @Html.DropDownList("Lang")
+                            </label>
+                        </section>
+                        <section class="feildRow" style="padding:0;">
+                            <input type="submit" id="btnSubmit" value="Login" class="login-btn" />
+                        </section>
+                        <section class="feildRow" style="padding:0;">
+                            <section class="labelWraper">
+                                @Html.ActionLink("Forgot Password?", "ForgotPassword", null, new { @class = "formBox-content half labelWraper label" })
+                            </section>
+                        </section>
+                    </section>
+                    <section class="clear"></section>
+                </section>
+            </section>
+            <footer class="fullwidth mainFooter">
+                Copyright © @DateTime.Now.Year ITC Systems. All rights reserved.
+            </footer>
+            <section class="clear"></section>
+        </section>
+
+    </body>
+}
+</html>

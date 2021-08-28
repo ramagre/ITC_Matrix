@@ -1,0 +1,183 @@
+﻿@using ITC_Matrix.Common;
+
+@model ITC_Matrix.Models.pref
+@{
+    ViewBag.Title = "Index";
+}
+
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+    <script src="~/Scripts/jquery-2.1.4.js"></script>
+    <script src="~/Scripts/jquery-ui-1.11.4.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script type="text/javascript" src="~/Assets/JS/Setup.js"></script>
+
+    <meta charset="utf-8">
+    <title>ITC Systems - Matrix Manager&#8482;</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="~/Assets/CSS/master.css" rel="stylesheet" />
+
+    @if ((Session["DefaultTheme"]) != null)
+    {
+        <link rel="stylesheet" href='@(Session["DefaultTheme"])'>
+    }
+    else
+    {
+        <link rel="stylesheet" href="~/Assets/CSS/default-theme.css">
+    }
+
+    <!--[if lt IE 9]>
+        <script src="assets/js/html5.js"></script>
+    <![endif]-->
+
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800" rel="stylesheet" type="text/css">
+</head>
+@using (Html.BeginForm("Setup", "Login"))
+{
+    <body>
+        <section class="container">
+            <header class="mainHeader fullwidth">
+                <a href="@Url.Action("Index", "Login")" class="logo">
+                </a>
+                <section class="exclusiveDiv">
+                    Exclusive to ITC Systems
+                    <span>Fast. Simple. Efficient.</span>
+                </section>
+            </header>
+
+            <section class="fullwidth loginContainer">
+
+                <section class="loginBox" style="width:500px;">
+                    <section class="blueHeading-bg">
+                        <h2>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Setupofinitialparameters) </h2>
+                    </section>
+                    <section class="leftDiv half" style="padding:10px;" id="divSetup">
+                        <section class="clear">&nbsp;</section>
+                        <section class="feildRow">
+                            @if (ViewBag.SetupMessage != null)
+                            {
+                                <section class="@ViewBag.SetupMessageClass">@ViewBag.SetupMessage</section>
+                            }
+                        </section>
+                        <section class="feildRow">
+                            <section class="formBox-content half labelWraper label" style="float:left;width:165px;">
+                                <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.MatrixKey) :</label>
+                            </section>
+                            <section class="feildWraper" style="float:left;width:50%;">                               
+                                <input data-val="true" data-val-required="Please enter matrix key." id="matrixKey" name="matrixKey" type="text" value="" /> 
+                                <span id="errorSpan" data-valmsg-for="matrixKey" data-valmsg-replace="true"></span>                                                          
+                            </section>
+                        </section>
+                        <section class="feildRow">
+                            <section class="formBox-content half labelWraper label" style="float:left;width:165px;">
+                                <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.InitialMasterRole):</label>
+                            </section>
+                            <section class="feildWraper" style="float:left;width:50%;">
+                                <label class="customeFeild selectTag">
+                                    @Html.DropDownList("masterRole")                                   
+                                </label>
+                            </section>
+                        </section>
+                        <section class="feildRow">
+                            <section class="formBox-content half labelWraper label" style="float:left;width:165px;">
+                                <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.InitialMasterUser):</label>
+                            </section>
+                            <section class="feildWraper" style="float:left;width:50%;">
+                                <label class="customeFeild selectTag">
+                                    @Html.DropDownList("masterUser")
+                                </label>
+                            </section>
+                        </section>
+                        <section class="feildRow">
+                            <section class="formBox-content half labelWraper label" style="float:left;width:165px;">
+                                <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Reportsfromemail)  :</label>
+                            </section>
+                            <section class="feildWraper" style="float:left;width:50%;">                               
+                                <input data-val="true" data-val-required="Please enter reports from email." id="reportsFrom" name="reportsFrom" 
+                                       data-val-regex="Please enter correct email." data-val-regex-pattern="^([a-zA-Z0-9_\.\-])+\@@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$" type="text" value="" />
+                                <span id="errorSpan" data-valmsg-for="reportsFrom" data-valmsg-replace="true"></span> 
+                            </section>
+                        </section>
+                        <section class="feildRow">
+                            <section class="formBox-content half labelWraper label" style="float:left;width:165px;">
+                                <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.BaseURL) :</label>
+                            </section>
+                            <section class="feildWraper" style="float:left;width:50%;">                               
+                                <input data-val="true" data-val-required="Please enter base url." id="htmldocbaseurl" name="htmldocbaseurl" type="text" value="" />
+                                <span id="errorSpan" data-valmsg-for="htmldocbaseurl" data-valmsg-replace="true"></span>           
+                            </section>
+                        </section>
+                        <section class="feildRow">
+                            <section class="formBox-content half labelWraper label" style="float:left;width:165px;">
+                                <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Pathto_HTMLDOCexec):</label>
+                            </section>
+                            <section class="feildWraper" style="float:left;width:50%;">                               
+                                <input data-val="true" data-val-required="Please enter html doc path." id="htmldocpath" name="htmldocpath" type="text" value="" />
+                                <span id="errorSpan" data-valmsg-for="htmldocpath" data-valmsg-replace="true"></span>                             
+                            </section>
+                        </section>
+                        <section class="feildRow">
+                            <section class="formBox-content half labelWraper label" style="float:left;width:165px;">
+                                <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.PathtoPDFStorage) :</label>
+                            </section>
+                            <section class="feildWraper" style="float:left;width:50%;">                               
+                                <input data-val="true" data-val-required="Please enter pdf storage path." id="htmldocpdfstore" name="htmldocpdfstore" type="text" value="" />
+                                <span id="errorSpan" data-valmsg-for="htmldocpdfstore" data-valmsg-replace="true"></span>         
+                            </section>
+                        </section>
+                        <section class="feildRow">
+                            <section class="formBox-content half labelWraper label" style="float:left;width:165px;">
+                                <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.SiteRoot):</label>
+                            </section>
+                            <section class="feildWraper" style="float:left;width:50%;">                               
+                                <input data-val="true" data-val-required="Please enter site root." id="htmldocsiterootstore" name="htmldocsiterootstore" type="text" value="" />
+                                <span id="errorSpan" data-valmsg-for="htmldocsiterootstore" data-valmsg-replace="true"></span>  
+                            </section>
+                        </section>
+                        <section class="feildRow">
+                            <section class="formBox-content half labelWraper label" style="float:left;width:165px;">
+                                <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.SessionName):</label>
+                            </section>
+                            <section class="feildWraper" style="float:left;width:50%;">                               
+                                <input data-val="true" data-val-required="Please enter session name." id="sessionName" name="sessionName" type="text" value="" />
+                                <span id="errorSpan" data-valmsg-for="sessionName" data-valmsg-replace="true"></span>  
+                            </section>
+                        </section>
+                        <section class="feildRow">
+                            <section class="formBox-content half labelWraper label" style="float:left;width:165px;">
+                                <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.SessionIdleTimeout):</label>
+                            </section>
+                            <section class="feildWraper" style="float:left;width:50%;">                               
+                                <input data-val="true" data-val-required="Please enter session timeout." data-val-regex="Please enter only numbers." data-val-regex-pattern="^[0-9]*$" id="sessionIdle" name="sessionIdle" type="text" value="" />
+                                <span id="errorSpan" data-valmsg-for="sessionIdle" data-valmsg-replace="true"></span>  
+                            </section>
+                        </section>
+                        <section class="floatRight">
+                            <section class="small-formBtn">
+                                <input type="submit" class="pink-btn" value="Save" id="btnSave">
+                            </section>                            
+                        </section>
+                        <section class="clear"></section>
+                    </section>
+                    <section class="clear"></section>
+                </section>
+            </section>
+            <footer class="fullwidth mainFooter">
+                Copyright © @DateTime.Now.Year ITC Systems. All rights reserved.
+            </footer>
+            <section class="clear"></section>
+        </section>
+    </body>
+}
+</html>
+
+

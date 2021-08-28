@@ -1,0 +1,166 @@
+﻿@model ITC_Matrix.Models.ClientPlansUnlimited
+@using ITC_Matrix.Common;
+@{
+    ViewBag.Title = "Edit Plan";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Menu = "clients";
+    ViewBag.SubMenu = "clientsNode";
+}
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#ClientID").val('@ViewBag.TempClientID');
+
+        $("#PlanStartDate").datepicker();
+        $("#txtEndDate").datepicker();
+
+
+        $("#txtEndDate").val('@ViewBag.EndDate');
+        $("#txtComment").val('@ViewBag.Comment');
+        $("#txtPrice").val('@ViewBag.Price');
+        //var planId = $("#ddlPlanID").val();
+
+        //GetPlanDetail(planId);
+
+        $("#ddlPlanID").on('change', function () {
+            GetPlanDetail(this.value);
+        });
+    });
+
+    function GetPlanDetail(planId) {
+        $.ajax({
+            url: "/ClientMealPlans/GetPlanPrice/",
+            type: 'POST',
+            data: { id: planId },
+            success: function (result) {
+                $('#txtPrice').val(result.name);
+            },
+            error: function () {
+
+            }
+        });
+        return false;
+    }
+</script> 
+
+<section class="mainTable-right">
+    @using (Html.BeginForm())
+    {
+        @Html.Hidden("ClientID", Model.ClientID);
+        @Html.Hidden("LastPlanID", Model.PlanID);
+        @Html.Hidden("OrderIndex", Model.OrderIndex);
+
+        @Html.AntiForgeryToken();
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <section class="contentLimit-box content" id="content-1">
+
+            @if (ViewBag.Message != null)
+            {
+                <section class="@ViewBag.MessageClass">@ViewBag.Message</section>
+            }
+
+            <section class="contentLimit-boxInner">
+                <section class="formBox-row fullwidth">
+                    <section class="heading">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.EditPlan)</section>
+                    <section class="formBox-content">
+                        <section style="width:70%;">
+                            <section class="feildRow">
+                                <section class="labelWraper" style="width:35%;float:left;">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Plan): </label>
+                                </section>
+                                <section class="feildWraper" style="width:50%; float:left;">
+                                    <label class="customeFeild selectTag">
+                                        @Html.DropDownList("PlanID", null, htmlAttributes: new { @id = "ddlPlanID" })
+                                    </label>
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper" style="width:35%;float:left;">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.WouldYouLikeToTransferConsumedMeal)?: </label>
+                                </section>
+                                <section class="feildRow" style="width:50%; float:left;">
+                                    @Html.RadioButton("TransferYes", " Yes", false, new { @id = "TransferYes" })
+                                           @*<label class="radio-inline" for="TransferYes"><span></span><div class="label-txt">Yes</div></label>*@
+                                   <label class="radio-inline" for="TransferYes" style="margin-bottom:5px;"><span></span><div class="label-txt">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Yes)</div></label>
+
+                                @Html.RadioButton("TransferYes", "No", true, new { @id = "TransferNo" })
+                                <label class="radio-inline" for="TransferNo"><span></span><div class="label-txt">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.No)</div></label>
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper" style="width:35%;float:left;">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Wouldyouliketodeductfundused)?: </label>
+                                </section>
+                                <section class="feildRow" style="width:50%; float:left;">
+                                    @Html.RadioButton("DeductYes", "Yes", false, new { @id = "DeductYes" })
+                                    @*<label class="radio-inline" for="DeductYes"><span></span><div class="label-txt">Yes</div></label>*@
+                                    <label class="radio-inline" for="DeductYes" style="margin-bottom:5px;"><span></span><div class="label-txt">Yes</div></label>
+                                    @Html.RadioButton("DeductYes", "No", true, new { @id = "DeductNo" })
+                                    <label class="radio-inline" for="DeductNo"><span></span><div class="label-txt">Yes</div></label>
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper" style="width:35%;float:left;">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Start_Date): </label>
+                                </section>
+                                <section class="feildWraper" style="width:50%; float:left;">
+                                    @Html.TextBox("PlanStartDate")
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper" style="width:35%;float:left;">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.EndDate): </label>
+                                </section>
+                                <section class="feildWraper" style="width:50%; float:left;">
+                                    @Html.TextBox("txtEndDate")
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper" style="width:35%;float:left;">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Price): </label>
+                                </section>
+                                <section class="feildWraper" style="width:50%; float:left;">
+                                    @Html.TextBox("txtPrice")
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper" style="width:35%;float:left;">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.PaidBy): </label>
+                                </section>
+                                <section class="feildWraper" style="width:50%; float:left;">
+                                    <label class="customeFeild selectTag">
+                                        @Html.DropDownList("PaymentMethods")
+                                    </label>
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper" style="width:35%;float:left;">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Comment): </label>
+                                </section>
+                                <section class="feildWraper" style="width:50%; float:left;">
+                                    @Html.TextBox("txtComment")
+                                </section>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+                <section class="formBox-content" style="padding-top:0;">
+                    <section class="floatRight">
+                        <section class="small-formBtn">
+                            <input type="submit" class="pink-btn" value="Save">
+                        </section>
+                        <section class="small-formBtn">
+                            <a href='@Url.Action("Index", "ClientMealPlans" , new { id = @ViewBag.TempClientID } )' class="blue-btn">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Cancel)</a>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+        <section class="clear"></section>
+    }
+</section>
+
+

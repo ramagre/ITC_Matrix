@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>ITC Systems - Matrix Manager&#8482;</title>
+
+    <link rel="stylesheet" href="~/Assets/CSS/master.css">
+    @if ((Session["DefaultTheme"]) != null)
+    {
+        <link rel="stylesheet" href='@(Session["DefaultTheme"])'>
+    }
+    else
+    {
+        <link rel="stylesheet" href="~/Assets/CSS/default-theme.css">
+    }
+
+    @using ITC_Matrix.Common;
+</head>
+<body>
+    <section class="container">
+        <header class="mainHeader fullwidth">
+            <a href="@Url.Action("Index", "Dashboard")" class="logo">
+            </a>
+           
+        </header>
+        <section class="fullwidth bodyContainer">
+            <section class="blueHeading-bg">
+                <h3>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.NoAccess)</h3>
+            </section>
+            <section class="fullwidth mainTable-container" style="min-height:733px;">
+
+
+                <section class="mainTable-right">
+                    <section class="contentLimit-box content" id="content-1">
+                        <section class="contentLimit-boxInner">
+                            <section class="formBox-row fullwidth">
+                                <section class="heading">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.NoAccess)</section>
+                                <section class="formBox-content">
+                                    <section class="floatRight row">
+                                        <section class="small-formBtn">
+                                            <a href="/Dashboard" class="blue-btn">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Home)</a>
+                                        </section>
+                                    </section>
+
+                                    <section style="float:left;width:90%;">
+                                        <section>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Sorryyoudonthavepermissionforthismodule)</section>
+                                    </section>
+                                </section>
+                            </section>
+
+                        </section>
+                        <section class="clear"></section>
+                    </section>
+                </section>
+            </section>
+        </section>
+        <footer class="fullwidth mainFooter">
+            Copyright © @DateTime.Now.Year ITC Systems. All rights reserved.
+        </footer>
+        <section class="clear"></section>
+    </section>
+</body>
+</html>

@@ -1,0 +1,114 @@
+﻿@*  
+     FileFor : Listing Client Profile Details
+     File Name : Index.cshtml
+     Created Date : 23-11-2015
+     Created By : Sandip Katore
+*@
+@using ITC_Matrix.Common;
+@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<ITC_Matrix.Models.Profile>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Menu = "clients";
+    ViewBag.SubMenu = "profileNode";
+}
+
+<script src="~/Assets/js/CustomDialog.js"></script>
+<script src="~/Assets/js/Clients.js"></script>
+
+<section class="mainTable-right">
+    @using (Html.BeginForm("Index", "Profile", FormMethod.Get))
+    {
+        <section class="filterRow">
+            <h3>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Client_Profiles):</h3>
+            <text>
+                <h4 style="padding-bottom:5px;">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Sort_By)</h4>
+            </text>       
+            <section class="fullwidth">
+                <section class="row">
+                    <section class="selectBy-sort">
+                        <label class="customeFeild selectTag">
+                            @Html.DropDownList("searchBy", new List<SelectListItem>
+                                            {
+                                                new SelectListItem { Text = "Code", Value = "1"},
+                                                new SelectListItem { Text = "Description", Value = "2"},
+                                            })
+                        </label>
+                    </section>
+                    <section class="searchBy">
+                        @Html.TextBox("txtSearch", "", new { @id = "txtSearch", @placeholder = "Search", @maxLength = 25 })
+                    </section>
+                    <section class="small-formBtn">
+                        <input type="submit" value="Find" name="Search" class="pink-btn" />
+                    </section>
+                    <section class="small-formBtn">                    
+                        <a href='@Url.Action("Index", "Profile")' value="Clear" class="blue-btn" data-toggle="tooltip" title="Clear Search">Clear</a>
+                    </section>
+                </section>
+            </section>
+        </section>
+    }
+
+    <section class="clear">&nbsp;</section>  
+    @{ if (ViewBag.Profilemessage != null)
+            {           
+                <section class='@ViewBag.Class'>@ViewBag.Profilemessage</section>          
+        }
+    }
+
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="gridTable tableFixed-none">
+        <thead>
+
+      
+            @*Sorting*@
+
+            <tr class="gridHeading">
+                <th width="115px" style="text-align:left;">@Html.ActionLink(@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Code), "Index", new { sortBy = ViewBag.CodeSort, searchBy = Request.QueryString["searchBy"], txtSearch = Request.QueryString["txtSearch"] }, new { @class = "label" })</th>
+
+                <th colspan="3" style="text-align:left;" >@Html.ActionLink(@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Description), "Index", new { sortBy = ViewBag.DescriptionSort, searchBy = Request.QueryString["searchBy"], txtSearch = Request.QueryString["txtSearch"] }, new { @class = "label" })</th>                            
+            </tr>
+
+        </thead>
+        <tbody class="scrollContent">
+
+            @if (Model.Count() == 0 && Model == null)
+            {
+                <tr>
+                    <td colspan="2">
+                        Sorry ! no such record found
+                    </td>
+                </tr>
+            }
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.CODE)</td>
+                    <td> @Html.DisplayFor(modelItem => item.DSCR)</td>
+                    <td width="40px"><a href="@Url.Action("Edit","Profile", new { id = item.CODE })" data-toggle="tooltip" title="Click to edit this profile"><span class="edit_icon"></span></a></td>
+                    <td width="40px"><a class="lnkDelete" data-id="@item.CODE"  href="@Url.Action("Delete","Profile", new { id = item.CODE})" data-toggle="tooltip" title="Click to delete this profile" ><span class="delete_icon"></span></a></td>
+                </tr>
+            }
+        </tbody>
+
+        @*pagination*@
+
+        <tfoot class="gridFooter">
+            <tr>
+                <td colspan="4">
+                    <section class="floatLeft scroll-btns">
+                        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchBy = Request.QueryString["searchBy"], txtSearch = Request.QueryString["txtSearch"],sortBy = Request.QueryString["sortBy"] }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayItemSliceAndTotal = true })
+                    </section>
+                    <section class="floatRight">
+                        <a href="/Profile/Create"><input type="button" class="orange-btn" value="Add New"></a>
+                    </section>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</section>    

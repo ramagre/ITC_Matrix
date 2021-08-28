@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript" src="~/Assets/JS/Dashboard.js"></script>
+<section class="mainTable-right" style="padding:5px; padding-bottom:60px;">
+   
+    @if (ViewBag.HtmlStr != null)
+    {
+        @Html.Raw(ViewBag.HtmlStr)
+    }
+</section>

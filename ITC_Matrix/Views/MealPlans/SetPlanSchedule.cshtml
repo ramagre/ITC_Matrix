@@ -1,0 +1,328 @@
+﻿@model ITC_Matrix.Models.Plan
+@using ITC_Matrix.Common;
+@{
+    ViewBag.Title = "SetMealPlan";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Menu = "plans";
+    ViewBag.SubMenu = "mealPlansNode";
+
+    var tempid = string.Empty;
+    var tempid1 = string.Empty;
+
+}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+
+@Html.Hidden("selectedProfiles")
+
+<script type="text/javascript" src="~/Assets/JS/MealPlanScheduler.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#Code").val('@ViewBag.CodeVal');
+    });
+</script>
+
+<section class="mainTable-right">   
+    <section class="formBox-row fullwidth">
+        <section style="padding-top:0;" class="formBox-content">
+            <section class="floatRight row">
+                <section class="small-formBtn">
+                    <a href='@Url.Action("Edit", "MealPlans", new { @id = @ViewBag.CodeVal } )' class="blue-btn">Return to Plan</a>
+                    @*<input type="button" value="Return to Plan" class="orange-btn">*@
+                </section>
+            </section>
+        </section>
+    </section>
+    <section class="contentLimit-box content" id="content-1">
+        @if (ViewBag.plansmessage != null)
+            {
+            <section class="@ViewBag.plansmessageClass">@ViewBag.plansmessage</section>
+        }
+
+        <section class="contentLimit-boxInner">
+            @using (Html.BeginForm("SetPlanScheduleInPlan", "MealPlans", FormMethod.Post))
+            {
+                @Html.Hidden("Code")
+                <section class="formBox-row fullwidth">
+                    <section class="heading">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.MealPlanScheduler): @ViewBag.PlanDesc - @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.TimeRestrictions)</section>
+                    <section class="formBox-content">
+                        <table class="scheduler" width="100%" cellpadding="0" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <td colspan="8">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Selectthedaysandmealswhenthecardcannotbeused)</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th width="150"></th>
+                                    <th width="80">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Sun)</th>
+                                    <th width="80">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Mon)</th>
+                                    <th width="80">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Tue)</th>
+                                    <th width="80">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Wed)</th>
+                                    <th width="80">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Thu)</th>
+                                    <th width="80">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Fri)</th>
+                                    <th width="80">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Sat)</th>
+                                </tr>
+
+                                @if (ViewBag.MealType != null)
+                                {
+                                    foreach (var item in ViewBag.MealType)
+                                    {
+                                        <tr id="@item.CODE">
+
+                                            <td>@item.DSCR</td>
+
+                                            @foreach (var item1 in ViewBag.AllDay)
+                                            {
+                                                if (@item.DSCR == @item1.DSCR)
+                                                {
+                                                    { tempid = "chkmealsun_" + @item1.CODE; }
+                                                    if (@item1.sun == "1")
+                                                    {
+                                                        <td><a href="#"><span class="icon"><i class="fa fa-check" name=@tempid id=@tempid> </i></span></a></td>
+                                                        @Html.Hidden("hdn" + @tempid, "1")
+                                                    }
+                                                    else
+                                                    {
+                                                        @Html.Hidden("hdn" + @tempid, "0")
+                                                        <td><a href="#"><span class="icon"><i class="fa fa-times" name=@tempid id=@tempid></i></span></a></td>
+                                                    }
+
+                                                    { tempid = "chkmealmon_" + @item1.CODE; }
+                                                    if (@item1.mon == "1")
+                                                    {
+                                                        <td><a href="#"><span class="icon"><i class="fa fa-check" name=@tempid id=@tempid></i></span></a></td>
+                                                        @Html.Hidden("hdn" + @tempid, "1")
+                                                    }
+                                                    else
+                                                    {
+                                                        <td><a href="#"><span class="icon"><i class="fa fa-times" name=@tempid id=@tempid></i></span></a></td>
+                                                        @Html.Hidden("hdn" + @tempid, "0")
+                                                    }
+
+                                                    { tempid = "chkmealtues_" + @item1.CODE; }
+                                                    if (@item1.tues == "1")
+                                                    {
+                                                        <td><a href="#"><span class="icon"><i class="fa fa-check" name=@tempid id=@tempid></i></span></a></td>
+                                                        @Html.Hidden("hdn" + @tempid, "1")
+                                                    }
+                                                    else
+                                                    {
+                                                        <td><a href="#"><span class="icon"><i class="fa fa-times" name=@tempid id=@tempid></i></span></a></td>
+                                                        @Html.Hidden("hdn" + @tempid, "0")
+                                                    }
+
+                                                    { tempid = "chkmealwed_" + @item1.CODE; }
+                                                    if (@item1.wesd == "1")
+                                                    {
+                                                        <td><a href="#"><span class="icon"><i class="fa fa-check" name=@tempid id=@tempid></i></span></a></td>
+                                                        @Html.Hidden("hdn" + @tempid, "1")
+                                                    }
+                                                    else
+                                                    {
+                                                        <td><a href="#"><span class="icon"><i class="fa fa-times" name=@tempid id=@tempid></i></span></a></td>
+                                                        @Html.Hidden("hdn" + @tempid, "0")
+                                                    }
+
+                                                    { tempid = "chkmealthur_" + @item1.CODE; }
+                                                    if (@item1.thur == "1")
+                                                    {
+                                                        <td><a href="#"><span class="icon"><i class="fa fa-check" name=@tempid id=@tempid></i></span></a></td>
+                                                        @Html.Hidden("hdn" + @tempid, "1")
+                                                    }
+                                                    else
+                                                    {
+                                                        <td><a href="#"><span class="icon"><i class="fa fa-times" name=@tempid id=@tempid></i></span></a></td>
+                                                        @Html.Hidden("hdn" + @tempid, "0")
+                                                    }
+
+                                                    { tempid = "chkmealfri_" + @item1.CODE; }
+                                                    if (@item1.fri == "1")
+                                                    {
+                                                        <td><a href="#"><span class="icon"><i class="fa fa-check" name=@tempid id=@tempid></i></span></a></td>
+                                                        @Html.Hidden("hdn" + @tempid, "1")
+                                                    }
+                                                    else
+                                                    {
+                                                        <td><a href="#"><span class="icon"><i class="fa fa-times" name=@tempid id=@tempid></i></span></a></td>
+                                                        @Html.Hidden("hdn" + @tempid, "0")
+                                                    }
+
+                                                    { tempid = "chkmealsat_" + @item1.CODE; }
+                                                    if (@item1.sat == "1")
+                                                    {
+                                                        <td><a href="#"><span class="icon"><i class="fa fa-check" name=@tempid id=@tempid></i></span></a></td>
+                                                        @Html.Hidden("hdn" + @tempid, "1")
+                                                    }
+                                                    else
+                                                    {
+                                                        <td><a href="#"><span class="icon"><i class="fa fa-times" name=@tempid id=@tempid></i></span></a></td>
+                                                        @Html.Hidden("hdn" + @tempid, "0")
+                                                    }
+                                                }
+                                            }
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </section>
+                </section>
+                <section class="formBox-row fullwidth">
+                    <section class="formBox-content" style="padding-top:0;">
+                        <section class="floatRight row">
+                            <section class="small-formBtn">
+                                <input type="submit" class="pink-btn" value="Save" id="timeRestiction">
+                            </section>
+                            <section class="small-formBtn">
+                                @*<a href="/MealPlans/SetPlanSchedule">*@
+                                @*<input type="submit" class="blue-btn" value="Cancel">*@
+                                <a href='@Url.Action("Edit", "MealPlans", new { @id = @ViewBag.CodeVal } )' class="blue-btn">Cancel</a>
+                                @*</a>*@
+                            </section>
+                        </section>
+                    </section>
+                </section>
+            }
+            @using (Html.BeginForm("SetPlanScheduleInPlanLimit", "MealPlans", FormMethod.Post))
+            {
+                @Html.Hidden("Code")
+                <section class="formBox-row fullwidth">
+                    <section class="heading">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.MealPlanScheduler): @ViewBag.PlanDesc  - @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Advanced_Restrictions)</section>
+                    <section class="formBox-content" id="Secplanlimit">
+                        <table class="scheduler advc" width="100%" cellpadding="0" cellspacing="0">
+                            <tbody>
+                                <tr>
+                                    <th width="150"></th>
+                                    <th width="140">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.MealsPerDay)</th>
+                                    <th width="140">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.TotalMeals)</th>
+                                    <th width="140">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.TotalAmount)</th>
+                                    <th width="140">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.MaxMealPrice) </th>
+                                </tr>
+                               
+                                @if (ViewBag.PlanLimitData != null)
+                                {
+                                    foreach (var itemLimit in ViewBag.PlanLimitData)
+                                    {
+                                        <tr>
+                                            <td>@itemLimit.MealDescription</td>
+                                            <td>
+                                                @{ tempid = "chkMealsperday_" + @itemLimit.MealCode; }
+                                                <section class="fullwidth sheduleFeild">
+                                                    <section class="chk-wraper">                                                        
+                                                        @if (@itemLimit.IsMealsPerDay == 1)
+                                                        {
+                                                            @Html.CheckBox(@tempid, true, new { @id = @tempid })
+                                                        }
+                                                        else
+                                                        {
+                                                            @Html.CheckBox(@tempid, false, new { @id = @tempid })
+                                                        }
+                                                        <label for=@tempid class="checkbox-inline">
+                                                            <span></span>
+                                                        </label>
+                                                    </section>
+                                                    @Html.Hidden("hdn" + @tempid)
+                                                    @{ tempid = "txtMealsperday_" + @itemLimit.MealCode; }
+                                                    <section class="chkFeild-wraper">
+                                                        <input type="text" id=@tempid name=@tempid value=@itemLimit.MealsPerDay >
+                                                    </section>
+                                                </section>
+                                            </td>
+                                            <td>
+                                                @{ tempid = "chkTotalmeals_" + @itemLimit.MealCode; }
+                                                <section class="fullwidth sheduleFeild">
+                                                    <section class="chk-wraper">                                                        
+                                                        @if (@itemLimit.IsMealsPerPlan == 1)
+                                                        {
+                                                            @Html.CheckBox(@tempid, true, new { @id = @tempid })
+                                                        }
+                                                        else
+                                                        {
+                                                            @Html.CheckBox(@tempid, false, new { @id = @tempid })
+                                                        }
+                                                        <label for=@tempid class="checkbox-inline">
+                                                            <span></span>
+                                                        </label>
+                                                    </section>
+                                                    @Html.Hidden("hdn" + @tempid)
+                                                    @{ tempid = "txtTotalmeals_" + @itemLimit.MealCode; }
+                                                    <section class="chkFeild-wraper">
+                                                        <input type="text" id=@tempid name=@tempid value=@itemLimit.MealsPerPlan>
+                                                    </section>
+                                                </section>
+                                            </td>
+                                            <td>
+                                                @{ tempid = "chkTotalamount_" + @itemLimit.MealCode; }
+                                                <section class="fullwidth sheduleFeild">
+                                                    <section class="chk-wraper">
+                                                        @if (@itemLimit.IsAmountPerPlan == 1)
+                                                        {
+                                                            @Html.CheckBox(@tempid, true, new { @id = @tempid })
+                                                        }
+                                                        else
+                                                        {
+                                                            @Html.CheckBox(@tempid, false, new { @id = @tempid })
+                                                        }
+                                                        <label for=@tempid class="checkbox-inline">
+                                                            <span></span>
+                                                        </label>
+                                                    </section>
+                                                    @Html.Hidden("hdn" + @tempid)
+                                                    @{ tempid = "txtTotalamount_" + @itemLimit.MealCode; }
+                                                    <section class="chkFeild-wraper">
+                                                        <input type="text" id=@tempid name=@tempid value=@itemLimit.AmountPerPlan>
+                                                    </section>
+                                                </section>
+                                            </td>
+                                            <td>
+                                                @{ tempid = "chkMaxmealprice_" + @itemLimit.MealCode; }
+                                                <section class="fullwidth sheduleFeild">
+                                                    <section class="chk-wraper">
+                                                        @if (@itemLimit.IsAmountPerMeal == 1)
+                                                        {
+                                                            @Html.CheckBox(@tempid, true, new { @id = @tempid })
+                                                        }
+                                                        else
+                                                        {
+                                                            @Html.CheckBox(@tempid, false, new { @id = @tempid })
+                                                        }
+                                                        <label for=@tempid class="checkbox-inline">
+                                                            <span></span>
+                                                        </label>
+                                                    </section>
+                                                    @Html.Hidden("hdn" + @tempid)
+                                                    @{ tempid = "txtMaxmealprice_" + @itemLimit.MealCode; }
+                                                    <section class="chkFeild-wraper">
+                                                        <input type="text" id=@tempid name=@tempid value=@itemLimit.AmountPerMeal>
+                                                    </section>
+                                                </section>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </section>
+                </section>
+                <section class="formBox-row fullwidth">
+                    <section class="formBox-content" style="padding-top:0;">
+                        <section class="floatRight row">
+                            <section class="small-formBtn">
+                                <input type="submit" class="pink-btn" value="@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Save)" id="totalamt">
+                            </section>
+                            <section class="small-formBtn">
+                                @*<input type="button" class="blue-btn" value="Cancel">*@
+                                <a href='@Url.Action("Edit", "MealPlans", new { @id = @ViewBag.CodeVal } )' class="blue-btn">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Cancel)</a>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+                                                        }
+        </section>
+        <section class="clear"></section>
+    </section>
+
+</section>

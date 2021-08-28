@@ -1,0 +1,131 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+
+@using ITC_Matrix.Common;
+@model  IPagedList<ITC_Matrix.Models.AccountCode>
+
+@{
+    ViewBag.Title = "Department";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Menu = "clients";
+    ViewBag.SubMenu = "accountCodesNode";
+}
+
+<script src="~/Assets/JS/CustomDialog.js"></script>
+<script src="~/Assets/JS/Clients.js"></script>
+
+<section class="mainTable-right">
+    <section class="filterRow">
+        @using (@Html.BeginForm("Index", "AccountCodes", FormMethod.Get))
+        {
+            <h3>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Departments)</h3>
+            <text>
+                <h4 style="padding-bottom:5px;">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Sort_By)</h4>
+            </text>
+
+            <section class="fullwidth">
+                <section class="selectBy-sort">
+                    <label class="customeFeild selectTag">
+                        @Html.DropDownList("searchBy", new List<SelectListItem>
+                            {
+                                new SelectListItem { Text = "Code", Value = "1"},
+                                new SelectListItem { Text = "Description", Value = "2"},
+                            }, "Select Search Option")
+                    </label>
+                </section>
+                <section class="searchBy">
+                    @Html.TextBox("search")
+                </section>
+                <section class="small-formBtn">
+                    <input type="submit" value="@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Find)" class="pink-btn" onclick="Index" />
+                </section>
+                <section class="small-formBtn">
+                    <a href='@Url.Action("Index", "AccountCodes")' class="blue-btn" value="Clear" data-toggle="tooltip" title="Clear Search">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Clear)</a>
+                </section>
+            </section>
+        }
+    </section>
+
+    <section class="clear">&nbsp;</section>
+    @if (ViewBag.Message != null)
+    {
+        <section class="@ViewBag.Class">@ViewBag.Message</section>
+    }
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="gridTable">
+        <thead>
+            <tr class="gridHeading">
+                <th>@Html.ActionLink(@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Code), "Index", new { sortBy = ViewBag.CodeSort, searchBy = Request.QueryString["searchBy"], txtSearch = Request.QueryString["search"] }, new { @class = "label" })</th>
+
+                <th>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Cost_Center) </th>
+
+                <th colspan="3" style="text-align:left;">@Html.ActionLink(@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Description), "Index", new { sortBy = ViewBag.DescriptionSort, searchBy = Request.QueryString["searchBy"], txtSearch = Request.QueryString["search"] }, new { @class = "label" })</th>
+            </tr>
+        </thead>
+        <tbody class="scrollContent">
+
+            @foreach (var item in Model)
+            {
+                if (Model.Count() == 0)
+                {
+                    <tr>
+                        <td colspan="5">
+                            Sorry ! no such record found.
+                        </td>
+                    </tr>
+                }
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AccCode)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CostCentreName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    @{
+                        if (ViewBag.isPermission == false)
+                        {
+
+                            <td colspan="2">
+                                &nbsp;
+                            </td>
+                        }
+                        else
+                        {
+                            <td width="40px"><a href="@Url.Action("Edit", "AccountCodes", new { id = item.AccCode.Trim() })" class="edit_icon" data-toggle="tooltip" title="Click to edit this department"></a></td>
+                            <td width="40px">
+                                <a data-id="@item.AccCode" data-toggle="tooltip" title="Click to delete this department."
+                                   href='@Url.Action("Delete", "AccountCodes", new { id = item.AccCode.Trim() })' class="lnkDelete">
+                                    <img src="~/Assets/Images/delete_icon.png" />
+                                </a>
+                            </td>
+                        }
+                    }
+
+                </tr>
+                        }
+        </tbody>
+
+        <tfoot class="gridFooter">
+            <tr>
+                <td colspan="5">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchBy = Request.QueryString["searchBy"], search = Request.QueryString["search"], sortBy = Request.QueryString["sortBy"] }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayItemSliceAndTotal = true })
+                    @{
+                        if (ViewBag.isPermission != false)
+                        {
+                            <section class="floatRight">
+                                <a href='@Url.Action("Create", "AccountCodes")'>
+                                    <input type="button" class="orange-btn" value="@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Addnew)">
+                                </a>
+                            </section>
+                        }
+                    }
+
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</section>

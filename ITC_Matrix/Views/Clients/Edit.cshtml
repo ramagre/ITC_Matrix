@@ -1,0 +1,373 @@
+﻿@using ITC_Matrix.Common;
+@model ITC_Matrix.Models.Client
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Menu = "clients";
+    ViewBag.SubMenu = "clientsNode";
+    var AccountCodes = ViewBag.AccountCodes;
+}
+
+
+@*Including the css*@
+
+<script type="text/javascript" src="~/Assets/JS/Clients.js"></script>
+<script src="~/Assets/js/ClientEdit.js"></script>
+<link href="~/Assets/css/Common.css" rel="stylesheet" />
+<script type="text/javascript" src="~/Assets/JS/CollapseExpand.js"></script>
+
+<section class="mainTable-right">
+    @using (Html.BeginForm("Edit", "Clients", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.Hidden("selectedAccCode")
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <h3>Edit Client</h3>
+        <section class="contentLimit-box content" id="content-1">
+            <section class="contentLimit-boxInner">
+                <section class="formBox-row fullwidth">
+                    <section class="heading">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Personal_Information)</section>
+                    <section class="formBox-content">
+                        <section class="leftDiv half">
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label> @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.ClienID):
+                                    </label>
+                                </section>
+                                <section class="feildWraper">
+                                    @Html.EditorFor(model => model.ID_NO, new { htmlAttributes = new { @readOnly = true, @data_Val = false, @maxLength = 20 } })
+                                    @Html.ValidationMessageFor(model => model.ID_NO, "", new { @class = "text-danger" })
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label> @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Profile) :</label>
+                                </section>
+                                <section class="feildWraper">
+                                    <label class="customeFeild selectTag">
+                                        @Html.DropDownList("Profile")
+                                        @Html.ValidationMessage("Profile", " ", new { @class = "text-danger" })
+                                    </label>
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label> @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.First_Name) :</label>
+                                </section>
+                                <section class="feildWraper">
+                                    @Html.EditorFor(model => model.FAMILY, new { htmlAttributes = new { @maxLength = 20 } })
+                                    @Html.ValidationMessageFor(model => model.FAMILY, "", new { @class = "text-danger" })
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label> @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Last_Name) :</label>
+                                </section>
+                                <section class="feildWraper">
+                                    @Html.EditorFor(model => model.GIVEN, new { htmlAttributes = new { @maxLength = 20 } })
+                                    @Html.ValidationMessageFor(model => model.GIVEN, "", new { @class = "text-danger" })
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label> @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.NetworkID) :</label>
+                                </section>
+                                <section class="feildWraper">
+                                    @Html.EditorFor(model => model.NetID, new { htmlAttributes = new { @readOnly = true, @data_Val = false, @maxLength = 255 } })
+                                    @Html.ValidationMessageFor(model => model.NetID, "", new { @class = "text-danger" })
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label> @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Date_of_Birth) :</label>
+                                </section>
+                                <section class="feildWraper">
+                                    @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @id = "txtDOB" } })
+                                    @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label> @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Languages) :</label>
+                                </section>
+                                <section class="feildWraper">
+                                    <label class="customeFeild selectTag">
+                                        @Html.DropDownList("LanguagePreference")
+                                        @Html.ValidationMessageFor(model => model.LanguagePreference, "", new { @class = "text-danger" })
+                                    </label>
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper" style="width:auto; padding:0; padding-right:5px;">
+                                    <label> @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Terms_and_conditions_Accepted) :</label>
+                                </section>
+                                <section class="feildWraper" style="width:auto;">
+                                    @Html.ValidationMessageFor(model => model.TermCondAccept, "", new { @class = "text-danger" })
+                                </section>
+                            </section>
+
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label> @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Comment) :</label>
+                                </section>
+                                <section class="feildWraper">
+                                    @Html.TextArea("COMMENT", new { @maxLength = 40 })
+                                    @Html.ValidationMessageFor(model => model.COMMENT, "", new { @class = "text-danger" })
+                                </section>
+                            </section>
+
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label> @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Upload_Image) :</label>
+                                </section>
+                                <section class="feildWraper browse-feild">
+                                    <label class="custom-file-upload" for="file-upload">
+                                       @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Browse)
+
+                                    </label>
+                                    <input type="file" name="uploadedImage">
+                                </section>
+                                <span class="fileError" style="margin-left:100px;width:280px;"></span>
+                            </section>
+
+                        </section>
+                        <section class="rightDiv half">
+
+                            @*added by sandip for displaying images *@
+
+                            <section class="departCode-box">
+                                <section class="departCode-row headTitle">
+                                    <section class="fullwidth">
+                                        @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.ClientPicture)
+                                    </section>
+                                </section>
+                                <section class="departCode-row">
+                                    @{
+                                        if (@ViewBag.ProfileImage != null)
+                                        {
+                                            <img src="data:image;base64,@System.Convert.ToBase64String(@ViewBag.ProfileImage)" width="150" height="150" />
+                                        }
+                                        else
+                                        {
+                                            <img src="/Content/images/profile_holder.png" alt="No Image Available" width="150" height="150" />
+                                        }
+                                    }
+
+                                </section>
+                            </section>
+
+
+                            <section class="departCode-box departCode-boxScroll" style="height:375px;">
+                                <h4>Department Codes</h4>
+                                <section class="departCode-row headTitle">
+                                    <section class="half">                                    
+                                    </section>
+                                    <section class="half">
+                                        @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Code)
+                                    </section>
+                                    <section class="half">
+                                        @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Description)
+                                    </section>
+                                </section>
+                                @if (ViewBag.AccountType != null)
+                                {
+                                    foreach (var accountType in ViewBag.AccountType)
+                                    {
+                                        <section class="departCode-row">
+                                            <section class="half" style="text-align:right">
+                                                @accountType.AccCode
+                                            </section>
+                                            <section class="half">
+                                                @Html.CheckBox("accountType", (bool)accountType.isSelected, new { @id = @accountType.AccCode })
+                                                <label for='@accountType.AccCode' class="checkbox-inline"><span></span><div class="label-txt"></div></label>
+                                            </section>
+                                            <section class="half">
+                                                @accountType.Description
+                                            </section>
+                                        </section>
+                                    }
+                                }
+
+                            </section>                           
+                            <section class="fullwidth departCode-terms">
+                                <section class="feildRow">
+
+                                    @Html.CheckBox("Allow_UndefinedBool", new { @id = "Allow_UndefinedBool" })
+                                    <label for="Allow_UndefinedBool" class="checkbox-inline"><span></span><div class="label-txt">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Allow_Undefined_Departmental_Codes)</div></label>
+
+                                </section>
+                                <section class="feildRow">
+                                    @Html.CheckBox("Allow_FreePrintBool", new { @id = "Allow_FreePrintBool" })
+                                    <label for="Allow_FreePrintBool" class="checkbox-inline"><span></span><div class="label-txt">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.A_Free_Print)</div></label>
+
+                                </section>
+                                <section class="feildRow">
+
+                                    @Html.CheckBox("EasyConvert_AdminBool", new { @id = "EasyConvert_AdminBool" })
+                                    <label for="EasyConvert_AdminBool" class="checkbox-inline"><span></span><div class="label-txt">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Easy_Convert_Admin):</div></label>
+
+                                </section>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+                <section class="formBox-row fullwidth">
+                    <table class="tabContent" width="100%" cellpadding="0" cellspacing="0" style="border:none;">
+                        <tr>
+                            <td style="padding:0px;">
+                                <section class="accordian-title" style="padding:0px;">
+                                    <section class="accordian-icon close" onclick="SlidDown(this);" style="margin-top:14px;"></section>
+                                    <section class="heading" style="padding-left:25px;">
+                                        @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.ContactInformation)
+                                    </section>
+                                    <section class="formBox-content contactInfo-wrap" style="display:none;">
+                                        <section class="row">
+                                            <section class="three-col faculty">
+                                                <section class="labelWraper">
+                                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Faculty):</label>
+                                                </section>
+                                                <section class="feildWraper">
+                                                    @Html.EditorFor(model => model.Faculty, new { @maxLength = 40 })
+                                                    @Html.ValidationMessageFor(model => model.Faculty, "", new { @class = "text-danger" })
+                                                </section>
+                                            </section>
+                                            <section class="three-col jobTitle">
+                                                <section class="labelWraper">
+                                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Job_Title):</label>
+                                                </section>
+                                                <section class="feildWraper">
+                                                    @Html.EditorFor(model => model.Title, new { @maxLength = 40 })
+                                                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                                                </section>
+                                            </section>
+                                            <section class="three-col proStudy">
+                                                <section class="labelWraper">
+                                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Program_of_Study):</label>
+                                                </section>
+                                                <section class="feildWraper">
+                                                    @Html.EditorFor(model => model.PrOfStudy, new { @maxLength = 40 })
+                                                    @Html.ValidationMessageFor(model => model.PrOfStudy, "", new { @class = "text-danger" })
+                                                </section>
+                                            </section>
+                                        </section>
+                                    </section>
+                                </section>
+                            </td>
+                        </tr>
+                    </table>
+                </section>
+                <section class="formBox-row fullwidth">
+                    <table class="tabContent" width="100%" cellpadding="0" cellspacing="0" style="border:none;">
+                        <tr>
+                            <td style="padding:0px;">
+                                <section class="accordian-title" style="padding:0px;">
+                                    <section class="accordian-icon close" onclick="SlidDown(this);" style="margin-top:14px;"></section>
+                                    <section class="heading" style="padding-left:25px;">Address</section>
+                                    <section class="formBox-content contactInfo-wrap" style="display:none;">
+                                        <section class="leftDiv half" style="width:420px;">
+                                            <section class="feildRow">
+                                                <section class="labelWraper" style="width:110px;">
+                                                    <label>
+                                                        @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Code) :
+                                                    </label>
+                                                </section>
+                                                <section class="feildWraper">
+                                                    @Html.EditorFor(model => model.ADDRESS, new { @maxLength = 40 })
+                                                    @Html.ValidationMessageFor(model => model.ADDRESS, "", new { @class = "text-danger" })
+                                                </section>
+                                            </section>
+                                            <section class="feildRow">
+                                                <section class="labelWraper" style="width:110px;">
+                                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.City):</label>
+                                                </section>
+                                                <section class="feildWraper">
+                                                    @Html.EditorFor(model => model.CITY, new { @maxLength = 20 })
+                                                    @Html.ValidationMessageFor(model => model.CITY, "", new { @class = "text-danger" })
+                                                </section>
+                                            </section>
+                                            <section class="feildRow">
+                                                <section class="labelWraper" style="width:110px;">
+                                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.State_Province):</label>
+                                                </section>
+                                                <section class="feildWraper">
+                                                    @Html.EditorFor(model => model.STATE, new { @maxLength = 2 })
+                                                    @Html.ValidationMessageFor(model => model.STATE, "", new { @class = "text-danger" })
+                                                </section>
+                                            </section>
+                                            <section class="feildRow">
+                                                <section class="labelWraper" style="width:110px;">
+                                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Postal_Code):</label>
+                                                </section>
+                                                <section class="feildWraper">
+                                                    @Html.EditorFor(model => model.ZIP, new { @maxLength = 10})
+                                                    @Html.ValidationMessageFor(model => model.ZIP, "", new { @class = "text-danger" })
+                                                </section>
+                                            </section>
+                                        </section>
+                                        <section class="rightDiv half">
+                                            <section class="feildRow">
+                                                <section class="labelWraper">
+                                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Phone):</label>
+                                                </section>
+                                                <section class="feildWraper">
+                                                    @Html.EditorFor(model => model.PHONE, new { @maxLength = 15 })
+                                                    @Html.ValidationMessageFor(model => model.PHONE, "", new { @class = "text-danger" })
+                                                </section>
+                                            </section>
+                                            <section class="feildRow">
+                                                <section class="labelWraper">
+                                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Email):</label>
+                                                </section>
+                                                <section class="feildWraper">
+                                                    @Html.EditorFor(model => model.EMail, new { @maxLength = 255 })
+                                                    @Html.ValidationMessageFor(model => model.EMail, "", new { @class = "text-danger" })
+                                                    <section class="fullwidth" style="padding-top:10px;">
+                                                        @Html.CheckBox("AllowMailingBool", new { @id = "AllowMailingBool" })
+                                                        <label for="AllowMailingBool" class="checkbox-inline"><span></span><div class="label-txt">Allow Communication By Email</div></label>
+                                                    </section>
+                                                </section>
+                                            </section>
+                                            <section class="feildRow">
+                                                <section class="labelWraper">
+                                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Res_Status):</label>
+                                                </section>
+                                                <section class="feildWraper">
+                                                    @Html.EditorFor(model => model.ResidencyStatus, new { htmlAttributes = new { @readOnly = true } })
+                                                    @Html.ValidationMessageFor(model => model.ResidencyStatus, "", new { @class = "text-danger" })
+                                                </section>
+                                            </section>
+                                            <section class="feildRow">
+                                                <section class="labelWraper">
+                                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Grade_Level):</label>
+                                                </section>
+                                                <section class="feildWraper">
+                                                    @Html.EditorFor(model => model.GradeLevel, new { htmlAttributes = new { @readonly = true } })
+                                                    @Html.ValidationMessageFor(model => model.GradeLevel, "", new { @class = "text-danger" })
+                                                </section>
+                                            </section>
+                                        </section>
+                                    </section>
+                                </section>
+                            </td>
+                        </tr>
+                    </table>
+                </section>
+                <section class="formBox-row fullwidth">
+                    <section class="formBox-content" style="padding-top:0;">
+                        <section class="floatRight">
+                            <section class="small-formBtn">
+                                <input type="submit" class="pink-btn" value="@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Save)">
+                            </section>
+                            <section class="small-formBtn">
+                                <a href='@Url.Action("Index", "Clients")' class="blue-btn">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Cancel)</a>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="clear"></section>
+        </section>
+                                        }
+</section>

@@ -1,0 +1,297 @@
+﻿@using ITC_Matrix.Common;
+@using ITC_Matrix.Common;
+@model ITC_Matrix.Models.CardIssue
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Menu = "clients";
+    ViewBag.SubMenu = "clientsNode";
+   
+    var itemp = 0;
+}
+
+<script type="text/javascript" src="~/Assets/JS/ClientCard.js"></script>
+
+<section class="mainTable-right">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.Hidden("ID_NO", (string)ViewBag.strId)
+
+        <div class="form-horizontal">
+            <section class="contentLimit-box content" id="content-1">
+                @if (ViewBag.Message != null)
+                {
+                    <section class="@ViewBag.MessageClass">@ViewBag.Message</section>
+                }
+                <label id="lblError" style="padding-bottom:5px;"></label>
+
+                <section class="contentLimit-boxInner">
+                    <section class="formBox-row fullwidth">
+                        <section class="heading">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.CardInfoFor) @ViewBag.strId</section>
+                        <section class="formBox-content">
+
+                            <section class="leftDiv half">
+
+                                @if (ViewBag.Outstanding == null)
+                                {
+                                    ViewBag.Outstanding = "false";
+                                }
+
+                                @if (ViewBag.Outstanding == "false")
+                                {
+                                    <section class="feildRow" id="textsection">
+                                        <section class="labelWraper">
+                                            <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.CardNo):</label>
+                                        </section>
+                                        <section class="feildWraper">
+                                            @Html.EditorFor(model => model.TAG_NO, new { htmlAttributes = new { @id = "txttagno" } })
+
+                                            @Html.ValidationMessageFor(model => model.TAG_NO, "", new { @class = "text-danger" })
+                                        </section>
+                                    </section>
+                                    <section class="feildRow" id="pin">
+                                        <section class="labelWraper">
+                                            <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Pin):</label>
+                                        </section>
+                                        <section class="feildWraper">
+                                            @Html.EditorFor(model => model.Tag_Code, "", new { htmlAttributes = new { @id = "txttagcode" } })
+                                            @Html.ValidationMessageFor(model => model.Tag_Code, "", new { @class = "text-danger" })
+                                        </section>
+                                    </section>
+                                    <section class="feildRow" id="confirmpin">
+                                        <section class="labelWraper">
+                                            <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.ConfirmPin):</label>
+                                        </section>
+                                        <section class="feildWraper">
+                                            @Html.EditorFor(model => model.Confirmtag_Code)
+                                            @Html.ValidationMessageFor(model => model.Confirmtag_Code, "", new { @class = "text-danger" })
+                                        </section>
+                                    </section>
+                                    <section class="feildRow">
+                                        <section class="labelWraper">
+                                            <label>Status:</label>
+                                        </section>
+                                        <section class="feildWraper">
+                                            @Html.DropDownList("ddlstatus", new List<SelectListItem>
+                                        {
+                                            new SelectListItem { Text = "Active", Value = "1"},
+                                            new SelectListItem { Text = "Suspended", Value = "2"}
+                                        })
+
+                                        </section>
+                                    </section>
+
+                                    <section class="feildRow">
+                                        <section class="labelWraper">
+                                            <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.expiry_date):</label>
+                                        </section>
+                                        <section class="feildWraper">                                            
+                                            @if (@ViewBag.strExpirySetDate != null)
+                                            {
+                                                @Html.EditorFor(model => model.Expiry_Date, new { htmlAttributes = new { @id = "Expiry_Date", @Value = @ViewBag.strExpirySetDate } })
+                                            }
+                                            else
+                                            {
+                                                @Html.EditorFor(model => model.Expiry_Date, new { htmlAttributes = new { @id = "Expiry_Date", @Value = DateTime.Now.ToString() } })
+                                            }
+                                        </section>
+                                    </section>
+                                }
+                                else
+                                {
+                                    <section class="feildRow" id="lblsection">
+                                    <section class="labelWraper">
+                                        <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.CardNo):</label>
+                                    </section>
+                                    <section class="feildWraper" style="width: 47%;">
+                                        <section class="labelWraper">
+                                            @if (@ViewBag.Tag_No != null)
+                                            {
+                                                <label id="lblTagNo">@ViewBag.Tag_No</label>
+                                            }
+                                        </section>
+                                    </section>                                   
+                                        @if (ViewBag.PinPermission != null)
+                                        {
+                                            if (ViewBag.PinPermission == false)
+                                            {
+                                                <section class="small-formBtn" style="padding: 0px;float: right;">
+                                                    &nbsp;
+                                                </section>
+                                            }
+                                            else
+                                            {
+                                                <section class="small-formBtn" style="padding: 0px;float: right;">
+                                                    <input type="button" name="Command" value="Set Pin" id="btnSetPin" class="pink-btn">
+                                                </section>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <section class="small-formBtn" style="padding: 0px;float: right;">
+                                                <input type="button" name="Command" value="Set Pin" id="btnSetPin" class="pink-btn">
+                                            </section>
+                                        }
+
+                                </section>
+                                    <section class="feildRow" id="pin" style="display:none;">
+                                        <section class="labelWraper">
+                                            <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Pin):</label>
+                                        </section>
+                                        <section class="feildWraper">
+                                            @Html.EditorFor(model => model.Tag_Code, "", new { htmlAttributes = new { @id = "txttagcode" } })
+                                            @Html.ValidationMessageFor(model => model.Tag_Code, "", new { @class = "text-danger" })
+                                        </section>
+                                    </section>
+                                    <section class="feildRow" id="confirmpin" style="display:none;">
+                                        <section class="labelWraper">
+                                            <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.ConfirmPin):</label>
+                                        </section>
+                                        <section class="feildWraper">
+                                            @Html.EditorFor(model => model.Confirmtag_Code)
+                                            @Html.ValidationMessageFor(model => model.Confirmtag_Code, "", new { @class = "text-danger" })
+                                        </section>
+                                    </section>
+                                    <section class="feildRow" id="pinbutton" style="display:none">
+                                        <section class="labelWraper">
+                                            <label></label>
+                                        </section>
+                                        <section class="feildWraper">
+                                            <section class="small-formBtn" style="padding: 0px;float: left;">
+                                                <input type="submit" name="Command" value="Set Pin" id="btnSavePin" class="pink-btn">
+                                            </section>
+                                        </section>
+                                    </section>
+
+                                    <section class="feildRow">
+                                        <section class="labelWraper">
+                                            <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.status):</label>
+                                        </section>
+                                        <section class="feildWraper">
+                                        @Html.DropDownList("ddlstatus", new List<SelectListItem>
+                                        {
+                                            new SelectListItem { Text = "Active", Value = "1"},
+                                            new SelectListItem { Text = "Suspended", Value = "2"}
+                                        })
+
+                                        </section>
+                                    </section>
+
+                                    <section class="feildRow">
+                                        <section class="labelWraper">
+                                            <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.expiry_date):</label>
+                                        </section>
+                                        <section class="feildWraper">
+                                            @if (@ViewBag.Expiry_Date != null)
+                                            {
+                                                @Html.EditorFor(model => model.Expiry_Date, new { htmlAttributes = new { @id = "Expiry_Date", @Value = @ViewBag.Expiry_Date.ToString()} })
+                                            }
+                                            else
+                                            {
+                                                @Html.EditorFor(model => model.Expiry_Date, new { htmlAttributes = new { @id = "Expiry_Date", @Value = DateTime.Now.ToString() } })
+                                            }
+
+                                        </section>
+                                    </section>                                    
+                                }
+                                <section class="feildRow">
+                                    <section class="labelWraper">
+                                        <label>&nbsp;</label>
+                                    </section>
+                                    <section class="feildWraper">
+                                        @if (ViewBag.Outstanding == "false")
+                                        {
+                                            if (ViewBag.IssueCardPermissions != null)
+                                            {
+                                                if (ViewBag.IssueCardPermissions == true)
+                                                {
+                                                        <input type="submit" name="Command" value="Issue Card" id="btnIssueCard" class="pink-btn">
+                                                }
+                                            }
+                                            else
+                                            {
+                                                    <input type="submit" name="Command" value="Issue Card" id="btnIssueCard" class="pink-btn">
+                                            }                                            
+                                        }
+                                        else
+                                        {
+                                            <input type="submit" name="Command" value="Update Card" id="btnIssueCard" class="pink-btn">
+                                        }
+                                    </section>
+                                </section>
+
+                            </section>
+
+                            <section class="rightDiv half">
+                                <table border="1" cellpadding="1" cellspacing="1" width="100%">
+                                    <tr>
+                                        <td>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.CardNo)</td>
+                                        <td>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Issued)</td>
+                                        <td>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Returned)</td>
+                                    </tr>
+
+                                    @if (ViewBag.cardissuelist != null)
+                                    {
+                                        foreach (var item in ViewBag.cardissuelist)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @item.TAG_NO
+                                                </td>
+                                                <td>
+                                                    @item.StrIssue_Date
+                                                </td>
+                                                <td>
+                                                    @if (itemp == 0 && @item.StrReturn_Date == "2173/10/14")
+                                                    {
+                                                        if (ViewBag.ReturnPermission != null)
+                                                        {
+                                                            if (ViewBag.ReturnPermission == false)
+                                                            {
+                                                                <section class="small-formBtn">
+                                                                   &nbsp;
+                                                                </section>
+                                                            }
+                                                            else
+                                                            {
+                                                                <section class="small-formBtn">
+                                                                    <a href='@Url.Action("ReturnCard", "CardIssues" , new { @Tag_No = @item.TAG_NO, @ClientID= @ViewBag.strId })' id="btnreturned" class="blue-btn">Return</a>
+                                                                </section>
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <section class="small-formBtn">
+                                                                <a href='@Url.Action("ReturnCard", "CardIssues" , new { @Tag_No = @item.TAG_NO, @ClientID= @ViewBag.strId })' id="btnreturned" class="blue-btn">Return</a>
+                                                            </section>
+                                                        }
+
+                                                        itemp = @ViewBag.cardissuelist.Count;
+                                                    }
+                                                    else
+                                                    {
+                                                        @item.StrReturn_Date
+                                                    }
+                                                </td>
+                                            </tr>
+
+                                        }
+                                    }
+
+                                </table>
+                            </section>
+                        </section>                       
+                            <section class="floatRight">                               
+                                <section class="small-formBtn">
+                                    <a href='@Url.Action("Index", "Clients")' class="blue-btn">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Returntoclient)</a>                                   
+                                </section>
+                            </section>
+                        </section>
+                </section>
+        </section>
+
+        </div>
+    }
+    </section>

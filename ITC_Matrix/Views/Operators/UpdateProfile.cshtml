@@ -1,0 +1,99 @@
+﻿@model ITC_Matrix.Models.Operator
+@using ITC_Matrix.Common;
+@{
+    ViewBag.Title = "Update Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript" >
+    $(document).ready(function () {
+        $('#Email').prop('readonly', true);
+        $('#LOGIN').prop('readonly', true);
+    });
+</script>
+<section class="mainTable-right">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <section class="contentLimit-box content" id="content-1">
+
+            @if (ViewBag.Message != null)
+            {
+                <section class="@ViewBag.MessageClass">@ViewBag.Message</section>
+            }
+
+            <section class="contentLimit-boxInner">
+                <section class="formBox-row fullwidth">
+                    <section class="heading">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.UpdateProfile)</section>
+                    <section class="formBox-content">
+                        <section class="leftDiv half">
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Email): </label>
+                                </section>
+                                <section class="feildWraper">
+                                    @Html.TextBoxFor(model => model.Email, new {  @data_Val = false })                                                                                              
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Login): </label>
+                                </section>
+                                <section class="feildWraper">
+                                    @Html.TextBoxFor(model => model.LOGIN, new { @data_Val = false })
+                                </section>
+                            </section>
+
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Last_Name): </label>
+                                </section>
+                                <section class="feildWraper">
+                                    @Html.EditorFor(model => model.FAMILY, new { htmlAttributes = new { @maxLength = 40 } })
+                                    @Html.ValidationMessageFor(model => model.FAMILY, "", new { @class = "text-danger" })
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.First_Name): </label>
+                                </section>
+                                <section class="feildWraper">
+                                    @Html.EditorFor(model => model.GIVEN, new { htmlAttributes = new { @maxLength = 20 } })
+                                    @Html.ValidationMessageFor(model => model.GIVEN, "", new { @class = "text-danger" })
+                                </section>
+                            </section>                            
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Comment): </label>
+                                </section>
+                                <section class="feildWraper">
+                                    @Html.EditorFor(model => model.COMMENT, new { htmlAttributes = new { @maxLength = 50 } })
+                                    @Html.ValidationMessageFor(model => model.COMMENT, "", new { @class = "text-danger" })
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label></label>
+                                </section>
+                                <section class="feildWraper">
+                                    <a class="formBox-content half labelWraper label" href="/Operators/ChangePassword" style="width:100%;text-decoration:underline;">Change Password</a>
+                                </section>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+                <section class="formBox-content" style="padding-top:0;">
+                    <section class="floatRight">
+                        <section class="small-formBtn">
+                            <input type="submit" class="pink-btn" value="@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Save)">
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+        <section class="clear"></section>
+    }
+</section>
+
+

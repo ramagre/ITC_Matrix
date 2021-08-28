@@ -1,0 +1,116 @@
+﻿@using ITC_Matrix.Common;
+
+@model ITC_Matrix.Models.CommMessage
+
+@{
+    ViewBag.Title = "Themes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Menu = "admin";
+    ViewBag.SubMenu = "translationNode";
+}
+
+<script type="text/javascript" src="~/Assets/JS/Translation.js"></script>
+
+<section class="mainTable-right">
+    <div id="translation"></div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @Html.Hidden("CODE")
+        @Html.Hidden("MsgGroup")
+        @Html.Hidden("MsgType")
+        @Html.Hidden("MessageLineLenght")
+        @Html.Hidden("Language")       
+        @Html.Hidden("target")
+
+        <section class="contentLimit-box content" id="content-1">
+            <section class="contentLimit-boxInner">
+                <section class="formBox-row fullwidth">
+                    <section class="heading">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.EditTranslation)</section>
+                    <section class="formBox-content">
+                        <section class="leftDiv half" style="width:450px;">
+                            <section class="feildRow">
+                                <section class="labelWraper" style="width:120px;">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.MessageID): </label>
+                                </section>
+                                <section class="feildWraper">
+                                    @Html.EditorFor(model => model.MessageID, new { htmlAttributes = new { @readOnly = true, @data_Val = false } })
+                                    @Html.ValidationMessageFor(model => model.MessageID, "", new { @class = "text-danger" })
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper" style="width:120px;">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Description): </label>
+                                </section>
+                                <section class="feildWraper">
+                                    @Html.EditorFor(model => model.DSCR, new { htmlAttributes = new { @readOnly = true, @data_Val = false } })
+                                    @Html.ValidationMessageFor(model => model.DSCR, "", new { @class = "text-danger" })
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper" style="width:120px;">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Language):</label>
+                                </section>
+                                <section class="feildWraper">
+                                    <label>
+                                        @Html.EditorFor(model => model.LanguageName, new { htmlAttributes = new { @readOnly = true, @data_Val = false } })
+                                        @Html.ValidationMessageFor(model => model.LanguageName, "", new { @class = "text-danger" })
+                                    </label>
+                                    <section style="display:none;">
+                                        <section class="clear">&nbsp;</section>
+                                        <label>
+                                            <input type="button" id="btnSuggest" class="pink-btn" value="Suggest">
+                                        </label>
+                                    </section>
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper" style="width:120px;">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.DefaultMessage): </label>
+                                </section>
+                                <section class="feildWraper">
+                                    @Html.EditorFor(model => model.DefaultMessage, new { cols = "40", rows = "2" })
+                                    @Html.ValidationMessageFor(model => model.DefaultMessage, "", new { @class = "text-danger" })
+                                </section>
+                            </section>                           
+                            <section class="feildRow">
+                                <section class="labelWraper" style="width:120px;">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.UseCustom): </label>
+                                </section>
+                                <section class="feildWraper">
+                                    @*<input type="checkbox" name="UseCustom_bool" id="UseCustom_bool">*@                                                                  
+                                    @Html.CheckBox("UseCustom_bool", new { @id = "UseCustom_bool" })
+                                    <label for="UseCustom_bool" class="checkbox-inline"><span></span><div class="label-txt"></div></label>
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper" style="width:120px;">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.CustomMessage): </label>
+                                </section>
+                                <section class="feildWraper">
+                                    @Html.EditorFor(model => model.CustomMessage, new { cols = "40", rows = "2" })
+                                    @Html.ValidationMessageFor(model => model.CustomMessage, "", new { @class = "text-danger" })
+                                </section>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+                <section class="formBox-content" style="padding-top:0;">
+                    <section class="floatRight">
+                        <section class="small-formBtn">
+                            <input type="submit" class="pink-btn" value="@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Save)">
+                        </section>
+                        <section class="small-formBtn">
+                            <a href='@Url.Action("Index", "Translation")' class="blue-btn">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Cancel)</a>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+        <section class="clear"></section>
+
+    }
+</section>
+

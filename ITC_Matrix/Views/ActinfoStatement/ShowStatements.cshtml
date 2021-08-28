@@ -1,0 +1,153 @@
+﻿@using ITC_Matrix.Common;
+@model IEnumerable<ITC_Matrix.Models.TrnReg>
+
+@{
+    ViewBag.Title = "AccountInfo Statement";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Menu = "clients";
+    ViewBag.SubMenu = "clientsNode";
+}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>   
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            @*$("#Period").on('change', function () {
+                alert(this.value)
+                $.ajax({
+                    url: "/ActinfoStatement/GetData/",
+                    type: 'POST',
+                    data: { strperiod: this.value, ID_NO: '@ViewBag.ID_NO', ActCode: '@ViewBag.ActCode' },
+                    success: function (result)
+                    {
+                        alert("t");
+                    },
+                    error: function () {alert("Err") }
+                });
+                return false;
+            });*@
+
+
+        });
+    </script>
+</head>
+
+<body>
+    <section class="mainTable-right">
+        @using (@Html.BeginForm())
+        {
+            <section class="filterRow">
+                <!--<h3>Filter</h3>-->
+                <section class="fullwidth">
+                    <section class="row">
+                        <section class="three-col acInfo-feilds">
+                            <section class="labelWraper">
+                                <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Client_Name):</label>
+                            </section>
+                            <section class="feildWraper">
+                                <input type="text" value="@ViewBag.ClientName" readonly="readonly">
+                            </section>
+                        </section>
+                        <section class="three-col acInfo-feilds">
+                            <section class="labelWraper">
+                                <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Account):</label>
+                            </section>
+                            <section class="feildWraper">
+                                <input type="text" value="@ViewBag.ActCode" readonly="readonly">
+                            </section>
+                        </section>
+                        <section class="three-col acInfo-feilds">
+                            <section class="labelWraper">
+                                <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Period):</label>
+                            </section>
+                            <section class="feildWraper">
+                                @Html.DropDownList("searchBy", new List<SelectListItem>
+                                {
+                                new SelectListItem { Text = "Select Search Option", Value = "0"},
+                                new SelectListItem { Text = "This Month", Value = "1"},
+                                new SelectListItem { Text = "Last Month", Value = "2"},
+                                new SelectListItem { Text = "All Periods", Value = "3"},
+                                }, new { onchange = "this.form.submit();" })
+                            </section>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        }
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="gridTable">
+            <thead>
+                <tr class="gridHeading">
+                    <th width="80px">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.ClienID)</th>
+                    <th width="100px">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Date)</th>
+                    <th width="100px">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.RegDate)</th>
+                    <th width="100px">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Dev_Oper)</th>
+                    <th width="100px">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Debit)</th>
+                    <th width="100px">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Credit)</th>
+                    <th width="100px">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Balance)</th>
+                    <th width="100px">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Account)</th>
+                    <th width="100px">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.PaidBy)</th>
+                    <th>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Comment)</th>
+                </tr>
+            </thead>
+            <tbody class="scrollContent">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.ID_NO)</td>
+                        <td>@Html.DisplayFor(modelItem => item.TRN_DATE)</td>
+                        <td>@Html.DisplayFor(modelItem => item.TRN_DATE)</td>
+                        <td>ITC</td>
+                        @{
+                            double credebval = 0;
+                            if (item.AMOUNT != 0)
+                            {
+                                credebval = (double)item.AMOUNT / 100;
+                            }
+
+                        }
+                        @if (item.flgCredit == true)
+                        {
+                            <td></td>
+                            <td>@Html.Raw("$" + (string.Format("{0:0.00}", credebval).Replace("-", "")))</td>
+                        }
+                        else
+                        {
+                            <td>@Html.Raw("($" + string.Format("{0:0.00}", credebval).Replace("-", "") + ")")</td>
+                            <td></td>
+                        }
+
+                        @if (item.BALANCE != 0)
+                        {
+
+                            <td>@Html.Raw("$" + string.Format("{0:0.00}", ((double)item.BALANCE / 100)))</td>
+                        }
+                        else
+                        {
+                            <td>@Html.Raw("$0.00")</td>
+                        }
+
+                        <td>@Html.Raw((string)@ViewBag.ActCode)</td>
+                        <td>@Html.DisplayFor(modelItem => item.strPaidby)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Comment)</td>
+                        
+                    </tr>
+                            }
+
+            </tbody>
+            <tfoot class="gridFooter">
+                <tr>
+                    <td colspan="10">
+                        <section class="floatRight">
+                            <a href='@Url.Action("AccountInfo", "Clients" , new { id = @ViewBag.ID_NO })' class="blue-btn">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.ReturntoAccounts)</a>
+                        </section>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </section>
+</body>
+</html>

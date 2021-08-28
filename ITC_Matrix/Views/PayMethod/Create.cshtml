@@ -1,0 +1,91 @@
+﻿@model ITC_Matrix.Models.PayMethod
+@using ITC_Matrix.Common;
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Menu = "accounts";
+    ViewBag.SubMenu = "payMethodNode";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <section class="contentLimit-box content" id="content-1">
+        <section class="contentLimit-boxInner">
+            <section class="formBox-row fullwidth">
+                <section class="heading">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.AddaPaymentMethod) </section>
+                <section class="formBox-content">
+
+                    <section class="leftDiv half">
+                        <section class="feildRow">
+                            <section class="labelWraper">
+                                <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Code)</label>
+                            </section>
+                            <section class="feildWraper">
+                                @Html.TextBoxFor(model => model.CODE, new { @maxLength = 4 })
+                                @Html.ValidationMessageFor(model => model.CODE, "", new { @class = "text-danger" })
+                            </section>
+                        </section>
+                        <section class="feildRow">
+                            <section class="labelWraper">
+                                <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Description)</label>
+                            </section>
+                            <section class="feildWraper">
+                                @Html.TextAreaFor(model => model.DSCR, new { @maxLength = 50 })
+                                @Html.ValidationMessageFor(model => model.DSCR, "", new { @class = "text-danger" })
+                            </section>
+                        </section>
+
+                    </section>
+
+                    <section class="rightDiv half">
+
+                        <section class="feildRow">
+                            <text style="margin-left:23px;">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Type)</text>
+
+                            @Html.RadioButton("TYPE", "0",  new { @id = "0" })
+                            <label for="0" class="radio-inline"><span></span><div class="label-txt">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.None)</div></label>
+                                                        
+                            @Html.RadioButton("TYPE", "1", true, new { @id = "1" })
+                            <label for="1" class="radio-inline"><span></span><div class="label-txt">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Cash)</div></label>
+
+                            @Html.RadioButton("TYPE", "2", new { @id = "2" })
+                            <label for="2" class="radio-inline"><span></span><div class="label-txt">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Cheque)</div></label>
+
+                            @Html.RadioButton("TYPE", "3", new { @id = "3" })
+                            <label for="3" class="radio-inline"><span></span><div class="label-txt">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Card)</div></label>
+
+                        </section>
+                        <section class="feildRow">
+
+                            <text style="margin-left:23px;">Method</text>
+                           @Html.RadioButton("TRANSTYPE", "1",true, new { @id = "TRANSTYPE1" })
+                            <label for="TRANSTYPE1" class="radio-inline"><span></span>Add</label>
+
+                            @Html.RadioButton("TRANSTYPE", "2", new { @id = "TRANSTYPE2" })
+                            <label for="TRANSTYPE2" class="radio-inline"><span></span>Deduct</label>
+                        </section>
+                    </section>
+                </section>
+
+            </section>
+            <section class="formBox-content" style="padding-top:0;">
+                <section class="floatRight">
+                    <section class="small-formBtn">
+                        <input type="submit" class="pink-btn" value="@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Save)">
+                    </section>
+                    <section class="small-formBtn">                        
+                        <a href='@Url.Action("Index", "PayMethod")' class="blue-btn">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Cancel)</a>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+}
+
+
+
+
+
+

@@ -1,0 +1,138 @@
+﻿@model ITC_Matrix.Models.Account
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Menu = "accounts";
+    ViewBag.SubMenu = "accountTypeNode";
+}
+@using ITC_Matrix.Common;
+
+<script src="~/Assets/js/AccounTypeCreate.js"></script>
+
+@using (Html.BeginForm())
+{
+    @Html.Hidden("selectedProfiles")
+    <section class="mainTable-right">
+
+        @Html.AntiForgeryToken()
+        <section class="contentLimit-box content" id="content-1">
+            <section class="contentLimit-boxInner">
+                <section class="formBox-row fullwidth">
+                    <section class="heading">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Account_Type)</section>
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.Hidden("selectedProductString")
+
+                    <section class="formBox-content">
+                        <section class="leftDiv half" style="width: 400px;">
+                            <section class="feildRow">
+                                <section class="labelWraper" style="width: 110px;">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Code):</label>
+                                </section>
+                                <section class="feildWraper">
+                                    @Html.EditorFor(model => model.CODE)
+                                    @Html.ValidationMessageFor(model => model.CODE, "", new { @class = "text-danger" })
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper" style="width: 110px;">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Description):</label>
+                                </section>
+                                <section class="feildWraper">
+                                    <section class="feildRow">
+                                        @Html.EditorFor(model => model.DSCR, new { @maxLength = 20})
+                                        @Html.ValidationMessageFor(model => model.DSCR, "", new { @class = "text-danger" })
+                                    </section>
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper" style="width: 110px;">
+                                    <label>2<sup>nd</sup> @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Description):</label>
+                                </section>
+                                <section class="feildWraper">
+                                    <section class="feildRow">
+                                        @Html.EditorFor(model => model.SecondDSCR, new { @maxLength = 20 })
+                                        @Html.ValidationMessageFor(model => model.SecondDSCR, "", new { @class = "text-danger" })
+                                    </section>
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper" style="width: 110px;">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.UP800_Total):</label>
+                                </section>
+                                <section class="feildWraper">
+                                    <label class="customeFeild selectTag">
+                                        @Html.DropDownListFor(model => model.TotalUse, new List<SelectListItem>
+                                        {
+                                            new SelectListItem { Text = "Subtotal 1", Value = "1"},
+                                            new SelectListItem { Text = "Subtotal 2", Value = "2"},
+                                            new SelectListItem { Text = "Total", Value = "3"}
+                                        }, "-Select Total-")
+
+                                        @Html.ValidationMessageFor(model => model.TotalUse, "", new { @class = "text-danger" })
+                                    </label>
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper" style="width: 110px;">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Free_Print):</label>
+                                </section>
+                                <section class="feildWraper">
+                                    <section class="feildRow">
+                                        @Html.CheckBox("AllowFreeBool", false)
+                                        <label for="AllowFreeBool" class="checkbox-inline"><span></span><div class="label-txt"></div></label>
+                                    </section>
+                                </section>
+                            </section>
+                        </section>
+                        <section class="rightDiv half">
+                            <section class="departCode-box">
+                                <h4>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Web_deposit)</h4>
+                                <section class="departCode-row headTitle">
+                                    <section class="half" style="width:50%;float:left">
+                                       @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Code)
+                                    </section>
+                                    <section class="half" style="width:50%;float:left">
+                                       @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Description) 
+                                    </section>
+                                </section>
+                                @{
+                                    if (ViewBag.Profiles != null)
+                                    {
+                                        foreach (var profile in ViewBag.Profiles)
+                                        {
+                                <section class="departCode-row">
+                                    <section class="half" style="width:50%;float:left;margin-bottom:10px;">
+                                        @Html.CheckBox("profile", false, new { @id = @profile.CODE })
+                                        <label for='@profile.CODE' class="checkbox-inline"><span></span><div class="label-txt"></div></label>
+                                    </section>
+                                    <section class="half" style="width:50%;float:left;margin-top:10px;">
+                                        @profile.DSCR
+                                    </section>
+                                </section>
+                                        }
+                                    }
+                                }
+                            </section>
+                        </section>
+                    </section>
+                </section>
+
+                <section class="formBox-row fullwidth">
+
+                    <section class="formBox-content">
+
+                        <section class="floatRight row">
+                            <section class="small-formBtn">
+                                <input type="submit" value="@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Save)" class="pink-btn" />
+                            </section>
+                            <section class="small-formBtn">
+                                <a href='@Url.Action("Index", "AccountType")' class="blue-btn">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Cancel)</a>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+        <section class="clear"></section>
+    </section>
+                                }

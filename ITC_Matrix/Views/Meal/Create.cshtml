@@ -1,0 +1,107 @@
+﻿@using ITC_Matrix.Common;
+@model ITC_Matrix.Models.Meal
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Menu = "plans";
+    ViewBag.SubMenu = "mealNode";
+}
+
+@using (Html.BeginForm())
+{
+    <section class="mainTable-right">
+
+        @Html.AntiForgeryToken()
+        <section class="contentLimit-box content" id="content-1">
+            @{
+                if (ViewBag.message != string.Empty)
+                {
+                    <section class="@ViewBag.Class">@ViewBag.message</section>
+                }
+            }
+            <section class="contentLimit-boxInner">
+                <section class="formBox-row fullwidth">
+                    <section class="heading">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Add_Meal_Type)</section>
+                    <section class="formBox-content">                        
+                        <section class="leftDiv half">
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Code):</label>
+                                </section>
+                                <section class="feildWraper">
+                                    <label class="customeFeild selectTag">
+                                        @Html.DropDownListFor(model => model.CODE, ViewBag.lstMealType as SelectList, new { })
+                                        @Html.ValidationMessageFor(model => model.CODE, "", new { @class = "text-danger" })
+                                    </label>
+                                </section>
+                            </section>                                                       
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Description):</label>
+                                </section>
+                                <section class="feildWraper">
+                                    <section class="feildRow">
+                                        @Html.EditorFor(model => model.DSCR)
+                                        @Html.ValidationMessageFor(model => model.DSCR, "", new { @class = "text-danger" })
+                                    </section>
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.From_Time):</label>
+                                </section>
+                                <section class="styled-select">
+                                    <label class="customeFeild selectTag">
+                                        @Html.DropDownListFor(model => model.FromHH, ViewBag.FromHH as SelectList, new { })
+                                        @*<section class="labelWraper">
+                                            <label id="errmessage"></label>
+                                        </section>*@
+                                        @Html.ValidationMessageFor(model => model.FromTime, "", new { @class = "text-danger" })
+                                    </label>
+                                </section>
+                                <section class="styled-select">
+                                    <label class="customeFeild selectTag">
+                                        @Html.DropDownListFor(model => model.FromMM, ViewBag.FromMM as SelectList, new { })
+                                        @Html.ValidationMessageFor(model => model.FromTime, "", new { @class = "text-danger" })
+                                    </label>
+                                </section>
+                            </section>
+
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.To_Time):</label>
+                                </section>
+                                <section class="styled-select">
+                                    <label class="customeFeild selectTag">
+                                        @Html.DropDownListFor(model => model.ToHH, ViewBag.FromHH as SelectList, new { })
+                                    </label>
+                                </section>
+                                <section class="styled-select">
+                                    <label class="customeFeild selectTag">
+                                        @Html.DropDownListFor(model => model.ToMM, ViewBag.FromMM as SelectList, new { })
+                                        @Html.ValidationMessageFor(model => model.FromTime, "", new { @class = "text-danger" })
+                                    </label>
+                                </section>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+
+                <section class="formBox-row fullwidth">
+                    <section class="formBox-content">
+                        <section class="floatRight row">
+                            <section class="small-formBtn">
+                                <input type="submit" value="@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Save)" class="pink-btn" />
+                            </section>
+                            <section class="small-formBtn">                            
+                                <a href='@Url.Action("Index", "Meal")' class="blue-btn">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Cancel)</a>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+        <section class="clear"></section>
+    </section>
+                                }

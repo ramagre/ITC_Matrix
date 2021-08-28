@@ -1,0 +1,80 @@
+﻿@model ITC_Matrix.Models.CostCentre
+@using ITC_Matrix.Common;
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Menu = "clients";
+    ViewBag.SubMenu = "costCenterNode";
+}
+
+<section class="mainTable-right">
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @*<h2>Add a Cost Center</h2>*@
+
+        <section class="contentLimit-box content" id="content-1">
+            <section class="contentLimit-boxInner">
+                <section class="formBox-row fullwidth">
+                    <section class="heading">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Add_Cost_Center)</section>
+                    <section class="formBox-content">
+                        <section class="leftDiv half">
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Code)</label>
+                                </section>
+                                <section class="feildWraper">
+                                    @Html.EditorFor(model => model.CostCentreID) 
+                                    @Html.ValidationMessageFor(model => model.CostCentreID, "", new { @class = "text-danger" })
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Description)</label>
+                                </section>
+                                <section class="feildWraper">
+
+                                    @Html.TextAreaFor(model => model.CostCentreName, new { cols = "40", rows = "2" })
+                                    @Html.ValidationMessageFor(model => model.CostCentreName, "", new { @class = "text-danger" })
+
+                                </section>
+                            </section>
+
+                        </section>
+                    </section>
+
+                </section>
+                <section class="formBox-content" style="padding-top:0;">
+                    <section class="floatRight">
+                        <section class="small-formBtn">
+                            <input type="submit" class="pink-btn" value="@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Save)">
+                        </section>
+                        <section class="small-formBtn">
+                            <a href='@Url.Action("Index", "CostCenter")' class="blue-btn">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Cancel)</a>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+        <section class="clear"></section>
+
+    }
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

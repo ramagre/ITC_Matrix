@@ -1,0 +1,180 @@
+﻿@model IEnumerable<ITC_Matrix.Models.ClientPlan>
+@using ITC_Matrix.Common;
+@{
+    ViewBag.Title = "Meal Plan Info";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Menu = "clients";
+    ViewBag.SubMenu = "clientsNode";
+
+    var tempid = string.Empty;
+}
+<script src="~/Assets/js/ManageClient.js"></script>
+<section class="mainTable-right">
+
+    @using (Html.BeginForm())
+    {
+        @Html.Hidden("ClientID");
+        @Html.Hidden("PlanID");
+     
+        <section class="formBox-row">
+            <section class="half-width" style="float:left"><h3>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Meal_Plan_Info)</h3></section>
+
+            <section class="floatRight">
+                <a href='@Url.Action("Index", "ClientMealPlans", new { id = ViewBag.Id })' class="blue-btn">Return To Clients Meal Plan</a>
+                @*<a href="@Url.Action("Index", "ClientMealPlans", new { id = ViewBag.Id })" class="edit_icon"><input type="button" class="pink-btn" value="Return To Clients Meal Plan"></a>*@
+                @*<a href='@Url.Action("Index","Clients")'><span class="pink-btn"><input type="button" class="pink-btn" value="Return To Clients"></span></a>*@
+            </section>           
+        </section>
+        
+        <section class="clear">&nbsp;</section>
+        <label id="lblError" style="color:red;"></label>
+        if (ViewBag.Message != null)
+        {
+            <section class="@ViewBag.MessageClass">@ViewBag.Message</section>
+        }
+
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="gridTable tableFixed-none">
+            <tbody class="scrollContent">                
+                <tr>
+                    <th></th>
+                    <th>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.MealsTaken)</th>
+                    <th>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Meal)</th>
+                    <th>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Max)</th>
+                    <th>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Spent)</th>
+                    <th>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.amount)</th>
+                    <th>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Maxamount)</th>                    
+                </tr>
+
+                @if(Model != null)
+                {
+                foreach (var item in Model)
+                {
+                    
+                    @Html.Hidden("hdnID_NO_" + @item.MealCode, item.ID_NO);
+                    @Html.Hidden("hdnPlanCode_" + @item.MealCode, item.PlanCode);
+                    @Html.Hidden("hdnmealcode_" + @item.MealCode, item.MealCode);
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        @{ tempid = "lblmeals_" + @item.MealCode; }
+                        <td id=@tempid>
+                            @Html.DisplayFor(modelItem => item.Meals)
+                        </td>
+                        @{ tempid = "txtmeals_" + @item.MealCode; }
+                        @Html.Hidden("hdn" + @tempid)
+                        <td>
+                            @Html.TextBox("txtmeals", "", new { @id = @tempid, @Value = "0" })
+                        </td>
+                        <td>
+                            @Html.Raw(item.Max)
+                        </td>
+                        @{ tempid = "lblamount_" + @item.MealCode; }
+                        <td id=@tempid>
+                            @{
+                                decimal val = 0;
+                                if (item.Amount != 0)
+                                {
+                                    val = (decimal)item.Amount / 100;
+                                }
+                                @Html.Raw(string.Format("{0:0.00}", val))
+                            }
+
+                        </td>
+                        @{ tempid = "txtamount_" + @item.MealCode; }
+                        <td>
+                            @Html.TextBox("txtamount", "", new { @id = @tempid, @Value = "0" })
+                            @Html.Hidden("hdn" + @tempid)
+                        </td>
+                        <td>
+                            @{
+                                if (item.MaxAmount != 0)
+                                {
+                                    @Html.Raw("$" + string.Format("{0:0.00}", ((decimal)item.MaxAmount / 100)))
+                                }
+                                else
+                                {
+                                    @Html.Raw("N/A")
+                                }
+                            }
+                        </td>                       
+                    </tr>
+
+                                }
+
+                <tr>
+                    <td>Plan Totals</td>
+                    <td>
+                        @{
+                            int valmealtaken = 0;
+                        }
+                        @foreach (var item in Model)
+                        {
+                            valmealtaken = valmealtaken + item.Meals;
+                        }
+                        @Html.Raw(valmealtaken)
+                    </td>
+                    <td>Avail. Meals</td>
+                    <td>N/A</td>
+                    <td>
+                        @{
+                            decimal valspent = 0;
+                        }
+                        @foreach (var item in Model)
+                        {
+                            if (item.Amount != 0)
+                            {
+                                valspent = valspent + ((decimal)item.Amount / 100);
+                            }
+                        }
+                        @Html.Raw("$" + string.Format("{0:0.00}", valspent))
+                    </td>
+                    <td>Avail. Amount</td>
+                    <td>
+
+                        @{
+                            decimal valTotalAmountPerPlan = 0;
+                            valspent = 0;
+                        }
+                        @foreach (var item in Model)
+                        {
+                            if (item.TotalAmountPerPlan != 0)
+                            {
+                                valTotalAmountPerPlan = ((decimal)item.TotalAmountPerPlan / 100);
+                            }
+
+                            if (item.Amount != 0)
+                            {
+                                valspent = valspent + ((decimal)item.Amount / 100);
+                            }
+                        }
+                        @Html.Raw("$" + string.Format("{0:0.00}", valTotalAmountPerPlan - valspent))
+                    </td>
+
+                </tr>
+                }
+            </tbody>
+
+            <tfoot class="gridFooter">
+                <tr>
+                    <td colspan="7">
+                        <section class="floatRight">
+                            <section class="formBox-content" style="padding-top:2px;">
+                               @if (Model.Count() > 0)
+                               {
+                                <section class="floatRight">
+                                    <section class="small-formBtn">
+                                        <input type="submit" class="pink-btn" value="@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Save)" id="btnSave">
+                                    </section>                                   
+                                </section>
+                               }
+                            </section>
+                        </section>
+                    </td>
+                </tr>
+            </tfoot>
+
+        </table>
+
+                            }
+</section>

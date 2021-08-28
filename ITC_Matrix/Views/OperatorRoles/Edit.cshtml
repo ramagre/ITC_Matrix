@@ -1,0 +1,238 @@
+﻿@using ITC_Matrix.Common;
+@model ITC_Matrix.Models.RightGroup
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Menu = "admin";
+    ViewBag.SubMenu = "operatorRolesNode";
+
+    var tempchkname = string.Empty;
+    //var temptxtname = "txt_";
+}
+
+<script src="~/Assets/js/ManageMenu.js"></script>
+<script src="~/Assets/js/OperatorRolesEdit.js"></script>
+@using (Html.BeginForm())
+{
+    <section class="mainTable-right">
+
+        @Html.AntiForgeryToken()
+        @Html.Hidden("selectedDeviceString")
+        @Html.Hidden("selectedProfileString")
+        @Html.Hidden("selectedPayMethodString")
+        @Html.Hidden("selectedChechboxid")
+        @Html.Hidden("ID", Model.Code)
+        @Html.Hidden("exitingName", Model.Dscr)
+
+        <section class="contentLimit-box content" id="content-1">
+
+            @if (ViewBag.OperatorRolesMessage != null)
+            {
+                <section class="@ViewBag.MessageClass">@ViewBag.OperatorRolesMessage</section>
+            }
+
+            <section class="contentLimit-boxInner">
+                <section class="formBox-row fullwidth">
+                    <section class="heading">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.EditRole)</section>
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <section class="formBox-content">
+
+                        <section class="leftDiv half" style="width: 400px;float:left;">
+
+                            <section class="feildRow">
+                                <section class="labelWraper" style="width: 110px;">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Code):</label>
+                                </section>
+                                <section class="feildWraper">
+                                    @Html.Label(Model.Code.ToString())
+                                </section>
+                            </section>
+
+                            <section class="feildRow">
+                                <section class="labelWraper" style="width: 110px;">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Name) </label>
+                                </section>
+                                <section class="feildWraper">
+                                    <section class="feildRow">
+                                        @Html.EditorFor(model => model.Dscr)
+                                        @Html.ValidationMessageFor(model => model.Dscr, "", new { @class = "text-danger" })
+                                    </section>
+                                </section>
+                            </section>
+
+                            <section class="filterRow" id="permissionTask">
+                                @{
+                                    if (ViewBag.permissionsTasks != null)
+                                    {
+                                        <section class="feildRow" id="secDeviceType">
+
+                                            <table class="gridTable tabContent" width="100%" cellpadding="0" cellspacing="0">
+                                                @foreach (var item in ViewBag.distinctTaskGroups)
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            <section class="accordian-title" id="secModel">
+                                                                <section class="accordian-icon open" onclick="SlidUp(this);"></section>
+                                                                <input type="checkbox" name="main" id=@item onclick="CheckMainMenu(this)">
+                                                                <label for=@item class="checkbox-inline">
+                                                                    <span></span>
+                                                                    <div class="label-txt">@item</div>
+                                                                </label>
+                                                                <ul class="groupOptions" style="padding-left:25px;">
+                                                                    @foreach (var item1 in ViewBag.permissionsTasks)
+                                                                    {
+                                                                        if (item == @item1.taskgroup)
+                                                                        {
+                                                                            var deviceChkId = "TaskName_" + item1.taskid;
+                                                                            <li>
+                                                                                @Html.CheckBox("accountType", (bool)item1.isSelected, new { @id = @item1.taskid, @onclick = string.Concat("CheckSubMenu(this, " + @item + ");") })
+                                                                                <label for='@item1.taskid' class="checkbox-inline">
+
+                                                                                    <span></span>
+                                                                                    <div class="label-txt">
+
+                                                                                        <div style="float: left">@item1.taskname</div>
+                                                                                      
+                                                                                        <div style="float: left"><a data-toggle="tooltip" title="@item1.taskdescription">&nbsp; i</a></div>
+
+                                                                                    </div>
+
+                                                                                </label>
+
+                                                                            </li>
+                                                                            <li>
+
+                                                                            </li>
+                                                                        }
+                                                                    }
+                                                                </ul>
+                                                            </section>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </table>
+                                        </section>
+                                    }
+                                }
+                            </section>
+
+                        </section>
+
+                        <section class="rightDiv half" id="divact">
+                            <section class="clear">&nbsp;</section>
+                            <section class="fullwidth initialized_ac" id="secOffline">
+                                <section class="departCode-box">
+                                    <h4>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Device_Group)</h4>
+                                    <section class="feildRow" style="padding-bottom:0px;">
+                                        <section class="half" style="text-align:center;padding-top:20px"><b>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Not_Allowed)</b></section>
+                                        <section class="half" style="text-align:center;padding-top:20px"><b>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Allowed)</b></section>
+                                    </section>
+                                    <section class="row">
+                                        <section class="initialized_ac_outer fullwidth">
+                                            <section class="half">
+                                                <section class="feildRow">
+                                                    <section class="bloc">
+                                                        @Html.ListBox("Register", (MultiSelectList)ViewBag.NotSelectedDevicelist, htmlAttributes: new { id = "ChooseLeft", @class = "multiple" })
+                                                    </section>
+                                                </section>
+                                            </section>
+                                            <section class="half">
+                                                <section class="feildRow">
+                                                    <section class="bloc">
+                                                        @Html.ListBoxFor(m => m.RegisterList, (MultiSelectList)ViewBag.SelectedDevicelist, htmlAttributes: new { id = "ChooseRight", @class = "multiple", @style = "text-align: right;" })
+                                                    </section>
+                                                </section>
+                                            </section>
+                                            <section class="addNremove-wraper">
+                                                <input id="ShiftRight" type="button" class="green-btn addList" value="">
+                                                <input id="ShiftLeft" type="button" class="green-btn removeList" value="">
+                                            </section>
+                                        </section>
+                                    </section>
+                                </section>
+
+
+                                <section class="departCode-box">
+                                    <h4>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Profile_Group)</h4>
+                                    <section class="feildRow" style="padding-bottom:0px;">
+                                        <section class="half" style="text-align:center;padding-top:20px"><b>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Not_Allowed)</b></section>
+                                        <section class="half" style="text-align:center;padding-top:20px"><b>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Allowed)</b></section>
+                                    </section>
+                                    <section class="row">
+                                        <section class="initialized_ac_outer fullwidth">
+                                            <section class="half">
+                                                <section class="feildRow">
+                                                    <section class="bloc">
+                                                        @Html.ListBox("Profile", (MultiSelectList)ViewBag.notselectedProfileList, htmlAttributes: new { id = "ChooseProfileLeft", @class = "multiple" })
+                                                    </section>
+                                                </section>
+                                            </section>
+                                            <section class="half">
+                                                <section class="feildRow">
+                                                    <section class="bloc">
+                                                        @Html.ListBoxFor(m => m.ProfileList, (MultiSelectList)ViewBag.selectedProfileList, htmlAttributes: new { id = "ChooseProfileRight", @class = "multiple", @style = "text-align: right;" })
+                                                    </section>
+                                                </section>
+                                            </section>
+                                            <section class="addNremove-wraper">
+                                                <input id="ShiftProfileRight" type="button" class="green-btn addList" value="">
+                                                <input id="ShiftProfileLeft" type="button" class="green-btn removeList" value="">
+                                            </section>
+                                        </section>
+                                    </section>
+                                </section>
+
+                                <section class="departCode-box">
+                                    <h4>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.paymentMethods) </h4>
+                                    <section class="feildRow" style="padding-bottom:0px;">
+                                        <section class="half" style="text-align:center;padding-top:20px"><b>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Not_Allowed)</b></section>
+                                        <section class="half" style="text-align:center;padding-top:20px"><b>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Allowed)</b></section>
+                                    </section>
+                                    <section class="row">
+                                        <section class="initialized_ac_outer fullwidth">
+                                            <section class="half">
+                                                <section class="feildRow">
+                                                    <section class="bloc">
+                                                        @Html.ListBox("PayMethod", (MultiSelectList)ViewBag.notselectedPayMethodList, htmlAttributes: new { id = "ChoosePayMethodLeft", @class = "multiple" })
+                                                    </section>
+                                                </section>
+                                            </section>
+                                            <section class="half">
+                                                <section class="feildRow">
+                                                    <section class="bloc">
+                                                        @Html.ListBoxFor(m => m.PayMethodList, (MultiSelectList)ViewBag.SelectedPayMethodList, htmlAttributes: new { id = "ChoosePayMethodRight", @class = "multiple", @style = "text-align: right;" })
+                                                    </section>
+                                                </section>
+                                            </section>
+                                            <section class="addNremove-wraper">
+                                                <input id="ShiftPayMethodRight" type="button" class="green-btn addList" value="">
+                                                <input id="ShiftPayMethodLeft" type="button" class="green-btn removeList" value="">
+                                            </section>
+                                        </section>
+                                    </section>
+                                </section>
+                            </section>
+                        </section>
+
+                        <section class="formBox-row fullwidth">
+                            <section class="floatRight row">
+                                <section class="small-formBtn">
+                                    <input type="submit" value="@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Save)" class="pink-btn" />
+                                </section>
+                                <section class="small-formBtn">
+                                    <a href='@Url.Action("Index", "OperatorRoles")' class="blue-btn">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Cancel)</a>
+                                </section>
+                            </section>
+
+                        </section>
+
+                    </section>
+                </section>
+
+            </section>
+        </section>
+        <section class="clear"></section>
+    </section>
+                                    }

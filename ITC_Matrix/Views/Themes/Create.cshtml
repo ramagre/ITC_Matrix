@@ -1,0 +1,903 @@
+﻿@model ITC_Matrix.Models.theme
+@using ITC_Matrix.Common;
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Menu = "admin";
+    ViewBag.SubMenu = "themesNode";
+}
+
+<link rel="stylesheet" href="~/Content/themeCss/colorpicker.css" />
+<link rel="stylesheet" href="~/Content/themeCss/themelayout.css" />
+<link href="~/Assets/css/modal.css" rel="stylesheet">
+
+<script type="text/javascript" src="~/Scripts/colorpicker.js"></script>
+<script type="text/javascript" src="~/Assets/JS/SetTheme.js"></script>
+<script src="~/Assets/js/modal.js" type="text/javascript"></script>
+<script type="text/javascript" src="~/Assets/JS/CollapseExpand.js"></script>
+
+<section class="mainTable-right">
+
+    @using (Html.BeginForm("Create", "Themes", FormMethod.Post, new { enctype = "multipart/form-data", @id = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <section class="contentLimit-box content" id="content-1">
+            <section class="contentLimit-boxInner">
+                <section class="formBox-row fullwidth">
+                    <section class="heading">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.AddaTheme)</section>
+                    <section class="formBox-content">
+                        <section class="leftDiv half">
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.ThemeName): </label>
+                                </section>
+                                <section class="feildWraper">
+                                    @Html.EditorFor(model => model.themename, new { @maxLength = 50 })
+                                    @Html.ValidationMessageFor(model => model.themename, "", new { @class = "text-danger" })
+                                </section>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+
+                @Html.Hidden("SiteBackgroundColor")
+                @Html.Hidden("SiteBackgroundImage")
+                @Html.Hidden("SiteLogo")
+                @Html.Hidden("HeaderBackgroundColor")
+                @Html.Hidden("MenuBackgroundColor")
+                @Html.Hidden("SubmenuBackgroundColor")
+
+                @Html.Hidden("FormControlFontColor")
+                @Html.Hidden("FormControlBorderColor")
+                @Html.Hidden("GridHeaderBackgroundColor")
+                @Html.Hidden("GridFooterBackgroundColor")
+                @Html.Hidden("GridRowBackgroundColor")
+                @Html.Hidden("GridRowAlternateBackgroundColor")
+
+                @Html.Hidden("HeaderFontStyleFontColor")
+                @Html.Hidden("MenuFontStyleFontColor")
+                @Html.Hidden("SubmenuFontStyleFontColor")
+                @Html.Hidden("FormHeaderFontStyleFontColor")
+                @Html.Hidden("FormLableFontStyleFontColor")
+                @Html.Hidden("FormControlFontStyleFontColor")
+
+                @Html.Hidden("ClientTileBackgroundColor")
+                @Html.Hidden("AccountsTileBackgroundColor")
+                @Html.Hidden("PrivilegesTileBackgroundColor")
+                @Html.Hidden("DevicesTileBackgroundColor")
+                @Html.Hidden("ReportsTileBackgroundColor")
+                @Html.Hidden("RolesTileBackgroundColor")
+                @Html.Hidden("AdministrationTileBackgroundColor")
+                @Html.Hidden("ToolsTileBackgroundColor")
+                @Html.Hidden("AppearanceTileBackgroundColor")
+
+                @Html.Hidden("ClientTileBackgroundImage")
+                @Html.Hidden("AccountsTileBackgroundImage")
+                @Html.Hidden("PrivilegesTileBackgroundImage")
+                @Html.Hidden("DevicesTileBackgroundImage")
+                @Html.Hidden("ReportsTileBackgroundImage")
+                @Html.Hidden("RolesTileBackgroundImage")
+                @Html.Hidden("AdministrationTileBackgroundImage")
+                @Html.Hidden("ToolsTileBackgroundImage")
+                @Html.Hidden("AppearanceTileBackgroundImage")
+
+                <section class="formBox-row fullwidth">
+                    <table class="tabContent" width="100%" cellpadding="0" cellspacing="0" style="border:none;">
+                        <tr>
+                            <td style="padding:0px;">
+                                <section class="accordian-title" style="padding:0px;">
+                                    <section class="accordian-icon close" onclick="SlidDown(this);" style="margin-top:14px;"></section>
+                                    <section class="heading" style="padding-left:25px;">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.SetTheme)<span style="font-size: 13px;">    (@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Onlyimagesallowed))</span></section>
+                                    <section class="formBox-content themeChange-box" style="display:none;">
+                                        <section class="fullwidth themePreview">
+                                            <center>
+                                                <img src="~/Assets/Images/theme-indicator-img.png" alt="" />
+                                            </center>
+                                        </section>
+                                        <section class="fullwidth">
+                                            <h4>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.PicktheColor)</h4>
+                                            <section class="colorPicker-wraper fullwidth">
+                                                <h6>Header</h6>
+                                                <section class="fullwidth colorPicker-row">
+                                                    <section class="row">
+                                                        <section class="half">
+                                                            <p>1.@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Site_Background_Color)</p>
+                                                            <div>
+                                                                <div id="customWidget" style="top:0px;right:105px;">
+                                                                    <div id="colorSelectorSiteBackground"><div style="background-color:#171A29" id="divSiteBackgroundColor"></div></div>
+                                                                    <div id="colorpickerHolder" style="height: 0px; display: block;">
+                                                                        <div class="colorpicker" id="collorpicker_434" style="display: block; position: absolute;"><div class="colorpicker_color" style="background-color: rgb(0, 0, 255);"><div><div style="left: 150px; top: 0px;"></div></div></div><div class="colorpicker_hue"><div style="top: 50px;"></div></div><div class="colorpicker_new_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_current_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_hex"><input type="text" maxlength="6" size="6"></div><div class="colorpicker_rgb_r colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_g colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_h colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_s colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_submit"></div></div>
+                                                                    </div>
+                                                                </div>
+                                                                <label id="lblSiteBackgroundColor" class="colorInner">#171A29</label>
+                                                            </div>
+                                                        </section>
+                                                        <section class="half">
+                                                            <p>2.@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Site_Background_Image)</p>
+                                                            <input type="file" name="SiteBackgroundImageUpload" id="SiteBackgroundImageUpload" class="hide" onchange="ChooseImage(this, event, 'pSiteBackgroundImage', 'SiteBackgroundImage')" />
+                                                            <label for="SiteBackgroundImageUpload" class="btn-choose">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Choosefile)</label>
+                                                            <p class="filename" id="pSiteBackgroundImage">File name will be come here</p>
+                                                        </section>
+                                                    </section>
+                                                </section>
+                                                <section class="fullwidth colorPicker-row">
+                                                    <section class="row">
+                                                        <section class="half">
+                                                            <p>3. @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Site_Logo)</p>
+                                                            <input type="file" name="SiteLogoImageUpload" id="SiteLogoImageUpload" class="hide" onchange="ChooseImage(this, event, 'pSiteLogoImage', 'SiteLogo')" />
+                                                            <label for="SiteLogoImageUpload" class="btn-choose">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Choosefile)</label>
+                                                            <p class="filename" id="pSiteLogoImage">File name will be come here</p>
+                                                        </section>
+                                                        <section class="half">
+                                                            <p>4.@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.GridHeaderBackgroundcolor)</p>
+                                                            <div>
+                                                                <div id="customWidget" style="top:0px;right:105px;">
+                                                                    <div id="colorSelectorHeaderBackgroundColor"><div style="background-color:#00D6B0" id="divHeaderBackgroundColor"></div></div>
+                                                                    <div id="colorpickerHolder" style="height: 0px; display: block;">
+                                                                        <div class="colorpicker" id="collorpicker_434" style="display: block; position: absolute;"><div class="colorpicker_color" style="background-color: rgb(0, 0, 255);"><div><div style="left: 150px; top: 0px;"></div></div></div><div class="colorpicker_hue"><div style="top: 50px;"></div></div><div class="colorpicker_new_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_current_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_hex"><input type="text" maxlength="6" size="6"></div><div class="colorpicker_rgb_r colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_g colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_h colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_s colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_submit"></div></div>
+                                                                    </div>
+                                                                </div>
+                                                                <label id="lblHeaderBackgroundColor" class="colorInner">#00D6B0</label>
+                                                            </div>
+                                                        </section>
+                                                    </section>
+                                                </section>
+                                                <section class="fullwidth colorPicker-row">
+                                                    <section class="row">
+                                                        <section class="half">
+                                                            <p>5. @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.HeaderFontStyle)<span> (@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.NameSizeWeightColor))</span></p>
+                                                            <input type="button" class="btn-edit" value="Edit" data-modal-open="HeaderFontStyle" />
+                                                        </section>
+                                                    </section>
+                                                </section>
+                                            </section>
+                                            <section class="colorPicker-wraper fullwidth">
+                                                <h6>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.NavigationBar)</h6>
+                                                <section class="fullwidth colorPicker-row">
+                                                    <section class="row">
+                                                        <section class="half">
+                                                            <p>6.@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.MenuBackgroundColor)</p>
+
+                                                            <div>
+                                                                <div id="customWidget" style="top:0px;right:105px;">
+                                                                    <div id="colorSelectorMenuBackgroundColor"><div style="background-color:#242128" id="divMenuBackgroundColor"></div></div>
+                                                                    <div id="colorpickerHolder" style="height: 0px; display: block;">
+                                                                        <div class="colorpicker" id="collorpicker_434" style="display: block; position: absolute;"><div class="colorpicker_color" style="background-color: rgb(0, 0, 255);"><div><div style="left: 150px; top: 0px;"></div></div></div><div class="colorpicker_hue"><div style="top: 50px;"></div></div><div class="colorpicker_new_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_current_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_hex"><input type="text" maxlength="6" size="6"></div><div class="colorpicker_rgb_r colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_g colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_h colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_s colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_submit"></div></div>
+                                                                    </div>
+                                                                </div>
+                                                                <label id="lblMenuBackgroundColor" class="colorInner">#242128</label>
+                                                            </div>
+                                                        </section>
+                                                        <section class="half">
+                                                            <p>7.@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.MenuFontStyle)<span> (@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.NameSizeWeightColor))</span></p>
+                                                            <input type="button" class="btn-edit" value="Edit" data-modal-open="MenuFontStyle" />
+                                                        </section>
+                                                    </section>
+                                                </section>
+                                                <section class="fullwidth colorPicker-row">
+                                                    <section class="row">
+                                                        <section class="half">
+                                                            <p>8. @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.SubMenuBackgroundColor)</p>
+                                                            <div>
+                                                                <div id="customWidget" style="top:0px;right:105px;">
+                                                                    <div id="colorSelectorSubmenuBackgroundColor"><div style="background-color:#242128" id="divSubmenuBackgroundColor"></div></div>
+                                                                    <div id="colorpickerHolder" style="height: 0px; display: block;">
+                                                                        <div class="colorpicker" id="collorpicker_434" style="display: block; position: absolute;"><div class="colorpicker_color" style="background-color: rgb(0, 0, 255);"><div><div style="left: 150px; top: 0px;"></div></div></div><div class="colorpicker_hue"><div style="top: 50px;"></div></div><div class="colorpicker_new_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_current_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_hex"><input type="text" maxlength="6" size="6"></div><div class="colorpicker_rgb_r colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_g colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_h colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_s colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_submit"></div></div>
+                                                                    </div>
+                                                                </div>
+                                                                <label id="lblSubmenuBackgroundColor" class="colorInner">#242128</label>
+                                                            </div>
+                                                        </section>
+                                                        <section class="half">
+                                                            <p>9. @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.SubMenuFontStyle)<span> (@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.NameSizeWeightColor))</span></p>
+                                                            <input type="button" class="btn-edit" value="Edit" data-modal-open="SubmenuFontStyle" />
+                                                        </section>
+                                                    </section>
+                                                </section>
+                                            </section>
+                                            <section class="colorPicker-wraper fullwidth">
+                                                <h6 style="float:left;padding-right:10px;">Box Background</h6><h6 style="float:left;text-transform:none;text-decoration:none;">(Recommended Size 870*870)</h6>
+                                                <section class="fullwidth colorPicker-row">
+                                                    <section class="row">
+                                                        <section class="half">
+                                                            <p>10. @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Box) (@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Clients))</p>
+                                                            <input type="file" name="ClientTileBackgroundImageUpload" id="ClientTileBackgroundImageUpload" class="hide" onchange="ChooseImage(this, event, 'pClientTileBackgroundImage', 'ClientTileBackgroundImage')" />
+                                                            <label for="ClientTileBackgroundImageUpload" class="btn-choose" style="right:137px; top:3px;height: 28px;">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Choosefile)</label>
+                                                            <p class="filename" id="pClientTileBackgroundImage" style="padding-right:137px;">File name will be come here</p>
+
+                                                            <div>
+                                                                <div id="customWidget" style="top:0px;right:105px;">
+                                                                    <div id="colorSelectorClientTileBackgroundColor"><div style="background-color:" id="divClientTileBackgroundColor"></div></div>
+                                                                    <div id="colorpickerHolder" style="height: 0px; display: block;">
+                                                                        <div class="colorpicker" id="collorpicker_434" style="display: block; position: absolute;"><div class="colorpicker_color" style="background-color: rgb(0, 0, 255);"><div><div style="left: 150px; top: 0px;"></div></div></div><div class="colorpicker_hue"><div style="top: 50px;"></div></div><div class="colorpicker_new_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_current_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_hex"><input type="text" maxlength="6" size="6"></div><div class="colorpicker_rgb_r colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_g colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_h colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_s colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_submit"></div></div>
+                                                                    </div>
+                                                                </div>
+                                                                <label id="lblClientTileBackgroundColor" class="colorInner"></label>
+                                                                <a href="javascript:void(0)" onclick="RemoveColorAndBackground('divClientTileBackgroundColor', 'lblClientTileBackgroundColor', 'ClientTileBackgroundColor', 'pClientTileBackgroundImage', 'ClientTileBackgroundImage')" class="filename" style="width:130px;">Remove color & image</a>
+                                                            </div>
+                                                        </section>
+                                                        <section class="half">
+                                                            <p>11. @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Box) (@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Accounts))</p>
+                                                            <input type="file" name="AccountsTileBackgroundImageUpload" id="AccountsTileBackgroundImageUpload" class="hide" onchange="ChooseImage(this, event, 'pAccountsTileBackgroundImage', 'AccountsTileBackgroundImage')" />
+                                                            <label for="AccountsTileBackgroundImageUpload" class="btn-choose" style="right:137px; top:3px;height: 28px;">Choose file</label>
+                                                            <p class="filename" id="pAccountsTileBackgroundImage" style="padding-right:137px;">File name will be come here</p>
+
+                                                            <div>
+                                                                <div id="customWidget" style="top:0px;right:105px;">
+                                                                    <div id="colorSelectorAccountsTileBackgroundColor"><div style="background-color:" id="divAccountsTileBackgroundColor"></div></div>
+                                                                    <div id="colorpickerHolder" style="height: 0px; display: block;">
+                                                                        <div class="colorpicker" id="collorpicker_434" style="display: block; position: absolute;"><div class="colorpicker_color" style="background-color: rgb(0, 0, 255);"><div><div style="left: 150px; top: 0px;"></div></div></div><div class="colorpicker_hue"><div style="top: 50px;"></div></div><div class="colorpicker_new_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_current_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_hex"><input type="text" maxlength="6" size="6"></div><div class="colorpicker_rgb_r colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_g colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_h colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_s colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_submit"></div></div>
+                                                                    </div>
+                                                                </div>
+                                                                <label id="lblAccountsTileBackgroundColor" class="colorInner"></label>
+                                                                <a href="javascript:void(0)" onclick="RemoveColorAndBackground('divAccountsTileBackgroundColor', 'lblAccountsTileBackgroundColor', 'AccountsTileBackgroundColor', 'pAccountsTileBackgroundImage', 'AccountsTileBackgroundImage')" class="filename" style="width:130px;">Remove color & image</a>
+                                                            </div>
+                                                        </section>
+                                                    </section>
+                                                </section>
+                                                <section class="fullwidth colorPicker-row">
+                                                    <section class="row">
+                                                        <section class="half">
+                                                            <p>12. @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Box) (@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Privileges))</p>
+                                                            <input type="file" name="PrivilegesTileBackgroundImageUpload" id="PrivilegesTileBackgroundImageUpload" class="hide" onchange="ChooseImage(this, event, 'pPrivilegesTileBackgroundImage', 'PrivilegesTileBackgroundImage')" />
+                                                            <label for="PrivilegesTileBackgroundImageUpload" class="btn-choose" style="right:137px; top:3px;height: 28px;">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Choosefile)</label>
+                                                            <p class="filename" id="pPrivilegesTileBackgroundImage" style="padding-right:137px;">File name will be come here</p>
+
+                                                            <div>
+                                                                <div id="customWidget" style="top:0px;right:105px;">
+                                                                    <div id="colorSelectorPrivilegesTileBackgroundColor"><div style="background-color:" id="divPrivilegesTileBackgroundColor"></div></div>
+                                                                    <div id="colorpickerHolder" style="height: 0px; display: block;">
+                                                                        <div class="colorpicker" id="collorpicker_434" style="display: block; position: absolute;"><div class="colorpicker_color" style="background-color: rgb(0, 0, 255);"><div><div style="left: 150px; top: 0px;"></div></div></div><div class="colorpicker_hue"><div style="top: 50px;"></div></div><div class="colorpicker_new_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_current_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_hex"><input type="text" maxlength="6" size="6"></div><div class="colorpicker_rgb_r colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_g colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_h colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_s colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_submit"></div></div>
+                                                                    </div>
+                                                                </div>
+                                                                <label id="lblPrivilegesTileBackgroundColor" class="colorInner"></label>
+                                                                <a href="javascript:void(0)" onclick="RemoveColorAndBackground('divPrivilegesTileBackgroundColor', 'lblPrivilegesTileBackgroundColor', 'PrivilegesTileBackgroundColor', 'pPrivilegesTileBackgroundImage', 'PrivilegesTileBackgroundImage')" class="filename" style="width:130px;">Remove color & image</a>
+                                                            </div>
+                                                        </section>
+                                                        <section class="half">
+                                                            <p>13. @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Box) (@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Devices))</p>
+                                                            <input type="file" name="DevicesTileBackgroundImageUpload" id="DevicesTileBackgroundImageUpload" class="hide" onchange="ChooseImage(this, event, 'pDevicesTileBackgroundImage', 'DevicesTileBackgroundImage')" />
+                                                            <label for="DevicesTileBackgroundImageUpload" class="btn-choose" style="right:137px; top:3px;height: 28px;">Choose file</label>
+                                                            <p class="filename" id="pDevicesTileBackgroundImage" style="padding-right:137px;">File name will be come here</p>
+
+                                                            <div>
+                                                                <div id="customWidget" style="top:0px;right:105px;">
+                                                                    <div id="colorSelectorDevicesTileBackgroundColor"><div style="background-color:" id="divDevicesTileBackgroundColor"></div></div>
+                                                                    <div id="colorpickerHolder" style="height: 0px; display: block;">
+                                                                        <div class="colorpicker" id="collorpicker_434" style="display: block; position: absolute;"><div class="colorpicker_color" style="background-color: rgb(0, 0, 255);"><div><div style="left: 150px; top: 0px;"></div></div></div><div class="colorpicker_hue"><div style="top: 50px;"></div></div><div class="colorpicker_new_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_current_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_hex"><input type="text" maxlength="6" size="6"></div><div class="colorpicker_rgb_r colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_g colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_h colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_s colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_submit"></div></div>
+                                                                    </div>
+                                                                </div>
+                                                                <label id="lblDevicesTileBackgroundColor" class="colorInner"></label>
+                                                                <a href="javascript:void(0)" onclick="RemoveColorAndBackground('divDevicesTileBackgroundColor', 'lblDevicesTileBackgroundColor', 'DevicesTileBackgroundColor', 'pDevicesTileBackgroundImage', 'DevicesTileBackgroundImage')" class="filename" style="width:130px;">Remove color & image</a>
+                                                            </div>
+                                                        </section>
+                                                    </section>
+                                                </section>
+                                                <section class="fullwidth colorPicker-row">
+                                                    <section class="row">
+                                                        <section class="half">
+                                                            <p>14. @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Box) (@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Reports))</p>
+                                                            <input type="file" name="ReportsTileBackgroundImageUpload" id="ReportsTileBackgroundImageUpload" class="hide" onchange="ChooseImage(this, event, 'pReportsTileBackgroundImage', 'ReportsTileBackgroundImage')" />
+                                                            <label for="ReportsTileBackgroundImageUpload" class="btn-choose" style="right:137px; top:3px;height: 28px;">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Choosefile)</label>
+                                                            <p class="filename" id="pReportsTileBackgroundImage" style="padding-right:137px;">File name will be come here</p>
+
+                                                            <div>
+                                                                <div id="customWidget" style="top:0px;right:105px;">
+                                                                    <div id="colorSelectorReportsTileBackgroundColor"><div style="background-color:" id="divReportsTileBackgroundColor"></div></div>
+                                                                    <div id="colorpickerHolder" style="height: 0px; display: block;">
+                                                                        <div class="colorpicker" id="collorpicker_434" style="display: block; position: absolute;"><div class="colorpicker_color" style="background-color: rgb(0, 0, 255);"><div><div style="left: 150px; top: 0px;"></div></div></div><div class="colorpicker_hue"><div style="top: 50px;"></div></div><div class="colorpicker_new_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_current_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_hex"><input type="text" maxlength="6" size="6"></div><div class="colorpicker_rgb_r colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_g colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_h colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_s colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_submit"></div></div>
+                                                                    </div>
+                                                                </div>
+                                                                <label id="lblReportsTileBackgroundColor" class="colorInner"></label>
+                                                                <a href="javascript:void(0)" onclick="RemoveColorAndBackground('divReportsTileBackgroundColor', 'lblReportsTileBackgroundColor', 'ReportsTileBackgroundColor', 'pReportsTileBackgroundImage', 'ReportsTileBackgroundImage')" class="filename" style="width:130px;">Remove color & image</a>
+                                                            </div>
+                                                        </section>
+                                                        <section class="half">
+                                                            <p>15. @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Box) (@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Roles))</p>
+                                                            <input type="file" name="RolesTileBackgroundImageUpload" id="RolesTileBackgroundImageUpload" class="hide" onchange="ChooseImage(this, event, 'pRolesTileBackgroundImage', 'RolesTileBackgroundImage')" />
+                                                            <label for="RolesTileBackgroundImageUpload" class="btn-choose" style="right:137px; top:3px;height: 28px;">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Choosefile)</label>
+                                                            <p class="filename" id="pRolesTileBackgroundImage" style="padding-right:137px;">File name will be come here</p>
+
+                                                            <div>
+                                                                <div id="customWidget" style="top:0px;right:105px;">
+                                                                    <div id="colorSelectorRolesTileBackgroundColor"><div style="background-color:" id="divRolesTileBackgroundColor"></div></div>
+                                                                    <div id="colorpickerHolder" style="height: 0px; display: block;">
+                                                                        <div class="colorpicker" id="collorpicker_434" style="display: block; position: absolute;"><div class="colorpicker_color" style="background-color: rgb(0, 0, 255);"><div><div style="left: 150px; top: 0px;"></div></div></div><div class="colorpicker_hue"><div style="top: 50px;"></div></div><div class="colorpicker_new_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_current_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_hex"><input type="text" maxlength="6" size="6"></div><div class="colorpicker_rgb_r colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_g colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_h colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_s colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_submit"></div></div>
+                                                                    </div>
+                                                                </div>
+                                                                <label id="lblRolesTileBackgroundColor" class="colorInner"></label>
+                                                                <a href="javascript:void(0)" onclick="RemoveColorAndBackground('divRolesTileBackgroundColor', 'lblRolesTileBackgroundColor', 'RolesTileBackgroundColor', 'pRolesTileBackgroundImage', 'RolesTileBackgroundImage')" class="filename" style="width:130px;">Remove color & image</a>
+                                                            </div>
+                                                        </section>
+                                                    </section>
+                                                </section>
+                                                <section class="fullwidth colorPicker-row">
+                                                    <section class="row">
+                                                        <section class="half">
+                                                            <p style="width:160px;">16. @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Box) (@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.System_Admin))</p>
+                                                            <input type="file" name="AdministrationTileBackgroundImageUpload" id="AdministrationTileBackgroundImageUpload" class="hide" onchange="ChooseImage(this, event, 'pAdministrationTileBackgroundImage', 'AdministrationTileBackgroundImage')" />
+                                                            <label for="AdministrationTileBackgroundImageUpload" class="btn-choose" style="right:137px; top:3px;height: 28px;">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Choosefile)</label>
+                                                            <p class="filename" id="pAdministrationTileBackgroundImage" style="padding-right:137px;">File name will be come here</p>
+
+                                                            <div>
+                                                                <div id="customWidget" style="top:0px;right:105px;">
+                                                                    <div id="colorSelectorAdministrationTileBackgroundColor"><div style="background-color:" id="divAdministrationTileBackgroundColor"></div></div>
+                                                                    <div id="colorpickerHolder" style="height: 0px; display: block;">
+                                                                        <div class="colorpicker" id="collorpicker_434" style="display: block; position: absolute;"><div class="colorpicker_color" style="background-color: rgb(0, 0, 255);"><div><div style="left: 150px; top: 0px;"></div></div></div><div class="colorpicker_hue"><div style="top: 50px;"></div></div><div class="colorpicker_new_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_current_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_hex"><input type="text" maxlength="6" size="6"></div><div class="colorpicker_rgb_r colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_g colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_h colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_s colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_submit"></div></div>
+                                                                    </div>
+                                                                </div>
+                                                                <label id="lblAdministrationTileBackgroundColor" class="colorInner"></label>
+                                                                <a href="javascript:void(0)" onclick="RemoveColorAndBackground('divAdministrationTileBackgroundColor', 'lblAdministrationTileBackgroundColor', 'AdministrationTileBackgroundColor', 'pAdministrationTileBackgroundImage', 'AdministrationTileBackgroundImage')" class="filename" style="width:130px;">Remove color & image</a>
+                                                            </div>
+                                                        </section>
+                                                        <section class="half">
+                                                            <p>17. @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Box) (@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Tools))</p>
+                                                            <input type="file" name="ToolsTileBackgroundImageUpload" id="ToolsTileBackgroundImageUpload" class="hide" onchange="ChooseImage(this, event, 'pToolsTileBackgroundImage', 'ToolsTileBackgroundImage')" />
+                                                            <label for="ToolsTileBackgroundImageUpload" class="btn-choose" style="right:137px; top:3px;height: 28px;">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Choosefile)</label>
+                                                            <p class="filename" id="pToolsTileBackgroundImage" style="padding-right:137px;">File name will be come here</p>
+
+                                                            <div>
+                                                                <div id="customWidget" style="top:0px;right:105px;">
+                                                                    <div id="colorSelectorToolsTileBackgroundColor"><div style="background-color:" id="divToolsTileBackgroundColor"></div></div>
+                                                                    <div id="colorpickerHolder" style="height: 0px; display: block;">
+                                                                        <div class="colorpicker" id="collorpicker_434" style="display: block; position: absolute;"><div class="colorpicker_color" style="background-color: rgb(0, 0, 255);"><div><div style="left: 150px; top: 0px;"></div></div></div><div class="colorpicker_hue"><div style="top: 50px;"></div></div><div class="colorpicker_new_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_current_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_hex"><input type="text" maxlength="6" size="6"></div><div class="colorpicker_rgb_r colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_g colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_h colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_s colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_submit"></div></div>
+                                                                    </div>
+                                                                </div>
+                                                                <label id="lblToolsTileBackgroundColor" class="colorInner"></label>
+                                                                <a href="javascript:void(0)" onclick="RemoveColorAndBackground('divToolsTileBackgroundColor', 'lblToolsTileBackgroundColor', 'ToolsTileBackgroundColor', 'pToolsTileBackgroundImage', 'ToolsTileBackgroundImage')" class="filename" style="width:130px;">Remove color & image</a>
+                                                            </div>
+                                                        </section>
+                                                    </section>
+                                                </section>
+                                                <section class="fullwidth colorPicker-row">
+                                                    <section class="row">
+                                                        <section class="half">
+                                                            <p>18.@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Box) (@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Appearance))</p>
+                                                            <input type="file" name="AppearanceTileBackgroundImageUpload" id="AppearanceTileBackgroundImageUpload" class="hide" onchange="ChooseImage(this, event, 'pAppearanceTileBackgroundImage', 'AppearanceTileBackgroundImage')" />
+                                                            <label for="AppearanceTileBackgroundImageUpload" class="btn-choose" style="right:137px; top:3px;height: 28px;">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Choosefile)</label>
+                                                            <p class="filename" id="pAppearanceTileBackgroundImage" style="padding-right:137px;">File name will be come here</p>
+
+                                                            <div>
+                                                                <div id="customWidget" style="top:0px;right:105px;">
+                                                                    <div id="colorSelectorAppearanceTileBackgroundColor"><div style="background-color:" id="divAppearanceTileBackgroundColor"></div></div>
+                                                                    <div id="colorpickerHolder" style="height: 0px; display: block;">
+                                                                        <div class="colorpicker" id="collorpicker_434" style="display: block; position: absolute;"><div class="colorpicker_color" style="background-color: rgb(0, 0, 255);"><div><div style="left: 150px; top: 0px;"></div></div></div><div class="colorpicker_hue"><div style="top: 50px;"></div></div><div class="colorpicker_new_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_current_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_hex"><input type="text" maxlength="6" size="6"></div><div class="colorpicker_rgb_r colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_g colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_h colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_s colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_submit"></div></div>
+                                                                    </div>
+                                                                </div>
+                                                                <label id="lblAppearanceTileBackgroundColor" class="colorInner"></label>
+                                                                <a href="javascript:void(0)" onclick="RemoveColorAndBackground('divAppearanceTileBackgroundColor', 'lblAppearanceTileBackgroundColor', 'AppearanceTileBackgroundColor', 'pAppearanceTileBackgroundImage', 'AppearanceTileBackgroundImage')" class="filename" style="width:130px;">Remove color & image</a>
+                                                            </div>
+                                                        </section>
+                                                    </section>
+                                                </section>
+                                            </section>
+                                            <section class="colorPicker-wraper fullwidth">
+                                                <h6>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Form_Contents)</h6>
+                                                <section class="fullwidth colorPicker-row">
+                                                    <section class="row">
+                                                        <section class="half">
+                                                            <p>19.@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.FormHeaderFontStyle)<span> (@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.NameSizeWeightColor))</span></p>
+                                                            <input type="button" class="btn-edit" value="Edit" data-modal-open="FormHeaderFontStyle" />
+                                                        </section>
+                                                        <section class="half">
+                                                            <p>20. @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.FormLabelFontStyle)<span> (@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.NameSizeWeightColor))</span></p>
+                                                            <input type="button" class="btn-edit" value="Edit" data-modal-open="FormLableFontStyle" />
+                                                        </section>
+                                                    </section>
+                                                </section>
+                                                <section class="fullwidth colorPicker-row">
+                                                    <section class="row">
+                                                        <section class="half">
+                                                            <p>21.@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.FormControlFontStyle)<span> (@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.NameSizeWeightColor))</span></p>
+                                                            <input type="button" class="btn-edit" value="Edit" data-modal-open="FormControlFontStyle" />
+                                                        </section>
+                                                        <section class="half">
+                                                            <p>22. @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.FormControlforcolor)</p>
+                                                            <div>
+                                                                <div id="customWidget" style="top:0px;right:105px;">
+                                                                    <div id="colorSelectorFormControlFontColor"><div style="background-color:#f8ded1" id="divFormControlFontColor"></div></div>
+                                                                    <div id="colorpickerHolder" style="height: 0px; display: block;">
+                                                                        <div class="colorpicker" id="collorpicker_434" style="display: block; position: absolute;"><div class="colorpicker_color" style="background-color: rgb(0, 0, 255);"><div><div style="left: 150px; top: 0px;"></div></div></div><div class="colorpicker_hue"><div style="top: 50px;"></div></div><div class="colorpicker_new_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_current_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_hex"><input type="text" maxlength="6" size="6"></div><div class="colorpicker_rgb_r colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_g colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_h colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_s colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_submit"></div></div>
+                                                                    </div>
+                                                                </div>
+                                                                <label id="lblFormControlFontColor" class="colorInner">#f8ded1</label>
+                                                            </div>
+                                                        </section>
+                                                    </section>
+                                                </section>
+                                                <section class="fullwidth colorPicker-row">
+                                                    <section class="row">
+                                                        <section class="half">
+                                                            <p>23. @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.FormControlBordercolor)</p>
+                                                            <div>
+                                                                <div id="customWidget" style="top:0px;right:105px;">
+                                                                    <div id="colorSelectorFormControlBordercolor"><div style="background-color:#a09383" id="divFormControlBorderColor"></div></div>
+                                                                    <div id="colorpickerHolder" style="height: 0px; display: block;">
+                                                                        <div class="colorpicker" id="collorpicker_434" style="display: block; position: absolute;"><div class="colorpicker_color" style="background-color: rgb(0, 0, 255);"><div><div style="left: 150px; top: 0px;"></div></div></div><div class="colorpicker_hue"><div style="top: 50px;"></div></div><div class="colorpicker_new_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_current_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_hex"><input type="text" maxlength="6" size="6"></div><div class="colorpicker_rgb_r colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_g colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_h colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_s colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_submit"></div></div>
+                                                                    </div>
+                                                                </div>
+                                                                <label id="lblFormControlBorderColor" class="colorInner">#a09383</label>
+                                                            </div>
+                                                        </section>
+                                                        <section class="half">
+                                                            <p>24. @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.GridHeaderBackgroundcolor)</p>
+                                                            <div>
+                                                                <div id="customWidget" style="top:0px;right:105px;">
+                                                                    <div id="colorSelectorGridHeaderBackgroundcolor"><div style="background-color:#171A29" id="divGridHeaderBackgroundColor"></div></div>
+                                                                    <div id="colorpickerHolder" style="height: 0px; display: block;">
+                                                                        <div class="colorpicker" id="collorpicker_434" style="display: block; position: absolute;"><div class="colorpicker_color" style="background-color: rgb(0, 0, 255);"><div><div style="left: 150px; top: 0px;"></div></div></div><div class="colorpicker_hue"><div style="top: 50px;"></div></div><div class="colorpicker_new_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_current_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_hex"><input type="text" maxlength="6" size="6"></div><div class="colorpicker_rgb_r colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_g colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_h colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_s colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_submit"></div></div>
+                                                                    </div>
+                                                                </div>
+                                                                <label id="lblGridHeaderBackgroundColor" class="colorInner">#171A29</label>
+                                                            </div>
+                                                        </section>
+                                                    </section>
+                                                </section>
+                                                <section class="fullwidth colorPicker-row">
+                                                    <section class="row">
+                                                        <section class="half">
+                                                            <p>25. @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.GridFooterBackgroundcolor)</p>
+                                                            <div>
+                                                                <div id="customWidget" style="top:0px;right:105px;">
+                                                                    <div id="colorSelectorGridFooterBackgroundcolor"><div style="background-color:" id="divGridHeaderBackgroundColor"></div></div>
+                                                                    <div id="colorpickerHolder" style="height: 0px; display: block;">
+                                                                        <div class="colorpicker" id="collorpicker_434" style="display: block; position: absolute;"><div class="colorpicker_color" style="background-color: rgb(0, 0, 255);"><div><div style="left: 150px; top: 0px;"></div></div></div><div class="colorpicker_hue"><div style="top: 50px;"></div></div><div class="colorpicker_new_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_current_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_hex"><input type="text" maxlength="6" size="6"></div><div class="colorpicker_rgb_r colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_g colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_h colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_s colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_submit"></div></div>
+                                                                    </div>
+                                                                </div>
+                                                                <label id="lblGridHeaderBackgroundColor" class="colorInner"></label>
+                                                            </div>
+                                                        </section>
+                                                        <section class="half">
+                                                            <p>26. @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.GridRowBackgroundcolor)</p>
+                                                            <div>
+                                                                <div id="customWidget" style="top:0px;right:105px;">
+                                                                    <div id="colorSelectorGridRowBackgroundcolor"><div style="background-color:" id="divGridRowBackgroundColor"></div></div>
+                                                                    <div id="colorpickerHolder" style="height: 0px; display: block;">
+                                                                        <div class="colorpicker" id="collorpicker_434" style="display: block; position: absolute;"><div class="colorpicker_color" style="background-color: rgb(0, 0, 255);"><div><div style="left: 150px; top: 0px;"></div></div></div><div class="colorpicker_hue"><div style="top: 50px;"></div></div><div class="colorpicker_new_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_current_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_hex"><input type="text" maxlength="6" size="6"></div><div class="colorpicker_rgb_r colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_g colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_h colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_s colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_submit"></div></div>
+                                                                    </div>
+                                                                </div>
+                                                                <label id="lblGridRowBackgroundColor" class="colorInner"></label>
+                                                            </div>
+                                                        </section>
+                                                    </section>
+                                                </section>
+                                                <section class="fullwidth colorPicker-row">
+                                                    <section class="row">
+                                                        <section class="half">
+                                                            <p>27. @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.GridRowAlternateBackgroundcolor)</p>
+                                                            <div>
+                                                                <div id="customWidget" style="top:0px;right:105px;">
+                                                                    <div id="colorSelectorGridRowAlternateBackgroundcolor"><div style="background-color:" id="divGridRowAlternateBackgroundcolor"></div></div>
+                                                                    <div id="colorpickerHolder" style="height: 0px; display: block;">
+                                                                        <div class="colorpicker" id="collorpicker_434" style="display: block; position: absolute;"><div class="colorpicker_color" style="background-color: rgb(0, 0, 255);"><div><div style="left: 150px; top: 0px;"></div></div></div><div class="colorpicker_hue"><div style="top: 50px;"></div></div><div class="colorpicker_new_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_current_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_hex"><input type="text" maxlength="6" size="6"></div><div class="colorpicker_rgb_r colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_g colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_h colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_s colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_submit"></div></div>
+                                                                    </div>
+                                                                </div>
+                                                                <label id="lblGridRowAlternateBackgroundColor" class="colorInner"></label>
+                                                            </div>
+                                                        </section>
+                                                    </section>
+                                                </section>
+                                            </section>
+                                        </section>
+                                    </section>
+                                </section>
+                            </td>
+                        </tr>
+                    </table>
+                </section>
+
+                <section id="HeaderFontStyle" class="mb-modal" style="width:520px;">
+                    <section class="blueHeading-bg">
+                        <h3><span class="adminName">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.HeaderFontStyle)</span></h3>
+                        <section class="floatRight">
+                            <section class="close-modal">Close</section>
+                        </section>
+                    </section>
+                    <section class="mb-modelContent">
+                        <section class="fullwidth feildRow">
+                            <section class="blackForm-box largeForm">
+                                <section class="fullwidth feildRow">
+                                    <section class="labelWraper">
+                                        <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.FontName):</label>
+                                    </section>
+                                    <section class="feildWraper">
+                                        <label class="customeFeild selectTag">
+                                            @Html.DropDownList("HeaderFontStyleFontFamily", null, "-- Select Font Family --", 0)
+                                        </label>
+                                    </section>
+                                </section>
+                                <section class="fullwidth feildRow">
+                                    <section class="labelWraper">
+                                        <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.FontSize):</label>
+                                    </section>
+                                    <section class="feildWraper">
+                                        <label class="customeFeild selectTag">
+                                            @Html.DropDownList("HeaderFontStyleFontSize", null, "-- Select Font Size --", 0)
+                                        </label>
+                                    </section>
+                                </section>
+                                <section class="fullwidth feildRow">
+                                    <section class="labelWraper">
+                                        <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.FontWeight):</label>
+                                    </section>
+                                    <section class="feildWraper">
+                                        <label class="customeFeild selectTag">
+                                            @Html.DropDownList("HeaderFontStyleFontWight", null, "-- Select Font Weight --", 0)
+                                        </label>
+                                    </section>
+                                </section>
+                                <section class="fullwidth feildRow">
+                                    <section class="labelWraper">
+                                        <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.FontColor):</label>
+                                    </section>
+                                    <section class="feildWraper">
+                                        <div>
+                                            <div id="customWidget">
+                                                <div id="colorSelectorHeaderFontStyleFontColor"><div style="background-color:#fff" id="divHeaderFontStyleFontColor"></div></div>
+                                                <div id="colorpickerHolder" style="height: 0px; display: block;">
+                                                    <div class="colorpicker" id="collorpicker_434" style="display: block; position: absolute;"><div class="colorpicker_color" style="background-color: rgb(0, 0, 255);"><div><div style="left: 150px; top: 0px;"></div></div></div><div class="colorpicker_hue"><div style="top: 50px;"></div></div><div class="colorpicker_new_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_current_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_hex"><input type="text" maxlength="6" size="6"></div><div class="colorpicker_rgb_r colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_g colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_h colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_s colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_submit"></div></div>
+                                                </div>
+                                            </div>
+                                            <label id="lblHeaderFontStyleFontColor" class="colorInner">#fff</label>
+                                        </div>
+                                    </section>
+                                </section>
+                            </section>
+                        </section>
+                        <section class="fullwidth">
+                            <section class="floatRight row">
+                                <section class="small-formBtn">
+                                    <input type="button" class="close-modal blue-btn" value="OK">
+                                </section>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+
+                <section id="MenuFontStyle" class="mb-modal" style="width:520px;">
+                    <section class="blueHeading-bg">
+                        <h3><span class="adminName">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.MenuFontStyle)</span></h3>
+                        <section class="floatRight">
+                            <section class="close-modal">Close</section>
+                        </section>
+                    </section>
+                    <section class="mb-modelContent">
+                        <section class="fullwidth feildRow">
+                            <section class="blackForm-box largeForm">
+                                <section class="fullwidth feildRow">
+                                    <section class="labelWraper">
+                                        <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.FontName):</label>
+                                    </section>
+                                    <section class="feildWraper">
+                                        <label class="customeFeild selectTag">
+                                            @Html.DropDownList("MenuFontStyleFontFamily", null, "-- Select Font Family --", 0)
+                                        </label>
+                                    </section>
+                                </section>
+                                <section class="fullwidth feildRow">
+                                    <section class="labelWraper">
+                                        <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.FontSize):</label>
+                                    </section>
+                                    <section class="feildWraper">
+                                        <label class="customeFeild selectTag">
+                                            @Html.DropDownList("MenuFontStyleFontSize", null, "-- Select Font Size --", 0)
+                                        </label>
+                                    </section>
+                                </section>
+                                <section class="fullwidth feildRow">
+                                    <section class="labelWraper">
+                                        <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.FontWeight):</label>
+                                    </section>
+                                    <section class="feildWraper">
+                                        <label class="customeFeild selectTag">
+                                            @Html.DropDownList("MenuFontStyleFontWight", null, "-- Select Font Weight --", 0)
+                                        </label>
+                                    </section>
+                                </section>
+                                <section class="fullwidth feildRow">
+                                    <section class="labelWraper">
+                                        <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.FontColor):</label>
+                                    </section>
+                                    <section class="feildWraper">
+                                        <div>
+                                            <div id="customWidget">
+                                                <div id="colorSelectorMenuFontStyleFontColor"><div style="background-color:#c4c4c4" id="divMenuFontStyleFontColor"></div></div>
+                                                <div id="colorpickerHolder" style="height: 0px; display: block;">
+                                                    <div class="colorpicker" id="collorpicker_434" style="display: block; position: absolute;"><div class="colorpicker_color" style="background-color: rgb(0, 0, 255);"><div><div style="left: 150px; top: 0px;"></div></div></div><div class="colorpicker_hue"><div style="top: 50px;"></div></div><div class="colorpicker_new_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_current_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_hex"><input type="text" maxlength="6" size="6"></div><div class="colorpicker_rgb_r colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_g colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_h colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_s colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_submit"></div></div>
+                                                </div>
+                                            </div>
+                                            <label id="lblMenuFontStyleFontColor" class="colorInner">#c4c4c4</label>
+                                        </div>
+                                    </section>
+                                </section>
+                            </section>
+                        </section>
+                        <section class="fullwidth">
+                            <section class="floatRight row">
+                                <section class="small-formBtn">
+                                    <input type="button" class="close-modal blue-btn" value="OK">
+                                </section>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+
+                <section id="SubmenuFontStyle" class="mb-modal" style="width:520px;">
+                    <section class="blueHeading-bg">
+                        <h3><span class="adminName">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.SubMenuFontStyle)</span></h3>
+                        <section class="floatRight">
+                            <section class="close-modal">Close</section>
+                        </section>
+                    </section>
+                    <section class="mb-modelContent">
+                        <section class="fullwidth feildRow">
+                            <section class="blackForm-box largeForm">
+                                <section class="fullwidth feildRow">
+                                    <section class="labelWraper">
+                                        <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.FontName):</label>
+                                    </section>
+                                    <section class="feildWraper">
+                                        <label class="customeFeild selectTag">
+                                            @Html.DropDownList("SubmenuFontStyleFontFamily", null, "-- Select Font Family --", 0)
+                                        </label>
+                                    </section>
+                                </section>
+                                <section class="fullwidth feildRow">
+                                    <section class="labelWraper">
+                                        <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.FontSize):</label>
+                                    </section>
+                                    <section class="feildWraper">
+                                        <label class="customeFeild selectTag">
+                                            @Html.DropDownList("SubmenuFontStyleFontSize", null, "-- Select Font Size --", 0)
+                                        </label>
+                                    </section>
+                                </section>
+                                <section class="fullwidth feildRow">
+                                    <section class="labelWraper">
+                                        <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.FontWeight):</label>
+                                    </section>
+                                    <section class="feildWraper">
+                                        <label class="customeFeild selectTag">
+                                            @Html.DropDownList("SubmenuFontStyleFontWight", null, "-- Select Font Weight --", 0)
+                                        </label>
+                                    </section>
+                                </section>
+                                <section class="fullwidth feildRow">
+                                    <section class="labelWraper">
+                                        <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.FontColor):</label>
+                                    </section>
+                                    <section class="feildWraper">
+                                        <div>
+                                            <div id="customWidget">
+                                                <div id="colorSelectorSubmenuFontStyleFontColor"><div style="background-color:#fff" id="divSubmenuFontStyleFontColor"></div></div>
+                                                <div id="colorpickerHolder" style="height: 0px; display: block;">
+                                                    <div class="colorpicker" id="collorpicker_434" style="display: block; position: absolute;"><div class="colorpicker_color" style="background-color: rgb(0, 0, 255);"><div><div style="left: 150px; top: 0px;"></div></div></div><div class="colorpicker_hue"><div style="top: 50px;"></div></div><div class="colorpicker_new_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_current_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_hex"><input type="text" maxlength="6" size="6"></div><div class="colorpicker_rgb_r colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_g colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_h colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_s colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_submit"></div></div>
+                                                </div>
+                                            </div>
+                                            <label id="lblSubmenuFontStyleFontColor" class="colorInner">#fff</label>
+                                        </div>
+                                    </section>
+                                </section>
+                            </section>
+                        </section>
+                        <section class="fullwidth">
+                            <section class="floatRight row">
+                                <section class="small-formBtn">
+                                    <input type="button" class="close-modal blue-btn" value="OK">
+                                </section>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+
+                <section id="FormHeaderFontStyle" class="mb-modal" style="width:520px;">
+                    <section class="blueHeading-bg">
+                        <h3><span class="adminName">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.FormHeaderFontStyle)</span></h3>
+                        <section class="floatRight">
+                            <section class="close-modal">Close</section>
+                        </section>
+                    </section>
+                    <section class="mb-modelContent">
+                        <section class="fullwidth feildRow">
+                            <section class="blackForm-box largeForm">
+                                <section class="fullwidth feildRow">
+                                    <section class="labelWraper">
+                                        <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.FontName):</label>
+                                    </section>
+                                    <section class="feildWraper">
+                                        <label class="customeFeild selectTag">
+                                            @Html.DropDownList("FormHeaderFontStyleFontFamily", null, "-- Select Font Family --", 0)
+                                        </label>
+                                    </section>
+                                </section>
+                                <section class="fullwidth feildRow">
+                                    <section class="labelWraper">
+                                        <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.FontSize):</label>
+                                    </section>
+                                    <section class="feildWraper">
+                                        <label class="customeFeild selectTag">
+                                            @Html.DropDownList("FormHeaderFontStyleFontSize", null, "-- Select Font Size --", 0)
+                                        </label>
+                                    </section>
+                                </section>
+                                <section class="fullwidth feildRow">
+                                    <section class="labelWraper">
+                                        <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.FontWeight):</label>
+                                    </section>
+                                    <section class="feildWraper">
+                                        <label class="customeFeild selectTag">
+                                            @Html.DropDownList("FormHeaderFontStyleFontWight", null, "-- Select Font Weight --", 0)
+                                        </label>
+                                    </section>
+                                </section>
+                                <section class="fullwidth feildRow">
+                                    <section class="labelWraper">
+                                        <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.FontColor)</label>
+                                    </section>
+                                    <section class="feildWraper">
+                                        <div>
+                                            <div id="customWidget">
+                                                <div id="colorSelectorFormHeaderFontStyleFontColor"><div style="background-color:#fff" id="divFormHeaderFontStyleFontColor"></div></div>
+                                                <div id="colorpickerHolder" style="height: 0px; display: block;">
+                                                    <div class="colorpicker" id="collorpicker_434" style="display: block; position: absolute;"><div class="colorpicker_color" style="background-color: rgb(0, 0, 255);"><div><div style="left: 150px; top: 0px;"></div></div></div><div class="colorpicker_hue"><div style="top: 50px;"></div></div><div class="colorpicker_new_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_current_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_hex"><input type="text" maxlength="6" size="6"></div><div class="colorpicker_rgb_r colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_g colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_h colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_s colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_submit"></div></div>
+                                                </div>
+                                            </div>
+                                            <label id="lblFormHeaderFontStyleFontColor" class="colorInner">#fff</label>
+                                        </div>
+                                    </section>
+                                </section>
+                            </section>
+                        </section>
+                        <section class="fullwidth">
+                            <section class="floatRight row">
+                                <section class="small-formBtn">
+                                    <input type="button" class="close-modal blue-btn" value="OK">
+                                </section>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+
+                <section id="FormLableFontStyle" class="mb-modal" style="width:520px;">
+                    <section class="blueHeading-bg">
+                        <h3><span class="adminName">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.FormLabelFontStyle)</span></h3>
+                        <section class="floatRight">
+                            <section class="close-modal">Close</section>
+                        </section>
+                    </section>
+                    <section class="mb-modelContent">
+                        <section class="fullwidth feildRow">
+                            <section class="blackForm-box largeForm">
+                                <section class="fullwidth feildRow">
+                                    <section class="labelWraper">
+                                        <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.FontName):</label>
+                                    </section>
+                                    <section class="feildWraper">
+                                        <label class="customeFeild selectTag">
+                                            @Html.DropDownList("FormLableFontStyleFontFamily", null, "-- Select Font Family --", 0)
+                                        </label>
+                                    </section>
+                                </section>
+                                <section class="fullwidth feildRow">
+                                    <section class="labelWraper">
+                                        <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.FontWeight):</label>
+                                    </section>
+                                    <section class="feildWraper">
+                                        <label class="customeFeild selectTag">
+                                            @Html.DropDownList("FormLableFontStyleFontWight", null, "-- Select Font Weight --", 0)
+                                        </label>
+                                    </section>
+                                </section>
+                                <section class="fullwidth feildRow">
+                                    <section class="labelWraper">
+                                        <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.FontColor):</label>
+                                    </section>
+                                    <section class="feildWraper">
+                                        <div>
+                                            <div id="customWidget">
+                                                <div id="colorSelectorFormLableFontStyleFontColor"><div style="background-color:#fff" id="divFormLableFontStyleFontColor"></div></div>
+                                                <div id="colorpickerHolder" style="height: 0px; display: block;">
+                                                    <div class="colorpicker" id="collorpicker_434" style="display: block; position: absolute;"><div class="colorpicker_color" style="background-color: rgb(0, 0, 255);"><div><div style="left: 150px; top: 0px;"></div></div></div><div class="colorpicker_hue"><div style="top: 50px;"></div></div><div class="colorpicker_new_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_current_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_hex"><input type="text" maxlength="6" size="6"></div><div class="colorpicker_rgb_r colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_g colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_h colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_s colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_submit"></div></div>
+                                                </div>
+                                            </div>
+                                            <label id="lblFormLableFontStyleFontColor" class="colorInner">#fff</label>
+                                        </div>
+                                    </section>
+                                </section>
+                            </section>
+                        </section>
+                        <section class="fullwidth">
+                            <section class="floatRight row">
+                                <section class="small-formBtn">
+                                    <input type="button" class="close-modal blue-btn" value="OK">
+                                </section>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+
+                <section id="FormControlFontStyle" class="mb-modal" style="width:520px;">
+                    <section class="blueHeading-bg">
+                        <h3><span class="adminName">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.FormControlFontStyle)</span></h3>
+                        <section class="floatRight">
+                            <section class="close-modal">Close</section>
+                        </section>
+                    </section>
+                    <section class="mb-modelContent">
+                        <section class="fullwidth feildRow">
+                            <section class="blackForm-box largeForm">
+                                <section class="fullwidth feildRow">
+                                    <section class="labelWraper">
+                                        <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.FontName):</label>
+                                    </section>
+                                    <section class="feildWraper">
+                                        <label class="customeFeild selectTag">
+                                            @Html.DropDownList("FormControlFontStyleFontFamily", null, "-- Select Font Family --", 0)
+                                        </label>
+                                    </section>
+                                </section>
+                                <section class="fullwidth feildRow">
+                                    <section class="labelWraper">
+                                        <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.FontSize):</label>
+                                    </section>
+                                    <section class="feildWraper">
+                                        <label class="customeFeild selectTag">
+                                            @Html.DropDownList("FormControlFontStyleFontSize", null, "-- Select Font Size --", 0)
+                                        </label>
+                                    </section>
+                                </section>
+                                <section class="fullwidth feildRow">
+                                    <section class="labelWraper">
+                                        <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.FontWeight):</label>
+                                    </section>
+                                    <section class="feildWraper">
+                                        <label class="customeFeild selectTag">
+                                            @Html.DropDownList("FormControlFontStyleFontWight", null, "-- Select Font Weight --", 0)
+                                        </label>
+                                    </section>
+                                </section>
+                                <section class="fullwidth feildRow">
+                                    <section class="labelWraper">
+                                        <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.FontColor):</label>
+                                    </section>
+                                    <section class="feildWraper">
+                                        <div>
+                                            <div id="customWidget">
+                                                <div id="colorSelectorFormControlFontStyleFontColor"><div style="background-color:#F8DED1" id="divFormControlFontStyleFontColor"></div></div>
+                                                <div id="colorpickerHolder" style="height: 0px; display: block;">
+                                                    <div class="colorpicker" id="collorpicker_434" style="display: block; position: absolute;"><div class="colorpicker_color" style="background-color: rgb(0, 0, 255);"><div><div style="left: 150px; top: 0px;"></div></div></div><div class="colorpicker_hue"><div style="top: 50px;"></div></div><div class="colorpicker_new_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_current_color" style="background-color: rgb(0, 0, 255);"></div><div class="colorpicker_hex"><input type="text" maxlength="6" size="6"></div><div class="colorpicker_rgb_r colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_g colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_rgb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_h colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_s colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_hsb_b colorpicker_field"><input type="text" maxlength="3" size="3"><span></span></div><div class="colorpicker_submit"></div></div>
+                                                </div>
+                                            </div>
+                                            <label id="lblFormControlFontStyleFontColor" class="colorInner">#F8DED1</label>
+                                        </div>
+                                    </section>
+                                </section>
+                            </section>
+                        </section>
+                        <section class="fullwidth">
+                            <section class="floatRight row">
+                                <section class="small-formBtn">
+                                    <input type="button" class="close-modal blue-btn" value="OK">
+                                </section>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+
+                <section class="formBox-content" style="padding-top:0;">
+                    <section class="floatRight">
+                        <section class="small-formBtn">
+                            <input type="submit" class="pink-btn" value="@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Save)">
+                        </section>
+                        <section class="small-formBtn">
+                            <a href='@Url.Action("Index", "Themes")' class="blue-btn">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Cancel)</a>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+        <section class="clear"></section>
+    }
+</section>

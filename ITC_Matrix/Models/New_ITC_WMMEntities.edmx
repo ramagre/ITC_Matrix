@@ -1,0 +1,920 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="WMMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AllLanguages">
+          <Key>
+            <PropertyRef Name="lang" />
+          </Key>
+          <Property Name="lang" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="auditLog">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tablename" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="tableid" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="operator" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="dateis" Type="datetime" Nullable="false" />
+          <Property Name="action" Type="nvarchar(max)" />
+          <Property Name="actiondetail" Type="nvarchar(max)" />
+          <Property Name="ipaddress" Type="nvarchar" MaxLength="64" />
+          <Property Name="useragent" Type="nvarchar" MaxLength="128" />
+          <Property Name="sessionid" Type="nvarchar" MaxLength="64" />
+        </EntityType>
+        <EntityType Name="deviceTypes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="deviceTypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="deviceClass" Type="int" Nullable="false" />
+          <Property Name="status" Type="int" Nullable="false" />
+          <Property Name="displayOrder" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="loginLog">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="operator" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="logindate" Type="datetime" Nullable="false" />
+          <Property Name="ipaddress" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="useragent" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="logoutTime" Type="datetime" />
+          <Property Name="logoutTrue" Type="int" Nullable="false" />
+          <Property Name="sessionid" Type="nvarchar" MaxLength="64" />
+        </EntityType>
+        <EntityType Name="permissionsAssigned">
+          <Key>
+            <PropertyRef Name="roleid" />
+            <PropertyRef Name="userid" />
+          </Key>
+          <Property Name="roleid" Type="int" Nullable="false" />
+          <Property Name="userid" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="permissionsGrants">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ptype" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="pid" Type="int" Nullable="false" />
+          <Property Name="roleid" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="permissionsRolesTasks">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="roleid" Type="int" Nullable="false" />
+          <Property Name="taskid" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="permissionsTasks">
+          <Key>
+            <PropertyRef Name="taskid" />
+          </Key>
+          <Property Name="taskid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="taskgroup" Type="nvarchar" MaxLength="50" />
+          <Property Name="taskref" Type="nvarchar" MaxLength="50" />
+          <Property Name="taskname" Type="nvarchar" MaxLength="50" />
+          <Property Name="taskdescription" Type="nvarchar(max)" />
+          <Property Name="status" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="prefs">
+          <Key>
+            <PropertyRef Name="name" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="value" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="reportLog">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="reportid" Type="int" />
+          <Property Name="scheduleid" Type="int" />
+          <Property Name="dateis" Type="datetime" />
+          <Property Name="deliveredTo" Type="nvarchar(max)" />
+          <Property Name="reportFile" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="reportrun">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="reportRunName" Type="varchar" MaxLength="50" />
+          <Property Name="reportid" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="scheduleid" Type="int" Nullable="false" />
+          <Property Name="nextRun" Type="datetime" />
+          <Property Name="firstRun" Type="datetime" />
+          <Property Name="lastRun" Type="datetime" />
+          <Property Name="deliverTo" Type="varchar(max)" />
+          <Property Name="deliverSubject" Type="varchar(max)" />
+          <Property Name="fileType" Type="varchar" MaxLength="16" />
+          <Property Name="status" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="reportschedules">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="scheduleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="runtime" Type="int" Nullable="false" />
+          <Property Name="timezone" Type="int" Nullable="false" />
+          <Property Name="shortDesc" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="day" Type="nvarchar(max)" />
+          <Property Name="month" Type="nvarchar(max)" />
+          <Property Name="status" Type="int" Nullable="false" />
+          <Property Name="locked" Type="int" Nullable="false" />
+          <Property Name="typekey" Type="nvarchar" MaxLength="10" />
+          <Property Name="specificDay" Type="datetime" />
+        </EntityType>
+        <EntityType Name="reportsStored">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="description" Type="nvarchar(max)" />
+          <Property Name="class" Type="nvarchar" MaxLength="50" />
+          <Property Name="reportType" Type="nvarchar" MaxLength="50" />
+          <Property Name="reportFlags" Type="nvarchar(max)" />
+          <Property Name="dateType" Type="nvarchar" MaxLength="50" />
+          <Property Name="dateFrom" Type="datetime" />
+          <Property Name="dateTo" Type="datetime" />
+          <Property Name="profiles" Type="nvarchar(max)" />
+          <Property Name="accounts" Type="nvarchar(max)" />
+          <Property Name="plans" Type="nvarchar(max)" />
+          <Property Name="devices" Type="nvarchar(max)" />
+          <Property Name="transactionTypes" Type="nvarchar(max)" />
+          <Property Name="groupBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="status" Type="int" />
+          <Property Name="deviceGroups" Type="nvarchar(max)" />
+          <Property Name="deviceTypes" Type="nvarchar(max)" />
+          <Property Name="identifier" Type="nvarchar" MaxLength="50" />
+          <Property Name="operators" Type="nvarchar(max)" />
+          <Property Name="payMethods" Type="nvarchar(max)" />
+          <Property Name="creator_id" Type="nvarchar" MaxLength="50" />
+          <Property Name="modifier_id" Type="nvarchar" MaxLength="50" />
+          <Property Name="orientation" Type="nvarchar" MaxLength="16" />
+          <Property Name="restrictrole" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="reportsStored_preview">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="description" Type="nvarchar(max)" />
+          <Property Name="class" Type="nvarchar" MaxLength="50" />
+          <Property Name="reportType" Type="nvarchar" MaxLength="50" />
+          <Property Name="reportFlags" Type="nvarchar(max)" />
+          <Property Name="dateType" Type="nvarchar" MaxLength="50" />
+          <Property Name="dateFrom" Type="datetime" />
+          <Property Name="dateTo" Type="datetime" />
+          <Property Name="profiles" Type="nvarchar(max)" />
+          <Property Name="accounts" Type="nvarchar(max)" />
+          <Property Name="plans" Type="nvarchar(max)" />
+          <Property Name="devices" Type="nvarchar(max)" />
+          <Property Name="transactionTypes" Type="nvarchar(max)" />
+          <Property Name="groupBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="status" Type="int" />
+          <Property Name="deviceGroups" Type="nvarchar(max)" />
+          <Property Name="deviceTypes" Type="nvarchar(max)" />
+          <Property Name="identifier" Type="nvarchar" MaxLength="50" />
+          <Property Name="operators" Type="nvarchar(max)" />
+          <Property Name="payMethods" Type="nvarchar(max)" />
+          <Property Name="creator_id" Type="nvarchar" MaxLength="50" />
+          <Property Name="modifier_id" Type="nvarchar" MaxLength="50" />
+          <Property Name="orientation" Type="nvarchar" MaxLength="16" />
+          <Property Name="restrictrole" Type="int" Nullable="false" />
+          <Property Name="created" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TblFonts">
+          <Key>
+            <PropertyRef Name="FontID" />
+          </Key>
+          <Property Name="FontID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FontName" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="themes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="themename" Type="varchar" MaxLength="50" />
+          <Property Name="themecss" Type="varchar(max)" />
+          <Property Name="status" Type="int" Nullable="false" />
+          <Property Name="vars" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="ThemeSettings">
+          <Key>
+            <PropertyRef Name="ThemeSettingId" />
+          </Key>
+          <Property Name="ThemeSettingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ThemeId" Type="int" Nullable="false" />
+          <Property Name="ThemeSettingName" Type="varchar" MaxLength="200" />
+          <Property Name="ThemeSettingValue" Type="varchar" MaxLength="1000" />
+          <Property Name="Placeholder" Type="varchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="timezones">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="cc" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="zone" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="offset" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="translations">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="sourceid" Type="int" Nullable="false" />
+          <Property Name="language" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="translation" Type="nvarchar(max)" />
+          <Property Name="modified" Type="datetime" />
+          <Property Name="modifier" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="translationsource">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="source" Type="varchar(max)" Nullable="false" />
+          <Property Name="modified" Type="datetime" Nullable="false" />
+          <Property Name="modifier" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__ThemeSett__Theme__4F7CD00D">
+          <End Role="themes" Type="Self.themes" Multiplicity="1" />
+          <End Role="ThemeSettings" Type="Self.ThemeSettings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="themes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ThemeSettings">
+              <PropertyRef Name="ThemeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_translations_translationsource">
+          <End Role="translationsource" Type="Self.translationsource" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="translations" Type="Self.translations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="translationsource">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="translations">
+              <PropertyRef Name="sourceid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WMMModelStoreContainer">
+          <EntitySet Name="AllLanguages" EntityType="Self.AllLanguages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="auditLog" EntityType="Self.auditLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="deviceTypes" EntityType="Self.deviceTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="loginLog" EntityType="Self.loginLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="permissionsAssigned" EntityType="Self.permissionsAssigned" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="permissionsGrants" EntityType="Self.permissionsGrants" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="permissionsRolesTasks" EntityType="Self.permissionsRolesTasks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="permissionsTasks" EntityType="Self.permissionsTasks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="prefs" EntityType="Self.prefs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="reportLog" EntityType="Self.reportLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="reportrun" EntityType="Self.reportrun" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="reportschedules" EntityType="Self.reportschedules" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="reportsStored" EntityType="Self.reportsStored" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="reportsStored_preview" EntityType="Self.reportsStored_preview" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblFonts" EntityType="Self.TblFonts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="themes" EntityType="Self.themes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ThemeSettings" EntityType="Self.ThemeSettings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="timezones" EntityType="Self.timezones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="translations" EntityType="Self.translations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="translationsource" EntityType="Self.translationsource" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__ThemeSett__Theme__4F7CD00D" Association="Self.FK__ThemeSett__Theme__4F7CD00D">
+            <End Role="themes" EntitySet="themes" />
+            <End Role="ThemeSettings" EntitySet="ThemeSettings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_translations_translationsource" Association="Self.FK_translations_translationsource">
+            <End Role="translationsource" EntitySet="translationsource" />
+            <End Role="translations" EntitySet="translations" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WMMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="auditLog">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tablename" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="tableid" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="operator" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="dateis" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="action" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="actiondetail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ipaddress" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="useragent" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="sessionid" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="deviceType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="deviceTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="deviceClass" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="Int32" Nullable="false" />
+          <Property Name="displayOrder" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="loginLog">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="operator" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="logindate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ipaddress" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="useragent" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="logoutTime" Type="DateTime" Precision="3" />
+          <Property Name="logoutTrue" Type="Int32" Nullable="false" />
+          <Property Name="sessionid" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="permissionsAssigned">
+          <Key>
+            <PropertyRef Name="roleid" />
+            <PropertyRef Name="userid" />
+          </Key>
+          <Property Name="roleid" Type="Int32" Nullable="false" />
+          <Property Name="userid" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="permissionsGrant">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ptype" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="pid" Type="Int32" Nullable="false" />
+          <Property Name="roleid" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="permissionsRolesTask">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="roleid" Type="Int32" Nullable="false" />
+          <Property Name="taskid" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="permissionsTask">
+          <Key>
+            <PropertyRef Name="taskid" />
+          </Key>
+          <Property Name="taskid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="taskgroup" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="taskref" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="taskname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="taskdescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Int16" Nullable="false" />
+        </EntityType>
+        <EntityType Name="pref">
+          <Key>
+            <PropertyRef Name="name" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="value" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="reportLog">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="reportid" Type="Int32" />
+          <Property Name="scheduleid" Type="Int32" />
+          <Property Name="dateis" Type="DateTime" Precision="3" />
+          <Property Name="deliveredTo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="reportFile" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="reportrun">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="reportRunName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="reportid" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="scheduleid" Type="Int32" Nullable="false" />
+          <Property Name="nextRun" Type="DateTime" Precision="3" />
+          <Property Name="firstRun" Type="DateTime" Precision="3" />
+          <Property Name="lastRun" Type="DateTime" Precision="3" />
+          <Property Name="deliverTo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="deliverSubject" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="fileType" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="reportschedule">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="scheduleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="runtime" Type="Int32" Nullable="false" />
+          <Property Name="timezone" Type="Int32" Nullable="false" />
+          <Property Name="shortDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="day" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="month" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Int32" Nullable="false" />
+          <Property Name="locked" Type="Int32" Nullable="false" />
+          <Property Name="typekey" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="specificDay" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="reportsStored">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="class" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="reportType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="reportFlags" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="dateType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="dateFrom" Type="DateTime" Precision="3" />
+          <Property Name="dateTo" Type="DateTime" Precision="3" />
+          <Property Name="profiles" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="accounts" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="plans" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="devices" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="transactionTypes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="groupBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Int32" />
+          <Property Name="deviceGroups" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="deviceTypes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="identifier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="operators" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="payMethods" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="creator_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="modifier_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="orientation" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="restrictrole" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="reportsStored_preview">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="class" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="reportType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="reportFlags" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="dateType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="dateFrom" Type="DateTime" Precision="3" />
+          <Property Name="dateTo" Type="DateTime" Precision="3" />
+          <Property Name="profiles" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="accounts" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="plans" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="devices" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="transactionTypes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="groupBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Int32" />
+          <Property Name="deviceGroups" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="deviceTypes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="identifier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="operators" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="payMethods" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="creator_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="modifier_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="orientation" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="restrictrole" Type="Int32" Nullable="false" />
+          <Property Name="created" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="theme">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="themename" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="themecss" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="Int32" Nullable="false" />
+          <Property Name="vars" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ThemeSettings" Relationship="WMMModel.FK__ThemeSett__Theme__4F7CD00D" FromRole="theme" ToRole="ThemeSetting" />
+        </EntityType>
+        <EntityType Name="timezone">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="cc" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="zone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="offset" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="translation">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="sourceid" Type="Int32" Nullable="false" />
+          <Property Name="language" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="translation1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="modified" Type="DateTime" Precision="3" />
+          <Property Name="modifier" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="translationsource" Relationship="Self.FK_translations_translationsource" FromRole="translations" ToRole="translationsource" />
+        </EntityType>
+        <EntityType Name="translationsource">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="source" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="modified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="modifier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="translations" Relationship="Self.FK_translations_translationsource" FromRole="translationsource" ToRole="translations" />
+        </EntityType>
+        <Association Name="FK_translations_translationsource">
+          <End Role="translationsource" Type="Self.translationsource" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="translations" Type="Self.translation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="translationsource">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="translations">
+              <PropertyRef Name="sourceid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="New_ITC_WMMEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="auditLogs" EntityType="Self.auditLog" />
+          <EntitySet Name="deviceTypes" EntityType="Self.deviceType" />
+          <EntitySet Name="loginLogs" EntityType="Self.loginLog" />
+          <EntitySet Name="permissionsAssigneds" EntityType="Self.permissionsAssigned" />
+          <EntitySet Name="permissionsGrants" EntityType="Self.permissionsGrant" />
+          <EntitySet Name="permissionsRolesTasks" EntityType="Self.permissionsRolesTask" />
+          <EntitySet Name="permissionsTasks" EntityType="Self.permissionsTask" />
+          <EntitySet Name="prefs" EntityType="Self.pref" />
+          <EntitySet Name="reportLogs" EntityType="Self.reportLog" />
+          <EntitySet Name="reportruns" EntityType="Self.reportrun" />
+          <EntitySet Name="reportschedules" EntityType="Self.reportschedule" />
+          <EntitySet Name="reportsStoreds" EntityType="Self.reportsStored" />
+          <EntitySet Name="reportsStored_preview" EntityType="Self.reportsStored_preview" />
+          <EntitySet Name="themes" EntityType="Self.theme" />
+          <EntitySet Name="timezones" EntityType="Self.timezone" />
+          <EntitySet Name="translations" EntityType="Self.translation" />
+          <EntitySet Name="translationsources" EntityType="Self.translationsource" />
+          <AssociationSet Name="FK_translations_translationsource" Association="Self.FK_translations_translationsource">
+            <End Role="translationsource" EntitySet="translationsources" />
+            <End Role="translations" EntitySet="translations" />
+          </AssociationSet>
+          <EntitySet Name="AllLanguages" EntityType="WMMModel.AllLanguage" />
+          <EntitySet Name="ThemeSettings" EntityType="WMMModel.ThemeSetting" />
+          <AssociationSet Name="FK__ThemeSett__Theme__4F7CD00D" Association="WMMModel.FK__ThemeSett__Theme__4F7CD00D">
+            <End Role="theme" EntitySet="themes" />
+            <End Role="ThemeSetting" EntitySet="ThemeSettings" />
+          </AssociationSet>
+          <EntitySet Name="TblFonts" EntityType="WMMModel.TblFont" />
+        </EntityContainer>
+        <EntityType Name="AllLanguage">
+          <Key>
+            <PropertyRef Name="lang" />
+          </Key>
+          <Property Name="lang" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ThemeSetting">
+          <Key>
+            <PropertyRef Name="ThemeSettingId" />
+          </Key>
+          <Property Name="ThemeSettingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ThemeId" Type="Int32" Nullable="false" />
+          <Property Name="ThemeSettingName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ThemeSettingValue" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="Placeholder" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="theme" Relationship="WMMModel.FK__ThemeSett__Theme__4F7CD00D" FromRole="ThemeSetting" ToRole="theme" />
+        </EntityType>
+        <Association Name="FK__ThemeSett__Theme__4F7CD00D">
+          <End Type="WMMModel.theme" Role="theme" Multiplicity="1" />
+          <End Type="WMMModel.ThemeSetting" Role="ThemeSetting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="theme">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ThemeSetting">
+              <PropertyRef Name="ThemeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TblFont">
+          <Key>
+            <PropertyRef Name="FontID" />
+          </Key>
+          <Property Name="FontID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FontName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WMMModelStoreContainer" CdmEntityContainer="New_ITC_WMMEntities">
+          <EntitySetMapping Name="auditLogs">
+            <EntityTypeMapping TypeName="WMMModel.auditLog">
+              <MappingFragment StoreEntitySet="auditLog">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="tablename" ColumnName="tablename" />
+                <ScalarProperty Name="tableid" ColumnName="tableid" />
+                <ScalarProperty Name="operator" ColumnName="operator" />
+                <ScalarProperty Name="dateis" ColumnName="dateis" />
+                <ScalarProperty Name="action" ColumnName="action" />
+                <ScalarProperty Name="actiondetail" ColumnName="actiondetail" />
+                <ScalarProperty Name="ipaddress" ColumnName="ipaddress" />
+                <ScalarProperty Name="useragent" ColumnName="useragent" />
+                <ScalarProperty Name="sessionid" ColumnName="sessionid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="deviceTypes">
+            <EntityTypeMapping TypeName="WMMModel.deviceType">
+              <MappingFragment StoreEntitySet="deviceTypes">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="deviceTypeName" ColumnName="deviceTypeName" />
+                <ScalarProperty Name="deviceClass" ColumnName="deviceClass" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="displayOrder" ColumnName="displayOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="loginLogs">
+            <EntityTypeMapping TypeName="WMMModel.loginLog">
+              <MappingFragment StoreEntitySet="loginLog">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="operator" ColumnName="operator" />
+                <ScalarProperty Name="logindate" ColumnName="logindate" />
+                <ScalarProperty Name="ipaddress" ColumnName="ipaddress" />
+                <ScalarProperty Name="useragent" ColumnName="useragent" />
+                <ScalarProperty Name="logoutTime" ColumnName="logoutTime" />
+                <ScalarProperty Name="logoutTrue" ColumnName="logoutTrue" />
+                <ScalarProperty Name="sessionid" ColumnName="sessionid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="permissionsAssigneds">
+            <EntityTypeMapping TypeName="WMMModel.permissionsAssigned">
+              <MappingFragment StoreEntitySet="permissionsAssigned">
+                <ScalarProperty Name="roleid" ColumnName="roleid" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="permissionsGrants">
+            <EntityTypeMapping TypeName="WMMModel.permissionsGrant">
+              <MappingFragment StoreEntitySet="permissionsGrants">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ptype" ColumnName="ptype" />
+                <ScalarProperty Name="pid" ColumnName="pid" />
+                <ScalarProperty Name="roleid" ColumnName="roleid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="permissionsRolesTasks">
+            <EntityTypeMapping TypeName="WMMModel.permissionsRolesTask">
+              <MappingFragment StoreEntitySet="permissionsRolesTasks">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="roleid" ColumnName="roleid" />
+                <ScalarProperty Name="taskid" ColumnName="taskid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="permissionsTasks">
+            <EntityTypeMapping TypeName="WMMModel.permissionsTask">
+              <MappingFragment StoreEntitySet="permissionsTasks">
+                <ScalarProperty Name="taskid" ColumnName="taskid" />
+                <ScalarProperty Name="taskgroup" ColumnName="taskgroup" />
+                <ScalarProperty Name="taskref" ColumnName="taskref" />
+                <ScalarProperty Name="taskname" ColumnName="taskname" />
+                <ScalarProperty Name="taskdescription" ColumnName="taskdescription" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="prefs">
+            <EntityTypeMapping TypeName="WMMModel.pref">
+              <MappingFragment StoreEntitySet="prefs">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="value" ColumnName="value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="reportLogs">
+            <EntityTypeMapping TypeName="WMMModel.reportLog">
+              <MappingFragment StoreEntitySet="reportLog">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="reportid" ColumnName="reportid" />
+                <ScalarProperty Name="scheduleid" ColumnName="scheduleid" />
+                <ScalarProperty Name="dateis" ColumnName="dateis" />
+                <ScalarProperty Name="deliveredTo" ColumnName="deliveredTo" />
+                <ScalarProperty Name="reportFile" ColumnName="reportFile" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="reportruns">
+            <EntityTypeMapping TypeName="WMMModel.reportrun">
+              <MappingFragment StoreEntitySet="reportrun">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="reportRunName" ColumnName="reportRunName" />
+                <ScalarProperty Name="reportid" ColumnName="reportid" />
+                <ScalarProperty Name="scheduleid" ColumnName="scheduleid" />
+                <ScalarProperty Name="nextRun" ColumnName="nextRun" />
+                <ScalarProperty Name="firstRun" ColumnName="firstRun" />
+                <ScalarProperty Name="lastRun" ColumnName="lastRun" />
+                <ScalarProperty Name="deliverTo" ColumnName="deliverTo" />
+                <ScalarProperty Name="deliverSubject" ColumnName="deliverSubject" />
+                <ScalarProperty Name="fileType" ColumnName="fileType" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="reportschedules">
+            <EntityTypeMapping TypeName="WMMModel.reportschedule">
+              <MappingFragment StoreEntitySet="reportschedules">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="scheduleName" ColumnName="scheduleName" />
+                <ScalarProperty Name="runtime" ColumnName="runtime" />
+                <ScalarProperty Name="timezone" ColumnName="timezone" />
+                <ScalarProperty Name="shortDesc" ColumnName="shortDesc" />
+                <ScalarProperty Name="day" ColumnName="day" />
+                <ScalarProperty Name="month" ColumnName="month" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="locked" ColumnName="locked" />
+                <ScalarProperty Name="typekey" ColumnName="typekey" />
+                <ScalarProperty Name="specificDay" ColumnName="specificDay" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="reportsStoreds">
+            <EntityTypeMapping TypeName="WMMModel.reportsStored">
+              <MappingFragment StoreEntitySet="reportsStored">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="class" ColumnName="class" />
+                <ScalarProperty Name="reportType" ColumnName="reportType" />
+                <ScalarProperty Name="reportFlags" ColumnName="reportFlags" />
+                <ScalarProperty Name="dateType" ColumnName="dateType" />
+                <ScalarProperty Name="dateFrom" ColumnName="dateFrom" />
+                <ScalarProperty Name="dateTo" ColumnName="dateTo" />
+                <ScalarProperty Name="profiles" ColumnName="profiles" />
+                <ScalarProperty Name="accounts" ColumnName="accounts" />
+                <ScalarProperty Name="plans" ColumnName="plans" />
+                <ScalarProperty Name="devices" ColumnName="devices" />
+                <ScalarProperty Name="transactionTypes" ColumnName="transactionTypes" />
+                <ScalarProperty Name="groupBy" ColumnName="groupBy" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="deviceGroups" ColumnName="deviceGroups" />
+                <ScalarProperty Name="deviceTypes" ColumnName="deviceTypes" />
+                <ScalarProperty Name="identifier" ColumnName="identifier" />
+                <ScalarProperty Name="operators" ColumnName="operators" />
+                <ScalarProperty Name="payMethods" ColumnName="payMethods" />
+                <ScalarProperty Name="creator_id" ColumnName="creator_id" />
+                <ScalarProperty Name="modifier_id" ColumnName="modifier_id" />
+                <ScalarProperty Name="orientation" ColumnName="orientation" />
+                <ScalarProperty Name="restrictrole" ColumnName="restrictrole" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="reportsStored_preview">
+            <EntityTypeMapping TypeName="WMMModel.reportsStored_preview">
+              <MappingFragment StoreEntitySet="reportsStored_preview">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="class" ColumnName="class" />
+                <ScalarProperty Name="reportType" ColumnName="reportType" />
+                <ScalarProperty Name="reportFlags" ColumnName="reportFlags" />
+                <ScalarProperty Name="dateType" ColumnName="dateType" />
+                <ScalarProperty Name="dateFrom" ColumnName="dateFrom" />
+                <ScalarProperty Name="dateTo" ColumnName="dateTo" />
+                <ScalarProperty Name="profiles" ColumnName="profiles" />
+                <ScalarProperty Name="accounts" ColumnName="accounts" />
+                <ScalarProperty Name="plans" ColumnName="plans" />
+                <ScalarProperty Name="devices" ColumnName="devices" />
+                <ScalarProperty Name="transactionTypes" ColumnName="transactionTypes" />
+                <ScalarProperty Name="groupBy" ColumnName="groupBy" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="deviceGroups" ColumnName="deviceGroups" />
+                <ScalarProperty Name="deviceTypes" ColumnName="deviceTypes" />
+                <ScalarProperty Name="identifier" ColumnName="identifier" />
+                <ScalarProperty Name="operators" ColumnName="operators" />
+                <ScalarProperty Name="payMethods" ColumnName="payMethods" />
+                <ScalarProperty Name="creator_id" ColumnName="creator_id" />
+                <ScalarProperty Name="modifier_id" ColumnName="modifier_id" />
+                <ScalarProperty Name="orientation" ColumnName="orientation" />
+                <ScalarProperty Name="restrictrole" ColumnName="restrictrole" />
+                <ScalarProperty Name="created" ColumnName="created" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="themes">
+            <EntityTypeMapping TypeName="WMMModel.theme">
+              <MappingFragment StoreEntitySet="themes">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="themename" ColumnName="themename" />
+                <ScalarProperty Name="themecss" ColumnName="themecss" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="vars" ColumnName="vars" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="timezones">
+            <EntityTypeMapping TypeName="WMMModel.timezone">
+              <MappingFragment StoreEntitySet="timezones">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="cc" ColumnName="cc" />
+                <ScalarProperty Name="zone" ColumnName="zone" />
+                <ScalarProperty Name="offset" ColumnName="offset" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="translations">
+            <EntityTypeMapping TypeName="WMMModel.translation">
+              <MappingFragment StoreEntitySet="translations">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="sourceid" ColumnName="sourceid" />
+                <ScalarProperty Name="language" ColumnName="language" />
+                <ScalarProperty Name="translation1" ColumnName="translation" />
+                <ScalarProperty Name="modified" ColumnName="modified" />
+                <ScalarProperty Name="modifier" ColumnName="modifier" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="translationsources">
+            <EntityTypeMapping TypeName="WMMModel.translationsource">
+              <MappingFragment StoreEntitySet="translationsource">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="source" ColumnName="source" />
+                <ScalarProperty Name="modified" ColumnName="modified" />
+                <ScalarProperty Name="modifier" ColumnName="modifier" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AllLanguages">
+            <EntityTypeMapping TypeName="WMMModel.AllLanguage">
+              <MappingFragment StoreEntitySet="AllLanguages">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="lang" ColumnName="lang" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ThemeSettings">
+            <EntityTypeMapping TypeName="WMMModel.ThemeSetting">
+              <MappingFragment StoreEntitySet="ThemeSettings">
+                <ScalarProperty Name="Placeholder" ColumnName="Placeholder" />
+                <ScalarProperty Name="ThemeSettingValue" ColumnName="ThemeSettingValue" />
+                <ScalarProperty Name="ThemeSettingName" ColumnName="ThemeSettingName" />
+                <ScalarProperty Name="ThemeId" ColumnName="ThemeId" />
+                <ScalarProperty Name="ThemeSettingId" ColumnName="ThemeSettingId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblFonts">
+            <EntityTypeMapping TypeName="WMMModel.TblFont">
+              <MappingFragment StoreEntitySet="TblFonts">
+                <ScalarProperty Name="FontName" ColumnName="FontName" />
+                <ScalarProperty Name="FontID" ColumnName="FontID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

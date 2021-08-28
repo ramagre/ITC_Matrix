@@ -1,0 +1,180 @@
+﻿@using ITC_Matrix.Common;
+@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<ITC_Matrix.Models.Plan>
+@{
+    ViewBag.Title = "Clients";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Menu = "plans";
+    ViewBag.SubMenu = "mealPlansNode";
+}
+
+<script src="~/Assets/js/Clients.js"></script>
+
+<section class="mainTable-right">
+    <section class="filterRow">
+        @using (Html.BeginForm("Index", "MealPlans", FormMethod.Get))
+        {
+            <h3>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Meal_Plans)</h3>
+            <text>
+                <h4 style="padding-bottom:5px;">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Sort_By)</h4>
+            </text>
+
+            <section class="fullwidth">
+                <section class="row">
+                    <section class="selectBy-sort">
+                        <label class="customeFeild selectTag">
+                            @Html.DropDownList("searchBy", new List<SelectListItem>
+                                            {
+                                                new SelectListItem { Text = "Code", Value = "1"},
+                                                new SelectListItem { Text = "Description", Value = "2"},
+                                            })
+                        </label>
+                    </section>
+                    <section class="searchBy">
+                        @Html.TextBox("txtSearch", "", new { @id = "txtSearch", @placeholder = "Search", @maxLength = 25 })
+                    </section>
+                    <section class="small-formBtn">
+                        <input type="submit" value="Find" name="Search" class="pink-btn" />
+                    </section>
+                    <section class="small-formBtn">
+                        <a href='@Url.Action("Index", "MealPlans")' value="Clear" class="blue-btn" data-toggle="tooltip" title="Clear Search">Clear</a>
+                    </section>
+                </section>
+            </section>
+        }
+        <section class="clear">&nbsp;</section>
+        @if (ViewBag.MealPlansMessage != null)
+        {
+            <section class="@ViewBag.Class">@ViewBag.MealPlansMessage</section>
+        }
+    </section>
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="gridTable">
+        <thead>
+            <tr class="gridHeading">
+                <th width="75px">@Html.ActionLink(@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Code), "Index", new { sortBy = ViewBag.CODESort, searchBy = Request.QueryString["searchBy"], txtSearch = Request.QueryString["txtSearch"] }, new { @class = "label" })</th>
+
+                <th>@Html.ActionLink(@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Description), "Index", new { sortBy = ViewBag.DSCRSort, searchBy = Request.QueryString["searchBy"], txtSearch = Request.QueryString["txtSearch"] }, new { @class = "label" })</th>
+
+                <th width="100px">@Html.ActionLink(@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.DAYS), "Index", new { sortBy = ViewBag.DAYSSort, searchBy = Request.QueryString["searchBy"], txtSearch = Request.QueryString["txtSearch"] }, new { @class = "label" })</th>
+
+                <th>@Html.ActionLink(@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Expiry), "Index", new { sortBy = ViewBag.EXPIRY_DATESort, searchBy = Request.QueryString["searchBy"], txtSearch = Request.QueryString["txtSearch"] }, new { @class = "label" })</th>
+
+                <th>@Html.ActionLink(@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Price), "Index", new { sortBy = ViewBag.PRICESort, searchBy = Request.QueryString["searchBy"], txtSearch = Request.QueryString["txtSearch"] }, new { @class = "label" })</th>
+
+                <th width="80px" style="text-align:center;font-size:13px;font-weight: normal;">Manage</th>
+
+            </tr>
+        </thead>
+        <tbody class="scrollContent">
+            @if (Model != null)
+            {
+                if (Model.Count() == 0)
+                {
+                    <tr>
+                        <td colspan="7">
+                            Sorry ! no such record found.
+                        </td>
+                    </tr>
+                }
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CODE)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DSCR)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DAYS)
+                        </td>
+                        <td>
+                            @{
+                                string expdate = "n/a";
+                                if (item.IS_EXPIRY_DATE != 0)
+                                {
+                                    expdate = item.EXPIRY_DATE.ToString("yyyy/MM/dd");
+                                }
+                            }
+                            @Html.Raw(expdate)
+                        </td>
+                        <td>
+                            @{
+                                double val = 0;
+
+                                if (item.PRICE != 0)
+                                {
+                                    val = (double)item.PRICE;
+                                    @Html.Raw(@ViewBag.Sign + (string.Format("{0:0.00}", val)))
+                                }
+                                else
+                                {
+                                    @Html.Raw(@ViewBag.Sign + (string.Format("{0:0.00}", val)))
+                                }
+                            }
+                        </td>
+
+                        <td class="manageTable" width="80px">
+                            <table width="80px" border="0" cellspacing="0" cellpadding="0">
+                                <tbody>
+                                    <tr>
+                                        <td width="40px"><a href="@Url.Action("Edit", "MealPlans", new { id = item.CODE })" class="edit_icon" data-toggle="tooltip" title="Click to edit this meal type."></a></td>
+                                        @{
+                                            if (ViewBag.isPermission == false)
+                                            {
+                                                <td width="40px"></td>
+                                            }
+                                            else
+                                            {
+                                                <td width="40px">
+                                                    <a class="lnkDelete" data-id="@item.CODE" data-toggle="tooltip" title="Click to delete this meal type."
+                                                       href='@Url.Action("Delete", "MealPlans", new { id = item.CODE })'>
+                                                        <img src="~/Assets/Images/delete_icon.png" />
+                                                    </a>
+                                                </td>
+                                            }
+                                        }
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                                                }
+                                            }
+        </tbody>
+
+        @*for pagination*@
+
+        <tfoot class="gridFooter">
+            <tr>
+                <td colspan="7">
+                    <section class="floatLeft scroll-btns">
+
+                        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, Profile = Request.QueryString["Profile"], txtSearch = Request.QueryString["txtSearch"], sortBy = Request.QueryString["sortBy"] }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayItemSliceAndTotal = true })
+                        @{
+                            if (ViewBag.message != null)
+                            {
+                                TempData["message"] = ViewBag.message;
+
+                            }
+                        }
+                    </section>
+                    @{
+                        if (ViewBag.isPermission != false)
+                        {
+                            <section class="floatRight">
+                                <a href='@Url.Action("Create", "MealPlans")'>
+                                    <input type="button" class="orange-btn" value="@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Addnew)">
+                                </a>
+                            </section>
+                        }
+                    }
+                </td>
+            </tr>
+        </tfoot>
+
+    </table>
+</section>

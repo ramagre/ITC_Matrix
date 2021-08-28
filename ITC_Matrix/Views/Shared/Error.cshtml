@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>ITC Systems - Matrix Manager&#8482;</title>
+
+    <link rel="stylesheet" href="~/Assets/CSS/master.css">
+    @if ((Session["DefaultTheme"]) != null)
+    {
+        <link rel="stylesheet" href='@(Session["DefaultTheme"])'>
+    }
+    else
+    {
+        <link rel="stylesheet" href="~/Assets/CSS/default-theme.css">
+    }
+
+    <script src="~/Scripts/jquery-2.1.4.js"></script>
+    <script src="~/Scripts/jquery-ui-1.11.4.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#more').click(function () {
+                $('#moreInformation').toggle();
+            });
+        });
+    </script>
+</head>
+<body>
+    @using ITC_Matrix.Common;
+    <section class="container">
+        <header class="mainHeader fullwidth">
+            <a href="@Url.Action("Index", "Dashboard")" class="logo">
+            </a>
+            
+        </header>
+        <section class="fullwidth bodyContainer">
+            <section class="blueHeading-bg">
+                <h3>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.ErrorInformation)</h3>
+            </section>
+            <section class="fullwidth mainTable-container" style="min-height:733px;">
+                <section class="mainTable-right">
+                    <section class="contentLimit-box content" id="content-1">
+                        <section class="contentLimit-boxInner">
+                            <section class="formBox-row fullwidth">
+                                <section class="heading">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.ErrorInformation)</section>
+                                <section class="formBox-content">
+                                    <section class="floatRight row">
+                                        <section class="small-formBtn">
+                                            @if((Session["UserName"])!=null)
+                                            {
+                                            <a href="/Dashboard" class="blue-btn">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Home)</a>
+                                            }
+                                        </section>
+                                    </section>
+
+                                    <section style="float:left;width:90%;">
+                                        @if (ViewBag.Error != null)
+                                        {
+                                            <section>
+                                                <p style="padding-left:10px;font-size:18px;">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Sorryfortheinconvenience).<br />@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Anerroroccurred).  @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Pleasecontactyouradministrator).</p>
+                                                <br />
+
+                                                <a href="javascript:void(0);" id="more" class="formBox-content half labelWraper label" style="text-decoration:underline;">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Moreinformation).</a>
+                                                <div id="moreInformation" style="display:none;padding-left:10px;">
+                                                    @ViewBag.Error
+                                                </div>
+                                            </section>
+                                        }
+                                        else
+                                        {
+                                            <section>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Sorryfortheinconvenience). <br />@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Anerroroccurred). @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Pleasecontactyouradministrator).</section>
+                                        }
+                                    </section>
+                                </section>
+                            </section>
+                        </section>
+                        <section class="clear"></section>
+                    </section>
+                </section>
+            </section>
+        </section>
+        <footer class="fullwidth mainFooter">
+            Copyright © @DateTime.Now.Year ITC Systems. All rights reserved.
+        </footer>
+        <section class="clear"></section>
+    </section>
+</body>
+</html>

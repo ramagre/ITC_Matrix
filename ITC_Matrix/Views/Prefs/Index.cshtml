@@ -1,0 +1,557 @@
+﻿@using ITC_Matrix.Common;
+@model IEnumerable<ITC_Matrix.Models.pref>
+@{
+    ViewBag.Title = "PrefsController";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Menu = "admin";
+    ViewBag.SubMenu = "prefsNode";
+}
+
+@*Including the js file*@
+
+<script src="~/Assets/js/Prefs.js"></script>
+
+<style>
+    .displayNone {
+        display: none;
+    }
+</style>
+
+@using (@Html.BeginForm("Index", "Prefs", FormMethod.Post))
+{
+    @Html.Hidden("name")
+    @Html.Hidden("value")
+    @Html.Hidden("monthName")
+    <section class="mainTable-right">
+        <section class="filterRow">
+
+            <h3>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.System_Defaults)</h3>
+
+        </section>
+        <section class="clear"></section>
+        @if (ViewBag.PrefsMessage != null)
+        {
+            <section class="@ViewBag.Class">@ViewBag.PrefsMessage</section>
+        }
+
+        <table width="100%" border="0" id="tbl" cellspacing="0" cellpadding="0" class="gridTable tableFixed-none">
+            <thead>
+                <tr class="gridHeading">
+
+                    <th width="50px" style="text-align:left;">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Property)</th>
+
+                    <th colspan="3" width="150px" style="text-align:left;">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Value)</th>
+                </tr>
+            </thead>
+            <tbody class="scrollContent">
+                @foreach (var item in Model)
+                {
+                    <tr id="@item.name">
+                        <td width="100px">
+                            @{
+                                if (item.name == "skincss")
+                                {
+                                    <span>@Html.Raw("Theme") </span>
+                                }
+                                else if (item.name == "reportsFrom")
+                                {
+                                    <span> @Html.Raw(" Reports From Address") </span>
+                                }
+                                else if (item.name == "debug")
+                                {
+                                    <span> @Html.Raw("Debug Status") </span>
+                                }
+                                else if (item.name == "ytd_day")
+                                {
+                                    <span> @Html.Raw("Year to date starts") </span>
+                                }
+
+                                else if (item.name == "maxRows")
+                                {
+                                    <span>@Html.Raw("Max Rows in List View") </span>
+                                }
+
+                                else if (item.name == "matrixKey")
+                                {
+                                    <span>@Html.Raw("Matrix Key") </span>
+                                }
+
+                                else if (item.name == "sessionName")
+                                {
+                                    <span>@Html.Raw("Session Name") </span>
+                                }
+
+                                else if (item.name == "sessionIdle")
+                                {
+                                    <span>@Html.Raw("Session Idle Timeout") </span>
+                                }
+
+                                else if (item.name == "langdefault")
+                                {
+                                    <span>@Html.Raw("Default Language") </span>
+                                }
+
+                                else if (item.name == "htmldocpdfstore")
+                                {
+                                    <span>@Html.Raw("Reports: Cache Storage") </span>
+                                }
+
+                                else if (item.name == "htmldocbaseurl")
+                                {
+                                    <span>@Html.Raw("Reports: HTMLDOC Base URL") </span>
+                                }
+
+                                else if (item.name == "ldapPort")
+                                {
+                                    <span>@Html.Raw("Active Directory Port") </span>
+                                }
+
+                                else if (item.name == "htmldocpath")
+                                {
+                                    <span>@Html.Raw("Reports: HTMLDOC Path") </span>
+                                }
+
+                                else if (item.name == "htmldocsiterootstore")
+                                {
+                                    <span>@Html.Raw("Reports: Cache Site Root Store") </span>
+                                }
+                              
+                                    else if (item.name == "globalMenus")
+                                {
+                                    <span> @Html.Raw("Global Menus") </span>
+                                }
+                                else if (item.name == "firstDayOfWeek")
+                                {
+                                    <span>@Html.Raw("Dates: First Day of the Week") </span>
+                                            }
+                                else if (item.name == "db")
+                                {
+                                    <span>@Html.Raw("Database") </span>
+                                }
+                                else if (item.name == "ldapHost")
+                                {
+                                    <span>@Html.Raw("LdapHost") </span>
+                                }
+
+                                else if (item.name == "languages")
+                                {
+                                    <span>@Html.Raw("Languages") </span>
+                                }
+
+                                else if (item.name == "masterRole")
+                                {
+                                    <span>@Html.Raw("Master Role") </span>
+                                }
+
+                                else if (item.name == "masterUser")
+                                {
+                                    <span>@Html.Raw("Master User") </span>
+                                }
+
+                                else if (item.name == "matrixdb_version")
+                                {
+                                    <span>@Html.Raw("Matrix Version") </span>
+                                }
+                                else if (item.name == "reportsPath")
+                                {
+                                    <span>@Html.Raw("Reports Path") </span>
+                                }
+                                else if (item.name == "deepdebug")
+                                {
+                                    <span> @Html.Raw("Deep Debug") </span>
+                                }
+                                else if (item.name == "timer")
+                                {
+                                    <span>@Html.Raw("Timer") </span>
+                                }
+
+                                else
+                                {
+                                    <span>@item.name</span>
+                                }
+                            }
+
+                        </td>
+
+                        @{
+                            if (item.name == "db")
+                            {
+                                <td width="100px">
+                                    <span id="lblDB" class="editable">@item.value</span>
+                                </td>
+                            }
+
+                            else if (item.name == "debug")
+                            {
+                                <td width="100px">
+                                    <label id="lbldebug">@item.value</label>
+                                    <span id="dddlstebug">
+                                        @Html.DropDownList("ddldebug", null, new { id = "ddldebug", Class = "displayNone" })
+                                    </span>
+
+
+                                    <input type="submit" value="save" id="btndebugSave" class="displayNone" style="width:80px;float:left;margin:3px" />
+                                    <input type="reset" value="cancel" id="btndebugCancel" class="displayNone" style="width:80px;float:left;margin:3px" />
+
+                                </td>
+                            }
+
+                            else if (item.name == "deepdebug")
+                            {
+                                <td width="100px">
+                                    <label id="lbldeepdebug">@item.value</label>
+                                    <span id="ddllstdeepdebug">
+                                        @Html.DropDownList("ddldeepdebug", null, new { Class = "displayNone" })
+                                    </span>
+
+                                    <input type="submit" value="save" id="btndeepdebugSave" class="displayNone" style="width:80px;float:left;margin:3px" />
+                                    <input type="reset" value="cancel" id="btndeepdebugCancel" class="displayNone" style="width:80px;float:left;margin:3px" />
+
+                                </td>
+                            }
+
+                            else if (item.name == "globalMenus")
+                            {
+                                <td width="100px">
+                                    @Html.TextBoxFor(modelItem => item.value, new { id = "txtglobalMenus", @class = "displayNone" })
+                                    @Html.TextBoxFor(modelItem => item.value, new { @readonly = "readonly", id = "txtglobalReadOnly" })
+                                    <input type="submit" value="save" id="btnglobalMenusSave" class="displayNone" style="width:80px;float:left;margin:3px" />
+                                    <input type="reset" value="cancel" id="btnglobalMenusCancel" class="displayNone" style="width:80px;float:left;margin:3px" />
+                                </td>
+                            }
+
+                            else if (item.name == "htmldocbaseurl")
+                            {
+                                <td width="100px">
+                                    <label id="lblhtmldocbaseurl">@item.value</label>
+                                    <input type="text" id="txthtmldocbaseurl" value="@item.value" class="displayNone" />
+
+                                    <input type="submit" value="save" id="btndocbaseurlSave" class="displayNone" style="width:80px;float:left;margin:3px" />
+                                    <input type="reset" value="cancel" id="btndocbaseurlCancel" class="displayNone" style="width:80px;float:left;margin:3px" />
+
+                                </td>
+                            }
+                            else if (item.name == "htmldocpath")
+                            {
+                                <td width="100px">
+                                    <label id="lblhtmldocpath">@item.value</label>
+                                    <input type="text" id="txthtmldocpath" value="@item.value" class="displayNone" />
+
+                                    <input type="submit" value="save" id="btnhtmldocpathSave" class="displayNone" style="width:80px;float:left;margin:3px" />
+                                    <input type="reset" value="cancel" id="btnhtmldocpathCancel" class="displayNone" style="width:80px;float:left;margin:3px" />
+
+                                </td>
+                            }
+                            else if (item.name == "htmldocpdfstore")
+                            {
+                                <td width="100px">
+                                    <label id="lblhtmldocpdfstore">@item.value</label>
+                                    <input type="text" id="txthtmldocpdfstore" value="@item.value" class="displayNone" />
+
+                                    <input type="submit" value="save" id="btnhtmldocpdfstoreSave" class="displayNone" style="width:80px;float:left;margin:3px" />
+                                    <input type="reset" value="cancel" id="btnhtmldocpdfstoreCancel" class="displayNone" style="width:80px;float:left;margin:3px" />
+                                </td>
+                            }
+                            else if (item.name == "htmldocsiterootstore")
+                            {
+                                <td width="100px">
+                                    <label id="lblhtmldocsiterootstore">@item.value</label>
+                                    <input type="text" id="txthtmldocsiterootstore" value="@item.value" class="displayNone" />
+
+                                    <input type="submit" value="save" id="btnhtmldocsiterootstoreSave" class="displayNone" style="width:80px;float:left;margin:3px" />
+                                    <input type="reset" value="cancel" id="btnhtmldocsiterootstoreCancel" class="displayNone" style="width:80px;float:left;margin:3px" />
+                                </td>
+                            }
+                            else if (item.name == "languages")
+                            {
+                                <td width="100px">
+                                    @Html.DisplayFor(modelItem => item.value)
+                                </td>
+                            }
+                            else if (item.name == "ldapHost")
+                            {
+                                <td width="100px">
+                                    <label id="lblldapHost">@item.value</label>
+                                    <input type="text" id="txtldapHost" value="@item.value" class="displayNone" />
+
+                                    <input type="submit" value="save" id="btnldapHostSave" class="displayNone" style="width:80px;float:left;margin:3px" />
+                                    <input type="reset" value="cancel" id="btnldapHostCancel" class="displayNone" style="width:80px;float:left;margin:3px" />
+                                </td>
+                            }
+                            else if (item.name == "ldapPort")
+                            {
+                                <td width="100px">
+                                    <label id="lblldapPort">@item.value</label>
+                                    <input type="text" id="txtldapPort" value="@item.value" class="displayNone" />
+
+                                    <input type="submit" value="save" id="btnldapPortSave" class="displayNone" style="width:80px;float:left;margin:3px" />
+                                    <input type="reset" value="cancel" id="btnldapPortCancel" class="displayNone" style="width:80px;float:left;margin:3px" />
+                                </td>
+                            }
+                            else if (item.name == "ldapUse")
+                            {
+                                <td width="100px">
+                                    <label id="lblldapUse">@item.value</label>
+                                    <span id="ddllstldapUse">
+                                        @Html.DropDownList("ddlldapUse", null, new { @Class = "displayNone" })
+                                    </span>
+
+                                    <input type="submit" value="save" id="btnldapUseSave" class="displayNone" style="width:80px;float:left;margin:3px" />
+                                    <input type="reset" value="cancel" id="btnldapUseCancel" class="displayNone" style="width:80px;float:left;margin:3px" />
+
+                                </td>
+                            }
+                            else if (item.name == "matrixdb_version")
+                            {
+                                <td width="100px">
+                                    <label id="lblversion">@item.value</label>
+                                    <input type="text" id="txtversion" value="@item.value" class="displayNone" />
+
+                                    <input type="submit" value="save" id="btnversionSave" class="displayNone" style="width:80px;float:left;margin:3px" />
+                                    <input type="reset" value="cancel" id="btnversionCancel" class="displayNone" style="width:80px;float:left;margin:3px" />
+                                </td>
+                            }
+                            else if (item.name == "matrixKey")
+                            {
+                                <td width="100px">
+                                    <label id="lblmatrixKey">@item.value</label>
+                                    <input type="text" id="txtmatrixKey" value="@item.value" class="displayNone" />
+
+                                    <input type="submit" value="save" id="btnmatrixKeySave" class="displayNone" style="width:80px;float:left;margin:3px" />
+                                    <input type="reset" value="cancel" id="btnmatrixKeyCancel" class="displayNone" style="width:80px;float:left;margin:3px" />
+
+                                </td>
+                            }
+                            else if (item.name == "maxRows")
+                            {
+                                <td width="100px">
+                                    <label id="lblmaxRows">@item.value</label>
+                                    <input type="text" id="txtmaxRows" value="@item.value" class="displayNone" />
+
+                                    <input type="submit" value="save" id="btnmaxRowsSave" class="displayNone" style="width:80px;float:left;margin:3px" />
+                                    <input type="reset" value="cancel" id="btnmaxRowsCancel" class="displayNone" style="width:80px;float:left;margin:3px" />
+                                </td>
+                            }
+                            else if (item.name == "sessionIdle")
+                            {
+                                <td width="100px">
+                                    <label id="lblsessionIdle">@item.value <text>minutes</text></label>
+                                    <input type="text" id="txtsessionIdle" value="@item.value" class="displayNone" />
+
+                                    <input type="submit" value="save" id="btnsessionIdleSave" class="displayNone" style="width:80px;float:left;margin:3px" />
+                                    <input type="reset" value="cancel" id="btnsessionIdleCancel" class="displayNone" style="width:80px;float:left;margin:3px" />
+                                </td>
+                            }
+                            else if (item.name == "sessionName")
+                            {
+                                <td width="100px">
+                                    <label id="lblsessionName">@item.value</label>
+                                    <input type="text" id="txtsessionName" value="@item.value" class="displayNone" />
+
+                                    <input type="submit" value="save" id="btnsessionNameSave" class="displayNone" style="width:80px;float:left;margin:3px" />
+                                    <input type="reset" value="cancel" id="btnsessionNameCancel" class="displayNone" style="width:80px;float:left;margin:3px" />
+                                </td>
+                            }
+
+                            else if (item.name == "reportsPath")
+                            {
+                                <td width="100px">
+                                    <label id="lblreportsPath">@item.value</label>
+
+                                    <input type="text" id="txtreportsPath" value="@item.value" class="displayNone" />
+
+                                    <input type="submit" value="save" id="btnreportsPathSave" class="displayNone" style="width:80px;float:left;margin:3px" />
+                                    <input type="reset" value="cancel" id="btnreportsPathCancel" class="displayNone" style="width:80px;float:left;margin:3px" />
+
+                                </td>
+                            }
+
+                            else if (item.name == "timer")
+                            {
+                                <td width="100px">
+                                    <label id="lbltimer">@item.value</label>
+                                    <span id="ddlslttimer">
+                                        @Html.DropDownList("ddlltimer", null, new { @class = "displayNone" })
+                                    </span>
+                                    <input type="submit" value="save" id="btntimerSave" class="displayNone" style="width:80px;float:left;margin:3px" />
+                                    <input type="reset" value="cancel" id="btntimerCancel" class="displayNone" style="width:80px;float:left;margin:3px" />
+
+                                </td>
+                            }
+
+                            else if (item.name == "skincss")
+                            {
+                                <td width="100px">
+                                    @*<label id="lblthemes">@item.value</label>*@
+                                    @{
+                                        if (@ViewBag.themeName != null)
+                                        {
+                                            <label id="lblthemes">@ViewBag.themeName</label>
+                                        }
+
+                                    }
+
+                                    <span id="ddlsltthemes">
+                                        @Html.DropDownList("themes", "Default Theme")
+                                    </span>
+                                    <input type="submit" value="save" id="btnthemesSave" class="displayNone" style="width:80px;float:left;margin:3px" />
+                                    <input type="reset" value="cancel" id="btnthemesCancel" class="displayNone" style="width:80px;float:left;margin:3px" />
+                                </td>
+                                        }
+
+                                        else if (item.name == "langdefault")
+                                        {
+                                            <td width="100px">
+                                                <label id="lblLanguages">@item.value</label>
+                                                <span id="ddlsltLanguages">
+                                                    @Html.DropDownList("languages", (SelectList)ViewBag.languages, new { @class = "displayNone", @id = "ddlLanguages" })
+                                                </span>
+
+                                                <input type="submit" value="save" id="btnlanguageSave" class="displayNone" style="width:80px;float:left;margin:3px" />
+                                                <input type="reset" value="cancel" id="btnlanguageCancel" class="displayNone" style="width:80px;float:left;margin:3px" />
+                                            </td>
+                                        }
+                                        else if (item.name == "Dates: Default Format")
+                                        {
+                                            <td width="100px">
+                                                <label>@item.value</label>
+                                            </td>
+                                        }
+                                        else if (item.name == "Dates: Default Format (jQuery Equiv)")
+                                        {
+                                            <td width="100px">
+                                                <label>@item.value</label>
+                                            </td>
+                                        }
+                                        else if (item.name == "firstDayOfWeek")
+                                        {
+                                            <td width="100px">
+                                                @{
+                                                    if (item.value == "1")
+                                                    {
+                                                        <label id="weekDays">@Html.Raw("sunday")</label>
+                                                    }
+                                                    else if (item.value == "2")
+                                                    { <label id="weekDays">@Html.Raw("monday")</label> }
+                        else if (item.value == "3")
+                        {  <label id="weekDays">@Html.Raw("tuesday")</label>}
+                        else if (item.value == "4")
+                        { <label id="weekDays">@Html.Raw("wednesday")</label> }
+                        else if (item.value == "5")
+                        { <label id="weekDays">@Html.Raw("thursday")</label> }
+                        else if (item.value == "6")
+                        { <label id="weekDays">@Html.Raw("friday")</label> }
+                        else if (item.value == "7")
+                        {  <label id="weekDays">@Html.Raw("saturday")</label>}
+
+                                                }
+                                                <span id="ddllstWeekDays">
+                                                    @Html.DropDownList("ddlweek", null, new { @class = "displayNone" })
+                                                </span>
+
+                                                <input type="submit" value="save" id="btnweekDaysSave" class="displayNone" style="width:80px;float:left;margin:3px" />
+                                                <input type="reset" value="cancel" id="btnweekDaysCancel" class="displayNone" style="width:80px;float:left;margin:3px" />
+
+                                            </td>
+                                                    }
+                                                    else if (item.name == "Show Report Logo")
+                                                    {
+                                                        <td width="100px">
+                                                            <label id="lblreportLogo">@item.value</label>
+                                                            <span id="dddlstReportLogo">
+                                                                @Html.DropDownList("ddlReportLogo", null, new { @class = "displayNone" })
+                                                            </span>
+
+                                                            <input type="submit" value="save" id="btnreportLogoSave" class="displayNone" style="width:80px;float:left;margin:3px" />
+                                                            <input type="reset" value="cancel" id="btnreportLogoCancel" class="displayNone" style="width:80px;float:left;margin:3px" />
+
+                                                        </td>
+                                                    }
+
+                                                    else if (item.name == "Financial Day Starts")
+                                                    {
+                                                        <td width="100px">
+                                                            <label>@item.value</label>
+                                                        </td>
+                                                    }
+
+                                                    else if (item.name == "ytd_day")
+                                                    {
+                                                        <td width="100px">
+
+                                                            <label id="lblyearstart">@Html.Raw(string.Concat(ViewBag.selectedDay, "/", ViewBag.monthName))</label>
+                                                            <section class="balanceDate">
+                                                                <span id="ddllstMonth">
+                                                                    @*@Html.DropDownList("Month", (SelectList)ViewBag.Month, new { @class = "displayNone" })*@
+                                                                    @Html.DropDownList("Month")
+                                                                </span>
+                                                            </section>
+                                                            <section class="balanceDate">
+                                                                <span id="ddllstMonthName">
+                                                                    @Html.DropDownList("selectedMonth")
+                                                                </span>
+                                                            </section>
+                                                            <input type="submit" value="save" id="btnlblyearstartSave" class="displayNone" style="width:80px;float:left;margin:3px" />
+                                                            <input type="reset" value="cancel" id="btnlblyearstartCancel" class="displayNone" style="width:80px;float:left;margin:3px" />
+
+                                                        </td>
+                                                    }
+                                                    else if (item.name == "masterRole")
+                                                    {
+                                                        <td width="100px">
+                                                            <label id="lblmasterRole">
+                                                                @item.value
+                                                            </label>
+                                                            <input type="text" id="txtmasterRole" value="@item.value" class="displayNone" />
+
+                                                            <input type="submit" value="save" id="btnmasterRoleSave" class="displayNone" style="width:80px;float:left;margin:3px" />
+                                                            <input type="reset" value="cancel" id="btnmasterRoleCancel" class="displayNone" style="width:80px;float:left;margin:3px" />
+                                                        </td>
+                                                    }
+
+                                                    else if (item.name == "masterUser")
+                                                    {
+                                                        <td width="100px">
+                                                            <label id="lblmasterUser">@item.value</label>
+                                                            <input type="text" id="txtmasterUser" value="@item.value" class="displayNone" />
+
+                                                            <input type="submit" value="save" id="btnmasterUserSave" class="displayNone" style="width:80px;float:left;margin:3px" />
+                                                            <input type="reset" value="cancel" id="btnmasterUserCancel" class="displayNone" style="width:80px;float:left;margin:3px" />
+                                                        </td>
+                                                    }
+
+                                                    else if (item.name == "reportsFrom")
+                                                    {
+                                                        <td width="100px">
+                                                            <label id="lblreportsFrom ">@item.value</label>
+                                                            <input type="text" id="txtreportsFrom" value="@item.value" class="displayNone" />
+
+                                                            <input type="submit" value="save" id="btnreportsFromSave" class="displayNone" style="width:80px;float:left;margin:3px" />
+                                                            <input type="reset" value="cancel" id="btnreportsFromCancel" class="displayNone" style="width:80px;float:left;margin:3px" />
+                                                        </td>
+                                                    }
+
+                        }
+                        @{
+                            if (item.name != "db")
+                            {
+                                <td width="20px">
+                                    <span id="btnEdit" class="edit_icon" data-toggle="tooltip" title="Click to edit this property."></span>
+                                    <input type="submit" value="@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Save)" id="@item.name" class="displayNone" style="width:80px;float:left;margin:3px" />
+                                    <input type="reset" value="@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Cancel)" class="displayNone" style="width:80px;float:left;margin:3px" />
+                                </td>
+                            }
+                        }
+
+                    </tr>
+                            }
+            </tbody>
+
+
+        </table>
+    </section>
+
+                            }
+<section class="clear"></section>
+
+

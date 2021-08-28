@@ -1,0 +1,142 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@using ITC_Matrix.Common;
+@model IPagedList<ITC_Matrix.Models.Operator>
+@{
+    ViewBag.Title = "Operators";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Menu = "admin";
+    ViewBag.SubMenu = "operatorsNode";
+}
+
+<section class="mainTable-right">
+    <section class="filterRow">
+        @using (@Html.BeginForm("Index", "Operators", FormMethod.Get))
+        {
+            <h3>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Operators)</h3>
+            <text>
+                <h4 style="padding-bottom:5px;">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Sort_By)</h4>
+            </text>
+
+            <section class="fullwidth">
+                <section class="row">
+                    <section class="selectBy-sort">
+                        <label class="customeFeild selectTag">
+                            @Html.DropDownList("searchBy", new List<SelectListItem>
+                            {
+                                new SelectListItem { Text = "Login", Value = "12"},
+                                new SelectListItem { Text = "Family", Value = "13"},
+                                 new SelectListItem { Text = "Given", Value = "14"},
+                           }, "Select Search Option")
+
+                        </label>
+                    </section>
+                    <section class="searchBy">
+                        @Html.TextBox("search")
+                    </section>
+                    <section class="small-formBtn">
+                        <input type="submit" value="@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Find)" class="pink-btn" onclick="Index" />
+                    </section>
+                    <section class="small-formBtn">
+                        <a href='@Url.Action("Index", "Operators")' value="Clear" class="blue-btn" data-toggle="tooltip" title="Clear Search">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Clear)</a>
+                    </section>
+                </section>
+            </section>
+
+        }
+    </section>
+    <section class="clear"></section>
+    @if (ViewBag.Message != null)
+    {
+        <section class="@ViewBag.Class">@ViewBag.Message</section>
+    }
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="gridTable tableFixed-none">
+        <thead>
+            <tr class="gridHeading">
+
+                <th width="115px" style="text-align:left;">@Html.ActionLink(@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Login), "Index", new { sortBy = ViewBag.LoginSort, searchBy = Request.QueryString["searchBy"], txtSearch = Request.QueryString["txtSearch"] }, new { @class = "label" })</th>
+
+                <th width="80px" style="text-align:left;">@Html.ActionLink(@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Email), "Index", new { sortBy = ViewBag.EmailSort, searchBy = Request.QueryString["searchBy"], txtSearch = Request.QueryString["search"] }, new { @class = "label" })</th>
+
+                <th width="100px" style="text-align:left;"> @Html.ActionLink(@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Family), "Index", new { sortBy = ViewBag.FamilySort, searchBy = Request.QueryString["searchBy"], search = Request.QueryString["search"] }, new { @class = "label" })</th>
+
+                <th width="100px" style="text-align:left;"> @Html.ActionLink(@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Given), "Index", new { sortBy = ViewBag.GivenSort, searchBy = Request.QueryString["searchBy"], search = Request.QueryString["search"] }, new { @class = "label" })</th>
+
+                <th width="150px" style="text-align:left;text-decoration-color:red">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Roles)</th>
+
+                <th width="100px" colspan="3" style="text-align:left;"> @Html.ActionLink(@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Comments), "Index", new { sortBy = ViewBag.CommentsSort, searchBy = Request.QueryString["searchBy"], search = Request.QueryString["search"] }, new { @class = "label" })</th>
+
+            </tr>
+        </thead>
+        <tbody class="scrollContent">
+
+            @if (Model.Count() == 0)
+            {
+                <tr>
+                    <td colspan="2">
+                        Sorry ! no such record found.
+                    </td>
+                </tr>
+            }
+
+            @foreach (var item in Model)
+            {
+
+                <tr>
+
+                    <td>@Html.DisplayFor(modelItem => item.LOGIN)</td>
+                    <td style="color:#F8DED1">@Html.DisplayFor(modelItem => item.Email)</td>
+                    <td>@Html.DisplayFor(modelItem => item.FAMILY)</td>
+                    <td>@Html.DisplayFor(modelItem => item.GIVEN)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Profile)</td>
+                    <td>
+                        @{
+                            if (string.IsNullOrEmpty(item.COMMENT))
+                            {
+                                @Html.Raw("-");
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(modelItem => item.COMMENT)
+                            }
+
+                        }
+
+                    </td>
+                    <td width="40px"><a href="@Url.Action("Edit", "Operators", new { id = item.LOGIN })" class="edit_icon" data-toggle="tooltip" title="Click to edit this Operator."></a></td>
+                    <td width="50px">
+                        @{
+                            if (ViewBag.isPermission != false)
+                            {
+                                <a class="lnkDelete" data-id="@item.LOGIN" data-toggle="tooltip" title="Click to delete this Operator."
+                                   href='@Url.Action("Delete", "Operators", new { id = item.LOGIN })'>
+                                    <img src="~/Assets/Images/delete_icon.png" />
+                                </a>
+                            }
+                        }
+                    </td>
+                </tr>
+                            }
+
+        </tbody>
+        <tfoot class="gridFooter">
+            <tr>
+                <td colspan="8">
+                    <section class="floatLeft scroll-btns">
+
+                        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchBy = Request.QueryString["searchBy"], search = Request.QueryString["search"], sortBy = Request.QueryString["sortBy"] }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayItemSliceAndTotal = true })
+
+                    </section>
+                    <section class="floatRight">
+                        <a href='@Url.Action("Create", "Operators")'>
+                            <input type="button" class="orange-btn" value="@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Addnew)">
+                        </a>
+                    </section>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</section>
+<section class="clear"></section>
+
+

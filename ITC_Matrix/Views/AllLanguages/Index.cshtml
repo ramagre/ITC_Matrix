@@ -1,0 +1,125 @@
+﻿@*
+    FileFor : Listing Client Profile Details
+    File Name : Index.cshtml
+    Created Date : 23-11-2015
+    Created By : Sandip Katore
+*@
+@using ITC_Matrix.Common;
+@model IEnumerable<ITC_Matrix.Models.Language>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Menu = "admin";
+    ViewBag.SubMenu = "allLanguagesNode";
+}
+
+<script type="text/javascript" src="~/Assets/JS/ClientCard.js"></script>
+
+<section class="mainTable-right">
+    @using (Html.BeginForm())
+    {
+        <section class="filterRow" style="padding-bottom:0px;">
+            <h3>
+                @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Languages)
+            </h3>
+        </section>
+        if (ViewBag.AllLanguagesMessage != null)
+        {
+            <section class="clear">&nbsp;</section>
+            <section class="@ViewBag.Class">@ViewBag.AllLanguagesMessage</section>
+        }
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="gridTable tableFixed-none">
+            <thead>
+                @*Sorting*@
+                <tr class="gridHeading">
+                    <th style="text-align:left;">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Code)</th>
+                    <th width="115px" style="text-align:left;">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Languages)</th>                    
+                    <th style="text-align:left;">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.LanguagesPack)</th>
+                    <th colspan="2" style="text-align:left;">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Default)</th>
+                </tr>
+            </thead>
+            <tbody class="scrollContent">
+
+                @if (Model.Count() == 0)
+                {
+                    <tr>
+                        <td colspan="2">
+                            Sorry ! no such record found.
+                        </td>
+                    </tr>
+                }
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @{                               
+                                    @Html.DisplayFor(modelItem => item.Code)                                
+                                }
+                        </td>
+                        <td>
+                            @{
+                                if (item.DSCR != string.Empty)
+                                {
+                                    @Html.DisplayFor(modelItem => item.DSCR)
+                                }
+                            }
+                        </td>
+                        <td> - </td>
+                        <td width="40px">
+
+                            @{
+                                if (ViewBag.defaultLanguage != null)
+                                {
+                                    if (item.Code == ViewBag.defaultLanguage)
+                                    {
+                                        <a href="#" data-toggle="tooltip">
+                                            <span>
+                                                <img src="~/Assets/images/tick-icon.png" title="Default language" />
+                                            </span>
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a href="#" data-toggle="tooltip">
+                                            <span><img src="~/Assets/images/cross-icon.png" title="Click to make default language" /></span>
+                                        </a>
+                                    }
+                                }
+                            }
+                        </td>
+
+                        @if (ViewBag.defaultLanguage != null)
+                        {
+                            if (item.Code != ViewBag.defaultLanguage)
+                            {
+                                <td width="40px"><a class="lnkDelete" data-id="@item.Code" href="@Url.Action("Delete", "AllLanguages", new { id = item.Code })" data-toggle="tooltip" title="Click to delete this language"><span class="delete_icon"></span></a></td>
+                            }
+                        }
+
+                    </tr>
+
+                                }
+            </tbody>
+
+            <tfoot class="gridFooter">
+                <tr>
+                    <td colspan="2"></td>
+                    <td colspan="3">
+
+                        <section class="selectBy-sort" style="">
+                            <label class="customeFeild selectTag">
+                                @Html.DropDownList("Languages", "--Select Language--")
+                            </label>
+                        </section>
+
+                        <section class="floatRight">
+                            <input type="submit" class="orange-btn" value="@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Addnew)">
+                        </section>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+                                }
+</section>

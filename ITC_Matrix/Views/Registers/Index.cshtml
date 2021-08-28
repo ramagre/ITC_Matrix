@@ -1,0 +1,134 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@using ITC_Matrix.Common;
+@model IPagedList<ITC_Matrix.Models.Register>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Menu = "devices";
+    ViewBag.SubMenu = "registersNode";
+}
+
+<section class="mainTable-right">
+    @using (Html.BeginForm("Index", "Registers", FormMethod.Get))
+    {
+        <section class="filterRow">
+            <h3>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.devices)</h3>
+            <section class="fullwidth">
+                <section class="row">
+                    <section class="selectBy-sort">
+                        <label class="customeFeild selectTag">
+                            @Html.DropDownList("searchBy", new List<SelectListItem>
+                                            {
+                                                new SelectListItem { Text = "Code", Value = "1"},
+                                                new SelectListItem { Text = "Description", Value = "2"},
+                                                new SelectListItem { Text = "Group", Value = "11"},
+                                                new SelectListItem { Text = "IP Address", Value = "6"},
+                                                new SelectListItem { Text = "Type", Value = "9"},
+                                                new SelectListItem { Text = "Online/Offline Status", Value = "10"},
+                                                new SelectListItem { Text = "Enabled", Value = "7"},
+                                            })
+                        </label>
+                    </section>
+                    <section class="searchBy">
+                        @Html.TextBox("txtSearch", "", new { @id = "txtSearch", @placeholder = "Search", @maxLength = 25 })
+                    </section>
+                    <section class="small-formBtn">
+                        <input type="submit" value="Find" name="Search" class="pink-btn" />
+                    </section>
+                    <section class="small-formBtn">                   
+                        <a href='@Url.Action("Index", "Registers")' value="Clear" class="blue-btn" data-toggle="tooltip" title="Clear Search">Clear</a>
+                    </section>
+                </section>
+            </section>
+        </section>
+    }
+
+    <section class="clear">&nbsp;</section>
+    @if (ViewBag.RegistersMessage != null)
+    {
+        <section class="@ViewBag.Class">@ViewBag.RegistersMessage</section>
+    }
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="gridTable tableFixed-none">
+        <thead>
+          
+            <tr class="gridHeading">
+                <th style="text-align:left;">@Html.ActionLink(@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Code), "Index", new { sortBy = ViewBag.CodeSort, searchBy = Request.QueryString["searchBy"], txtSearch = Request.QueryString["txtSearch"] }, new { @class = "label" })</th>
+                <th style="text-align:left;"> @Html.ActionLink(@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Description), "Index", new { sortBy = ViewBag.DescriptionSort, searchBy = Request.QueryString["searchBy"], txtSearch = Request.QueryString["txtSearch"] }, new { @class = "label" })</th>
+                <th style="text-align:left;"> @Html.ActionLink(@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Group), "Index", new { sortBy = ViewBag.GroupSort, searchBy = Request.QueryString["searchBy"], txtSearch = Request.QueryString["txtSearch"] }, new { @class = "label" })</th>
+                <th style="text-align:left;"> @Html.ActionLink(@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.IP_Address), "Index", new { sortBy = ViewBag.IPAddressort, searchBy = Request.QueryString["searchBy"], txtSearch = Request.QueryString["txtSearch"] }, new { @class = "label" })</th>
+                <th style="text-align:left;"> @Html.ActionLink(@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Type), "Index", new { sortBy = ViewBag.Typesort, searchBy = Request.QueryString["searchBy"], txtSearch = Request.QueryString["txtSearch"] }, new { @class = "label" })</th>
+                <th style="text-align:left;"> @Html.ActionLink(@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Online), "Index", new { sortBy = ViewBag.Onlinesort, searchBy = Request.QueryString["searchBy"], txtSearch = Request.QueryString["txtSearch"] }, new { @class = "label" })</th>
+                <th style="text-align:left;" colspan="3"> @Html.ActionLink(@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Enabled), "Index", new { sortBy = ViewBag.Enabledsort, searchBy = Request.QueryString["searchBy"], txtSearch = Request.QueryString["txtSearch"] }, new { @class = "label" })</th>
+            </tr>
+        </thead>
+        <tbody class="scrollContent">
+
+            @if (Model.Count() == 0)
+            {
+                <tr>
+                    <td colspan="9">
+                        Sorry ! no such record found.
+                    </td>
+                </tr>
+            }
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.CODE)</td>
+                    <td> @Html.DisplayFor(modelItem => item.DSCR)</td>
+                    <td> @Html.DisplayFor(modelItem => item.GroupDesc)</td>
+                    <td> @Html.DisplayFor(modelItem => item.IPAddress)</td>
+                    <td> @Html.DisplayFor(modelItem => item.deviceTypeName)</td>
+
+                    <td>
+                        @{
+                            if (item.status == 1)
+                            {
+                                <img src="../Assets/images/offline-indi.png" />
+
+                            }
+                            if (item.status == 0)
+                            {
+                                <img src="../Assets/images/online-indi.png" />
+                            }
+
+                        }
+                    </td>
+
+                    <td>
+                        @{
+                            if (item.Enabled == 1)
+                            {
+                                @Html.Raw("Enabled")
+                            }
+                            else
+                            {
+                                @Html.Raw("-")
+                            }
+                        }
+
+                    </td>
+
+                    <td width="40px"><a href="@Url.Action("Edit","Registers", new { id = item.CODE })"><span class="edit_icon" data-toggle="tooltip" title="Click to edit this device"></span></a></td>
+                    <td width="40px"><a class="lnkDelete" data-id="@item.CODE" href="@Url.Action("Delete","Registers", new { id = item.CODE})"><span class="delete_icon" data-toggle="tooltip" title="Click to delete this device"></span></a></td>
+                </tr>
+                            }
+        </tbody>
+
+        <tfoot class="gridFooter">
+            <tr>
+                <td colspan="9">
+                    <section class="floatLeft scroll-btns">
+                        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchBy = Request.QueryString["searchBy"], search = Request.QueryString["txtSearch"], sortBy = Request.QueryString["sortBy"] }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayItemSliceAndTotal = true })
+                    </section>
+                    <section class="floatRight">
+                        <a href="/Registers/Create"><input type="button" class="orange-btn" value="Add New"></a>
+                    </section>
+                </td>
+            </tr>
+        </tfoot>
+
+    </table>
+</section>

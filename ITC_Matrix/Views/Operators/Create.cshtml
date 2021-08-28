@@ -1,0 +1,153 @@
+﻿@model ITC_Matrix.Models.Operator
+@using ITC_Matrix.Common;
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Menu = "admin";
+    ViewBag.SubMenu = "operatorsNode";
+}
+
+<script src="~/Assets/js/Departments.js"></script>
+
+
+<section class="mainTable-right">
+    @using (Html.BeginForm("Create", "Operators", FormMethod.Post))
+    {
+
+        @Html.Hidden("selectedProductString");
+        @Html.HiddenFor(model => model.OldPassword, new { Value = "" })
+        <h3>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Add_Operator)</h3>
+
+        if (ViewBag.Message != null)
+        {
+            <section class="@ViewBag.Class">@ViewBag.Message</section>
+        }
+
+        <section class="contentLimit-box content" id="content-1">
+            
+            <section class="contentLimit-boxInner">
+                <section class="formBox-row fullwidth">
+                    <section class="heading">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.OperatorDetails)</section>
+                    <section class="formBox-content">
+                        <section class="leftDiv half">
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Last_Name)</label>
+                                </section>
+                                <section class="feildWraper">
+                                    @Html.EditorFor(model => model.GIVEN)
+                                    @Html.ValidationMessageFor(model => model.GIVEN, "", new { @class = "text-danger" })
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.FamilyName)</label>
+                                </section>
+                                <section class="feildWraper">
+                                    @Html.EditorFor(model => model.FAMILY)
+                                    @Html.ValidationMessageFor(model => model.FAMILY, "", new { @class = "text-danger" })
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Login)</label>
+                                </section>
+                                <section class="feildWraper">
+                                    @Html.EditorFor(model => model.Username)
+                                    @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                                </section>
+                            </section>
+
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Email)</label>
+                                </section>
+                                <section class="feildWraper">
+                                    @Html.EditorFor(model => model.OperatorEmail)
+                                    @Html.ValidationMessageFor(model => model.OperatorEmail, "", new { @class = "text-danger" })
+                                </section>
+                            </section>
+
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Password)</label>
+                                </section>
+                                <section class="feildWraper">
+                                    @Html.EditorFor(model => model.CreatePASSWORD)
+                                    @Html.ValidationMessageFor(model => model.CreatePASSWORD, "", new { @class = "text-danger" })
+                                </section>
+                            </section>
+
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Confirm_Password)</label>
+                                </section>
+                                <section class="feildWraper">
+                                    @Html.EditorFor(model => model.CreateConfirmPassword)
+                                    @Html.ValidationMessageFor(model => model.CreateConfirmPassword, "", new { @class = "text-danger" })
+                                </section>
+                            </section>
+
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Comments)</label>
+                                </section>
+                                <section class="feildWraper">
+                                    @Html.EditorFor(model => model.COMMENT)
+                                    @Html.ValidationMessageFor(model => model.COMMENT, "", new { @class = "text-danger" })
+                                </section>
+                            </section>
+
+                        </section>
+                        <section class="rightDiv half">
+                            <section class="fullwidth initialized_ac">
+                                <section class="feildRow">
+                                    <h3 class="headTitle2">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Roles)</h3>
+                                    <section class="row">
+                                        <section class="half">
+                                            <section class="feildRow">
+                                                <section class="bloc">
+                                                    @Html.ListBox("rightGroupList", (MultiSelectList)ViewBag.RightGroupslist, htmlAttributes: new { id = "ChooseLeft", @class = "multiple" })
+                                                </section>
+                                            </section>
+                                        </section>
+                                        <section class="half">
+                                            <section class="feildRow">
+                                                <section class="bloc">
+                                                    @Html.ListBoxFor(m => m.RightGrouplist, new MultiSelectList(""), htmlAttributes: new { id = "ChooseRight", @class = "multiple", @style = "text-align: right;" })
+                                                    @*@Html.ValidationMessageFor(model => model.RightGroup, "", new { @class = "text-danger" })*@
+                                                </section>
+                                            </section>
+                                        </section>
+                                        <section class="addNremove-wraper">
+                                            <input id="ShiftRight" type="button" class="green-btn addList" value="">
+                                            <input id="ShiftLeft" type="button" class="green-btn removeList" value="">
+                                        </section>
+                                    </section>
+                                </section>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+                <section class="formBox-row fullwidth">
+                    <section class="formBox-content">
+                        <section class="floatRight row">
+                            <section class="small-formBtn">
+                                <input type="submit" value="@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Save)" class="pink-btn" id="btnSave" />
+                            </section>
+                            <section class="small-formBtn">
+                                <a href='@Url.Action("Index", "Operators")' class="blue-btn">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Cancel)</a>
+
+                            </section>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="clear"></section>
+        </section>
+
+
+    }
+
+
+</section>

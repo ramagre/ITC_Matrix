@@ -1,0 +1,294 @@
+﻿<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>ITC Systems - Matrix Manager&#8482;</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    @using ITC_Matrix.Common;
+    @Styles.Render("~/Content/")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="~/Content/jquery-ui.css">
+    <link rel="stylesheet" href="~/Assets/css/jquery.mCustomScrollbar.css">
+    <link rel="stylesheet" href="~/Content/PagedList.css" />
+
+    <link rel="stylesheet" href="~/Assets/CSS/master.css">
+
+    @if (ViewBag.Preview != null)
+    {
+        <link rel="stylesheet" href='@ViewBag.Preview'>
+    }
+    else
+    {
+        <link rel="stylesheet" href="~/Assets/CSS/default-theme.css">
+    }
+
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800" rel="stylesheet" type="text/css">
+
+    <script src="~/Scripts/jquery-2.1.4.js"></script>
+    <script src="~/Scripts/jquery-ui-1.11.4.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+    <script src="~/Assets/JS/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="~/Assets/js/script.js" type="text/javascript"></script>
+    <script type="text/javascript" src="~/Assets/JS/Layout.js"></script>
+
+
+    <!--[if lt IE 9]>
+        <script src="assets/js/html5.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <section class="container">
+        <header class="mainHeader fullwidth">
+            <a class="logo">
+            </a>
+
+        </header>
+        <section class="fullwidth bodyContainer">
+            <section class="blueHeading-bg">
+                <h3>Welcome @(Session["UserName"])</h3>
+                <section class="floatRight">
+                    <a class="logout-btn">Logout</a>
+                    <span class="setting-btn" style="cursor:default;">&nbsp;</span>
+                </section>
+            </section>
+            <section class="fullwidth mainTable-container">
+                <section class="mainTable-left">
+                    <section class="leftPanel-wrapper">
+                        <section id="menu" class="navigation">
+                            <ul>
+                                <li>
+                                    <a href="#" class="home">Home</a>
+                                </li>
+                                <li class='has-sub'>
+                                    <a href='#' class='clients'>Clients</a>
+                                    <ul class='children'>
+                                        <li><a>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Clients)</a></li>
+                                        <li><a>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Client_Profiles)</a></li>
+                                        <li><a>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Deleted_Client)</a></li>
+                                        <li><a>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.departments)</a></li>
+                                        <li><a>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Cost_Center)</a></li>
+                                    </ul>
+                                </li>
+                                <li class='has-sub'>
+                                    <a href='#' class='accounts'>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Accounts)</a>
+                                    <ul class='children'>
+                                        <li><a>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Account_Types)</a></li>
+                                        <li><a>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.paymentMethods)</a></li>
+                                    </ul>
+                                </li>
+                                <li class='has-sub'>
+                                    <a href='#' class='plans'>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Privileges)</a>
+                                    <ul class='children'>
+                                        <li><a>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Meal_Plans)</a></li>
+                                        <li><a>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Meal_Types)</a></li>
+                                    </ul>
+                                </li>
+                                <li class='has-sub'>
+                                    <a href='#' class='devices'>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Devices)</a>
+                                    <ul class='children'>
+                                        <li><a>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Devices)</a></li>
+                                        <li><a>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Device_Group)</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has-sub">
+                                    <a href='#' class="report">Reports</a>
+                                    <ul class="children">
+                                        <li><a>Reports</a></li>
+                                    </ul>
+                                </li>
+                                <li class='has-sub'>
+                                    <a href='#' class='admin'>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.System_Administration)</a>
+                                    <ul class='children'>
+                                        <li><a>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Operators)</a></li>
+                                        <li><a>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Manage_Roles)</a></li>
+                                        <li><a>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Defaults)</a></li>
+                                        <li><a>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Themes)</a></li>
+                                        <li><a>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Languages)</a></li>
+                                        <li><a>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Translations)</a></li>
+                                        <li><a>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Manage_Menus)</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <ul class='children'>
+                                        <li style='display:none;'><a href='#'>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Tools)</a></li>
+                                    </ul>
+                                </li>
+                                <li><a class="help">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Help)</a></li>
+                            </ul>
+                        </section>
+                    </section>
+                </section>
+                <section class="mainTable-right" style="padding:5px; padding-bottom:60px;">
+                    <section class='dashCol-small'>
+                        <section class='dashBox'>
+                            <section class='dashInner-box dashClient'>
+                                <b class='dashClient-icon'></b>
+                                <p>Clients</p><span class='dashReadmore'></span>
+                                <section class='dropMenus'>
+                                    <section class='children'>
+                                        <ul>
+                                            <li><a>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Clients)</a></li>
+                                            <li><a>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Client_Profiles)</a></li>
+                                            <li><a>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Deleted_Client)</a></li>
+                                            <li><a>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.DeletedClients)</a></li>
+                                            <li><a>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Cost_Center)</a></li>
+                                        </ul>
+                                    </section>
+                                </section>
+                            </section>
+                        </section>
+                    </section>
+                    <section class='dashCol-small'>
+                        <section class='dashBox'>
+                            <section class='dashInner-box dashAccount'>
+                                <b class='dashAccount-icon'></b>
+                                <p>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Accounts)</p>
+                                <span class='dashReadmore'></span>
+                                <section class='dropMenus'>
+                                    <section class='children'>
+                                        <ul>
+                                            <li><a>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Account_Types)</a></li>
+                                            <li><a>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.paymentMethods)</a></li>
+                                        </ul>
+                                    </section>
+                                </section>
+                            </section>
+                        </section>
+                    </section>
+                    <section class='dashCol-small'>
+                        <section class='dashBox'>
+                            <section class='dashInner-box dashMeal-plans'>
+                                <b class='dashMeal-icon'></b>
+                                <p>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Privileges)</p>
+                                <span class='dashReadmore'></span>
+                                <section class='dropMenus'>
+                                    <section class='children'>
+                                        <ul>
+                                            <li><a>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Meal_Plans)</a></li>
+                                            <li><a>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Meal_Types)</a></li>
+                                        </ul>
+                                    </section>
+                                </section>
+                            </section>
+                        </section>
+                    </section>
+                    <section class='dashCol-small'>
+                        <section class='dashBox'>
+                            <section class='dashInner-box dashDevices'>
+                                <b class='dashDevices-icon'>
+                                </b><p>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Devices)</p>
+                                <span class='dashReadmore'></span>
+                                <section class='dropMenus'>
+                                    <section class='children'>
+                                        <ul>
+                                            <li><a>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Devices)</a></li>
+                                            <li><a>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Device_Group)</a></li>
+                                        </ul>
+                                    </section>
+                                </section>
+                            </section>
+                        </section>
+                    </section>
+                    <section class='dashCol-small'>
+                        <section class='dashBox'>
+                            <section class='dashInner-box dashReports'>
+                                <b class='dashReports-icon'></b>
+                                <p>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Reports)</p>
+                                <span class='dashReadmore'></span>
+                                <section class='dropMenus'>
+                                    <section class='children'>
+                                        <ul>
+                                            <li><a> @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Reports) </a></li>
+                                        </ul>
+                                    </section>
+                                </section>
+                            </section>
+                        </section>
+                    </section>
+                    <section class='dashCol-small'>
+                        <section class='dashBox'>
+                            <section class='dashInner-box dashRoles'>
+                                <b class='dashRoles-icon'></b>
+                                <p>Roles</p>
+                                <span class='dashReadmore'>
+                                </span>
+                                <section class='dropMenus'>
+                                    <section class='children'>
+                                        <ul>
+                                            <li><a>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Operators)</a></li>
+                                            <li><a>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Operator_Roles)</a></li>
+                                        </ul>
+                                    </section>
+                                </section>
+                            </section>
+                        </section>
+                    </section>
+                    <section class='dashCol-small'>
+                        <section class='dashBox'>
+                            <section class='dashInner-box dashSystem-admin'>
+                                <b class='dashAdmin-icon'></b>
+                                <p>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.System_Administration)</p>
+                                <span class='dashReadmore'></span>
+                                <section class='dropMenus'>
+                                    <section class='children'>
+                                        <ul>
+                                            <li><a>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Defaults)</a></li>
+                                            <li><a>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Translations)</a></li>
+                                        </ul>
+                                    </section>
+                                </section>
+                            </section>
+                        </section>
+                    </section>
+                    <section class='dashCol-small'>
+                        <section class='dashBox'>
+                            <section class='dashInner-box dashAppearences'>
+                                <b class='dashAppearences-icon'></b>
+                                <p>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Appearance)</p>
+                                <span class='dashReadmore'></span>
+                                <section class='dropMenus'>
+                                    <section class='children'>
+                                        <ul>
+                                            <li><a>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Themes)</a></li>
+                                            <li><a>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Languages)</a></li>
+                                            <li><a>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Manage_Menus)</a></li>
+                                        </ul>
+                                    </section>
+                                </section>
+                            </section>
+                        </section>
+                    </section>
+                    <section class='dashCol-small'>
+                        <section class='dashBox'>
+                            <section class='dashInner-box dashSchedule'>
+                                <b class='dashTools-icon'></b>
+                                <p>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Tools)</p>
+                                <span class='dashReadmore'></span>
+                                <section class='dropMenus'>
+                                    <section class='children'>
+                                        <ul>
+                                            <li><a>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Tools)</a></li>
+                                        </ul>
+                                    </section>
+                                </section>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+        <footer class="fullwidth layoutFooter">
+            Copyright © @DateTime.Now.Year ITC Systems. All rights reserved.
+        </footer>
+        <section class="clear"></section>
+    </section>
+</body>
+</html>

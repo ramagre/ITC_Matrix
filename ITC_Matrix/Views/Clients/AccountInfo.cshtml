@@ -1,0 +1,459 @@
+﻿@using ITC_Matrix.Common;
+@model ITC_Matrix.Models.Client
+@{
+    ViewBag.Title = "AccountInfo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Menu = "clients";
+    ViewBag.SubMenu = "clientsNode";
+
+    var tempactid = 0;
+    var tempactcode = 0;
+    var balance = "0.00";
+}
+
+<head>
+    <script src="~/Assets/js/modal.js" type="text/javascript"></script>
+    <link href="~/Assets/css/modal.css" rel="stylesheet">
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            var paymentMethodID= $("#PaymentMethods").val();
+            //alert(paymentMethodID);
+            ShowHideControls(paymentMethodID);
+
+            $("#txtDate").datepicker();
+
+            $('#btnCredit').click(function () {
+                var temp =Account_Code;
+                var ActCredit = $('input[name="Limit"]:checked', '#myform').val();
+                var str = '@Session["ClientAccountID"].ToString()';
+                $.ajax({
+                    url: "/Clients/UpdateCreditTransaction/",
+                    type: 'POST',
+                    data: {ID_NO:str , stracc_code:temp , ActCredit:ActCredit},
+                    success: function (result) {
+                        window.location.href='@Url.Action("AccountInfo", "Clients", @Model.ID_NO)';
+                        //$('#lblErrorC').html("Credit Updated Successfully");
+                    },
+                    error: function () {}
+                });
+                return false;
+            });
+
+            $("input[type=text],#txtAccountBalance").keypress(function (key) {
+                var keycode = (key.which) ? key.which : key.keyCode;
+
+                if ((keycode == 45)) {
+                    return false;
+                }
+                else {
+                    return true;
+                }
+            });
+
+
+            $(".btn-td").click(function(event) {
+                Account_Code = event.target.id;
+                if(Account_Code.charAt(0) == "C")
+                {
+                    $.ajax({
+                        url: "/Clients/GetLimit/",
+                        type: 'POST',
+                        data: { id: @Model.ID_NO ,stracc_code:Account_Code },
+                        success: function (result) {
+                            if(result.name == 0 )
+                            {
+                                $('input[value=Limited]').click();
+                            }
+                            else
+                            {
+                                $('input[value=Unlimited]').click();
+                            }
+                        },
+                        error: function ()
+                        { }
+                    });
+                    return false;
+                }
+            });
+
+            $("#PaymentMethods").on('change', function () {
+                ShowHideControls(this.value);
+            });
+
+            $("#txtAccountBalance").focusout(function (){
+                var AccountBalanceValue= $("#txtAccountBalance").val();
+                if(AccountBalanceValue < 0)
+                {
+                    $('#lblError').html("   Please enter numeric and non negative value in Deposit field.");
+                    return false;
+                }
+                else if($.isNumeric($('#txtAccountBalance').val()) == false)
+                {
+                    $('#lblError').html("   Please enter numeric and non negative value in Deposit field.");
+                    return false;
+                }
+                else
+                {
+                    $('#lblError').html("");
+                    return true;
+                }
+
+            });
+
+
+
+
+            $('#btnDeposit').click(function () {
+               
+                var temp =Account_Code;
+                var str = '@Session["ClientAccountID"].ToString()';
+                var selected = $('#PaymentMethods option:selected');
+
+                if($('#txtAccountBalance').val() == "")
+                {
+                    $('#lblError').html("    Please enter value in Deposit field.");
+                    return false;
+                }
+                else if($('#txtAccountBalance').val() < 0)
+                {
+                    $('#lblError').html("   Please enter numeric and non negative value in Deposit field.");
+                    return false;
+                }
+                else if($.isNumeric($('#txtAccountBalance').val()) == false)
+                {
+                    $('#lblError').html("   Please enter numeric and non negative value in Deposit field.");
+                    return false;
+                }
+                else  if(selected.html()=='Food Service Add Funds')
+                {
+                    if($('#txtchequeno').val() == "")
+                    {
+                        $('#lblError').html("    Please enter value in Cheque field.");
+                        return false;
+                    }
+                    else if($('#txtbank').val() == "")
+                    {
+                        $('#lblError').html("   Please enter value in Bank field.");
+                        return false;
+                    }
+                    else if($('#txtDate').val() == "")
+                    {
+                        $('#lblError').html("   Please enter value in Date field.");
+                        return false;
+                    }
+                }
+
+
+                $.ajax({
+                    url: "/Clients/InsertTransaction/",
+                    type: 'POST',
+                    data: { ID_NO:str, COMMENT:$('#COMMENT').val(), PaymentMethods:$('#PaymentMethods').val(), chequeno:$('#txtchequeno').val(),TextAccBalance:$('#txtAccountBalance').val(),strdate:$('#txtDate').val(),bank:$('#txtbank').val(),stracc_code:temp},
+                    success: function (result) {
+                        window.location.href='@Url.Action("AccountInfo", "Clients", @Model.ID_NO)';
+                    },
+                    error: function () {
+                    }
+                });
+                return false;
+            });
+        });
+
+        function ShowHideControls(id)
+        {
+            $.ajax({
+                url: "/Clients/GetPayType/",
+                type: 'POST',
+                data: { id: id },
+                success: function (result) {
+                    if (result.name == '0') {
+                        $("#SectionCheque").hide();
+                        $("#SectionComment").hide();
+                    }
+                    else if (result.name == '1') {
+                        $("#SectionCheque").hide();
+                        $("#SectionComment").show();
+                    }
+                    else if (result.name == '2') {
+                        $("#SectionCheque").show();
+                        $("#SectionComment").show();
+                    }
+                    else if (result.name == '3') {
+                        $("#SectionCheque").hide();
+                        $("#SectionComment").hide();
+                    }
+                },
+                error: function () {
+
+                }
+            });
+            return false;
+        }
+
+    </script>
+</head>
+
+
+<section class="mainTable-right">
+    @using (Html.BeginForm())
+    {
+        @Html.Hidden("ID_NO", Model.ID_NO);
+        @Html.Hidden("FAMILY", Model.FAMILY);
+        @Html.Hidden("GIVEN", Model.GIVEN);
+        @Html.Hidden("ACC_BALANCE1", Model.ACC_BALANCE1);
+        @Html.Hidden("ACC_BALANCE2", Model.ACC_BALANCE2);
+        @Html.Hidden("ACC_BALANCE3", Model.ACC_BALANCE3);
+        @Html.Hidden("ACC_BALANCE4", Model.ACC_BALANCE4);
+        @Html.Hidden("ACC_BALANCE5", Model.ACC_BALANCE5);
+        @Html.Hidden("ACC_LIMIT1", Model.ACC_LIMIT1);
+        @Html.Hidden("ACC_LIMIT2", Model.ACC_LIMIT2);
+        @Html.Hidden("ACC_LIMIT3", Model.ACC_LIMIT3);
+        @Html.Hidden("ACC_LIMIT4", Model.ACC_LIMIT4);
+        @Html.Hidden("ACC_LIMIT5", Model.ACC_LIMIT5);
+
+
+        <section class="clear">&nbsp;</section>
+        if (ViewBag.Message != null)
+        {
+            <section class='@ViewBag.Class'>@ViewBag.Message</section>
+        }
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="gridTable2">
+            <thead>
+                <tr class="gridHeading">
+                    <th colspan="7" style="padding:0;">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tbody>
+                                <tr>
+
+                                    <td><h3>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.ClientAccountInfoAccountNo) @Model.ID_NO </h3></td>
+                                    <td width="40px">
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td width="40px">
+                                                        <a href="/cardIssues/create/@Model.ID_NO" data-toggle="tooltip" title="Click to Edit this Client's card details."><span class="card_icon"></span></a>
+                                                    </td>
+                                                    <td width="40px">
+                                                        <a href='/ClientMealPlans/Index/@Model.ID_NO' data-toggle="tooltip" title="Click to Edit this Client's meal plan details."><span class="mealplan_icon"></span></a>
+                                                    </td>
+                                                    <td width="40px">
+                                                        <a href="/Clients/Edit/@Model.ID_NO" data-toggle="tooltip" title="Click to Edit this Client's personal and contact information."><span class="edit_icon"></span></a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="scrollContent">
+                <tr>
+                    <td colspan="8" class="heading">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Account_Information)</td>
+                </tr>
+
+                @foreach (var item in @ViewBag.allacounts)
+                {
+                    tempactid = tempactid + 1;
+                    tempactcode = @item.CODE;
+                   
+                        balance = @Model.ActBalList[tempactid - 1].ToString();
+                    
+                    <tr id="1">
+                        <td>@item.CODE</td>
+                        <td>@item.DSCR</td>
+                        <td width="220px">@balance</td>
+                        <td width="40px" class="btn-td"><input type="button" class="green-btn" id='D_@tempactcode' value="@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Deposit)" data-modal-open="deposit"></td>
+                        <td width="40px" class="btn-td"><input type="button" class="pink-btn" id='C_@tempactcode' value="@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.CreditLimit)" data-modal-open="limit"></td>
+
+                        <td><a href='@Url.Action("ShowStatements", "ActinfoStatement", new { ID_NO = @Model.ID_NO, ActCode = @tempactcode })' class="blue-btn" style="width:115px" id='S_@tempactcode'>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Statement)</a></td>
+                        @*<td width="40px" class="btn-td"> <a href="/ActinfoStatement/ShowStatements?ID_NO=@Model.ID_NO&ActCode=@tempactcode" ><input type="button" class="blue-btn" id='S_@tempactcode' value="Statement"></a>*@
+                        @*<td width="40px" class="btn-td"> <a href="/ActinfoStatement/ShowStatements?ID_NO=@Model.ID_NO&ActCode=@tempactcode"><input type="button" class="blue-btn" id='S_@tempactcode' value="Statement"></a></td>*@
+
+                        @if (ITC_Matrix.Common.Functions.GetDBStructure() >= (int)CommonEnum.DBStructure.Unlimited)
+                        {
+                            if (balance.Replace(ViewBag.strcurSign, string.Empty).Equals("0.00"))
+                            {
+                                <td width="40px">
+                                    &nbsp;
+                                </td>
+                            }
+                            else
+                            {
+                                <td width="40px">
+                                    <a class="lnkDelete" id='S_@tempactcode' data-toggle="tooltip" title="Click to delete this account information."
+                                       href='@Url.Action("Delete", "ActinfoStatement", new { ID_NO = @Model.ID_NO, ActCode = @tempactcode })'>
+                                        <img src="~/Assets/Images/delete_icon.png" />
+                                    </a>
+                                </td>
+                            }
+                        }
+                        else
+                        {
+                            <td width="40px" class="btn-td"><a href="#"><span class="lock_icon"></span></a></td>
+                        }
+                    </tr>
+                }
+            </tbody>
+            <tfoot class="gridFooter">
+                <tr>
+                    <td colspan="8">
+                        <section class="floatRight">
+                            <a href='@Url.Action("Index", "Clients")' class="blue-btn">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Returntoclient)</a>
+                        </section>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <section id="deposit" class="mb-modal">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label id="lblError" style="color:red;"></label>
+            <section class="blueHeading-bg">
+                <h3><span class="adminName">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Account_Info)</span></h3>
+                <section class="floatRight">
+                    <a href="/Clients/AccountInfo/@Convert.ToString(Model.ID_NO)"><section class="close-modal">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Close)</section></a>
+                </section>
+            </section>
+            <section class="mb-modelContent">
+                <section class="feildRow">
+                    <section class="blackForm-box">
+                        <section class="feildRow">
+                            <!--<h3>Filter</h3>-->
+                            <section class="fullwidth acInfo-feilds">
+                                <section class="row">
+                                    <section class="three-col deposit">
+                                        <section class="labelWraper">
+                                            <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Deposit):</label>
+                                        </section>
+                                        <section class="feildWraper">
+                                            @Html.TextBox("txtAccountBalance", "")
+                                        </section>
+                                    </section>
+                                    <section class="three-col comment" id="SectionComment">
+                                        <section class="labelWraper">
+                                            <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Comment):</label>
+                                        </section>
+                                        <section class="feildWraper">
+                                            @Html.TextBox("COMMENT", "")
+                                        </section>
+                                    </section>
+                                    <section class="three-col paidBy">
+                                        <section class="labelWraper">
+                                            <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Paid_By)</label>
+                                        </section>
+                                        <section class="feildWraper">
+                                            @Html.DropDownList("PaymentMethods")
+                                        </section>
+                                    </section>
+                                </section>
+                            </section>
+                        </section>
+                        <section class="feildRow" id="SectionCheque">
+                            <section class="fullwidth acInfo-feilds">
+                                <section class="row">
+                                    <section class="three-col deposit">
+                                        <section class="labelWraper">
+                                            <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Cheque)</label>
+                                        </section>
+                                        <section class="feildWraper">
+                                            @Html.TextBox("txtchequeno")
+                                        </section>
+                                    </section>
+                                    <section class="three-col comment">
+                                        <section class="labelWraper">
+                                            <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Bank)</label>
+                                        </section>
+                                        <section class="feildWraper">
+                                            @Html.TextBox("txtbank")
+                                        </section>
+                                    </section>
+                                    <section class="three-col comment">
+                                        <section class="labelWraper">
+                                            <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Date)</label>
+                                        </section>
+                                        <section class="feildWraper">
+                                            @Html.TextBox("txtDate")
+                                        </section>
+                                    </section>
+                                </section>
+                            </section>
+                        </section>
+                        <section class="formBox-row fullwidth">
+                            <section class="fullwidth">
+                                <section class="floatRight row">
+                                    <section class="small-formBtn">
+                                        <input type="button" name="Command" id="btnDeposit" value="Save" class="pink-btn">
+                                    </section>
+                                    <section class="small-formBtn">
+                                        <a href='@Url.Action("AccountInfo", "Clients" , new { @id = @Convert.ToString(Model.ID_NO) } )' class="blue-btn">Cancel</a>
+                                        @*<a href="/Clients/AccountInfo/@Convert.ToString(Model.ID_NO)"><input type="button" name="Command" value="Cancel" class="blue-btn"></a>*@
+                                    </section>
+                                </section>
+                            </section>
+                        </section>
+
+                    </section>
+                </section>
+            </section>
+        </section>
+
+
+        <section id="limit" class="mb-modal">
+            <label id="lblErrorC" style="color:red;"></label>
+            <section class="blueHeading-bg">
+                <h3><span class="adminName">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Account_Info)</span></h3>
+                <section class="floatRight">
+                    <section class="close-modal">Close</section>
+                </section>
+            </section>
+            <section class="mb-modelContent">
+                <section class="feildRow">
+                    <section class="blackForm-box">
+                        <section class="feildRow">
+                            <!--<h3>Filter</h3>-->
+                            <section class="fullwidth acInfo-feilds">
+                                <section class="row">
+                                    <section class="three-col deposit">
+
+                                        <section class="labelWraper">
+                                            <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Credit)</label>
+                                        </section>
+                                        <section class="feildWraper" id="myform">
+
+                                            @Html.RadioButton("Limit", "Limited", new { @checked = "checked", @id = "Limited" })
+                                            <label for="Limited" class="radio-inline"><span></span><div class="label-txt">Limited</div></label>
+
+                                            @Html.RadioButton("Limit", "Unlimited", new { @id = "Unlimited" })
+                                            <label for="Unlimited" class="radio-inline"><span></span><div class="label-txt">Unlimited</div></label>
+                                            @*@Html.RadioButton("Limit", "Limited", true, new { @checked = "checked" , @id = "Limited" })<label>Limited</label>
+                                                <br />*@
+                                            @* @Html.RadioButton("Limit", "Unlimited", false, new { @id = "Unlimited" })<label>Unlimited</label>*@
+                                        </section>
+
+                                        <section class="three-col comment"></section>
+                                    </section>
+
+                                    <section class="floatRight">
+                                        <section class="small-formBtn">
+                                            <input type="button" name="Command" value="Submit" id="btnCredit" class="pink-btn">
+                                        </section>
+                                        <section class="small-formBtn">
+                                            <a href='@Url.Action("AccountInfo", "Clients" , new { @id =@Convert.ToString(Model.ID_NO) } )' class="blue-btn">Cancel</a>
+                                            @*<a href="/Clients/AccountInfo/@Model.ID_NO"><input type="button" name="Command" value="Cancel" class="blue-btn"></a>*@
+                                        </section>
+                                    </section>
+                                </section>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+
+        <section id="limit" class="mb-modal">
+            <section class="blackForm-box"></section>
+        </section>
+    }
+</section>

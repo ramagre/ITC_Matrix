@@ -1,0 +1,176 @@
+﻿@using ITC_Matrix.Common;
+@using PagedList.Mvc;
+@using PagedList;
+@model  IPagedList<ITC_Matrix.Models.DelClient>
+
+@{
+    ViewBag.Title = "Deleted Clients";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Menu = "clients";
+    ViewBag.SubMenu = "deletedClientsNode";
+}
+<script type="text/javascript" src="~/Assets/JS/DeletedClients.js"></script>
+
+<section class="mainTable-right">
+    <section class="filterRow">
+        @using (Html.BeginForm("Index", "DeletedClients", FormMethod.Get))
+        {
+            <h3>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.DeletedClients)</h3>
+            <text>
+                <h4 style="padding-bottom:5px;">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Sort_By)</h4>
+            </text>
+            <section class="fullwidth">
+                <section class="row">
+                    <section class="selectBy-sort">
+
+                        <label class="customeFeild selectTag">
+                            @Html.DropDownList("searchBy", new List<SelectListItem>
+                          {
+                            new SelectListItem { Text = "Code", Value = "1"},
+                            new SelectListItem { Text = "Family Name", Value = "2"},
+                            new SelectListItem { Text = "Given Name", Value = "3"},
+                            new SelectListItem { Text = "Family Name,Given Name", Value = "4"},
+                            new SelectListItem { Text = "Given Name,Family Name", Value = "5"},
+                          })
+                        </label>
+
+                    </section>
+                    <section class="searchBy">
+                        @Html.TextBox("search")
+                    </section>
+                    <section class="small-formBtn">
+                        <input type="submit" value="Find" class="pink-btn" onclick="Index" />
+                    </section>
+                    <section class="small-formBtn">
+
+                        <a href='@Url.Action("Index", "DeletedClients")' value="Clear" class="blue-btn" data-toggle="tooltip" title="Clear Search">Clear</a>
+
+                    </section>
+                </section>
+            </section>
+        }
+    </section>
+
+    <section class="clear">&nbsp;</section>
+    @{ if (ViewBag.DeletedClientsmessage != null)
+        {
+            <section class='@ViewBag.Class'>@ViewBag.DeletedClientsmessage</section>
+        }
+    }
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="gridTable">
+        <thead>
+            <tr class="gridHeading">
+                <th width="80px">@Html.ActionLink("ClientID", "Index", new { sortBy = ViewBag.ClientIDSort, searchBy = Request.QueryString["searchBy"], txtSearch = Request.QueryString["search"] }, new { @class = "label" })</th>
+
+                <th>@Html.ActionLink(@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.FamilyName) + "," + @ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.GivenName), "Index", new { sortBy = ViewBag.FamilySort, searchBy = Request.QueryString["searchBy"], txtSearch = Request.QueryString["search"] }, new { @class = "label" })</th>
+
+                <th><span class="label">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Profile) </span></th>
+
+                <th style="text-align:left;">@Html.ActionLink(@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Balance), "Index", new { sortBy = ViewBag.ACC_BALANCE1Sort, searchBy = Request.QueryString["searchBy"], txtSearch = Request.QueryString["search"] }, new { @class = "label" })</th>
+                <th colspan="2"></th>
+            </tr>
+        </thead>
+        <tbody class="scrollContent">
+            @if (Model.Count() == 0)
+            {
+                <tr>
+                    <td colspan="7">
+                        Sorry ! no such record found.
+                    </td>
+                </tr>
+            }
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ID_NO)
+                    </td>
+
+                    <td>
+                        @{if (item.FAMILY == string.Empty && item.GIVEN == string.Empty)
+                            {
+                                @Html.Raw("{empty}")
+                            }
+                        }
+                        @Html.DisplayFor(modelItem => item.FAMILY), @Html.DisplayFor(modelItem => item.GIVEN)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Profile_DSCR)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ACC_BALANCE1)
+                    </td>
+                    @{
+                        if (ViewBag.isPermission != null)
+                        {
+                            if (ViewBag.isPermission == false)
+                            {
+                                <td>
+                                    &nbsp;
+                                </td>
+                            }
+                        }
+                        else
+                        {
+                            <td width="40px">
+                                <a class="lnkReactive" data-id="@item.ID_NO" data-toggle="tooltip" title="Click to reactive this client."
+                                   href='@Url.Action("Reactive", "DeletedClients", new { id = item.ID_NO })'>
+                                    <img src="~/Assets/Images/reactive-icon.png" id="imgReactive" />
+                                </a>
+                            </td>
+                        }
+                    }
+
+                    @{
+                        if (ViewBag.isPermission != null)
+                        {
+                            if (ViewBag.isPermission == false)
+                            {
+                                <td>
+                                    &nbsp;
+                                </td>
+                            }
+                        }
+                        else
+                        {
+                            if (item.Transactions == 0)
+                            {
+                                <td width="40px">
+                                    <a class="lnkDelete" data-id="@item.ID_NO" data-toggle="tooltip" title="Click to completely delete this client forever."
+                                       href='@Url.Action("Delete", "DeletedClients", new { id = item.ID_NO })'>
+                                        <img src="~/Assets/Images/delete_icon.png" id="imgDelete" />
+                                    </a>
+                                </td>
+                            }
+                            else
+                            {
+                                <td width="40px">
+                                    <a class="lnkLock" data-toggle="tooltip" title="This client cannot be purged because there are transactions logged." style="color:white">
+                                        <img src="~/Assets/Images/lock-icon.png" />
+                                    </a>
+                                </td>
+                            }
+                        }
+                    }
+                </tr>
+                        }
+
+        </tbody>
+
+        <tfoot class="gridFooter">
+            <tr>
+                <td colspan="11">
+
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchBy = Request.QueryString["searchBy"], search = Request.QueryString["search"], sortBy = Request.QueryString["sortBy"] }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayItemSliceAndTotal = true })
+
+                    <section class="floatLeft scroll-btns"></section>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</section>
+
+
+
+

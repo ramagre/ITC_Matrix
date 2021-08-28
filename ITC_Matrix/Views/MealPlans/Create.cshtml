@@ -1,0 +1,423 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@using ITC_Matrix.Common;
+@model ITC_Matrix.Models.Plan
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Menu = "plans";
+    ViewBag.SubMenu = "mealPlansNode";
+
+    var chkdeviceGroup = string.Empty;
+    var tempid = string.Empty;
+    var groupChkId = string.Empty;
+    var chkdeviceType = string.Empty;
+    var deviceChkId = string.Empty;
+}
+
+
+@*javascript functions for retriving the selected id of accountCode*@
+<script type="text/javascript" src="~/Assets/JS/Clients.js"></script>
+<script src="~/Assets/js/ClientCreate.js"></script>
+<link href="~/Assets/css/Common.css" rel="stylesheet" />
+<script type="text/javascript" src="~/Assets/JS/MealPlan.js"></script>
+<script type="text/javascript" src="~/Assets/JS/ManageMenu.js"></script>
+
+<section class="mainTable-right">
+    @using (Html.BeginForm())
+    {
+        <section class="contentLimit-box content" id="content-1">
+            <section id="lblError"></section>
+            @if (ViewBag.MealPlansMessage != null)
+            {
+                <section class="@ViewBag.MessageClass">@ViewBag.MealPlansMessage</section>
+
+            }
+            <section class="contentLimit-boxInner">
+                <section class="formBox-row fullwidth">
+                    <section class="heading">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.MealPlan_Details)</section>
+                    <section class="formBox-content">
+                        <section class="leftDiv half">
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Code):</label>
+                                </section>
+                                <section class="feildWraper">
+                                    @Html.TextBox("CODE")
+                                    @Html.ValidationMessageFor(model => model.CODE, "", new { @class = "text-danger" })
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Description):</label>
+                                </section>
+                                <section class="feildWraper">
+                                    @Html.EditorFor(model => model.DSCR, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.DSCR, "", new { @class = "text-danger" })
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label>2<sup>nd</sup> Descript... :</label>
+                                </section>
+                                <section class="feildWraper">
+                                    @Html.EditorFor(model => model.SecondDSCR, new { htmlAttributes = new { @class = "form-control" } })
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Price):</label>
+                                </section>
+                                <section class="feildWraper">
+                                    @Html.TextBox("PRICE", "", new { @Value = "0" })
+                                    @Html.ValidationMessageFor(model => model.PRICE, "", new { @class = "text-danger" })
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Print):</label>
+                                </section>
+                                <section class="feildWraper">
+                                    <label class="customeFeild selectTag">
+                                        @Html.DropDownList("PrintMode", new List<SelectListItem>
+                                            {
+                                                new SelectListItem { Text = "None", Value = "0"},
+                                                new SelectListItem { Text = "Meals/Plan", Value = "1"},
+                                                new SelectListItem { Text = "Meals/Week", Value = "2"},
+                                                new SelectListItem { Text = "Amount/Plan", Value = "3"},
+                                                new SelectListItem { Text = "Avail. Meals", Value = "4"},
+                                                new SelectListItem { Text = "Unlimited Entry", Value = "5"},
+                                            })
+                                        @Html.ValidationMessageFor(model => model.PrintMode, "", new { @class = "text-danger" })
+                                    </label>
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.DAYS):</label>
+                                </section>
+                                <section class="feildWraper">
+                                    <section class="chk-wraper">
+                                        @Html.CheckBox("Bool_IS_DAYS", false, new { @id = "Bool_IS_DAYS" })
+                                        <label for="Bool_IS_DAYS" class="checkbox-inline" style="float:left;">
+                                            <span></span>
+                                            <div class="label-txt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                        </label>
+                                    </section>
+                                    <section class="chkFeild-wraper">
+                                        @Html.TextBox("DAYS", "", new { @Value = "0" })
+                                        @Html.ValidationMessageFor(model => model.DAYS, "", new { @class = "text-danger" })
+                                    </section>
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Start_Date):</label>
+                                </section>
+                                <section class="feildWraper">
+                                    @Html.EditorFor(model => model.START_DATE, new { htmlAttributes = new { @id = "START_DATE", @Value = System.DateTime.Now.ToString(("yyyy/MM/dd")) } })                                    
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.expiry_date):</label>
+                                </section>
+                                <section class="feildWraper">
+                                    <section class="chk-wraper">
+                                        @Html.CheckBox("Bool_IS_EXPIRY_DATE", false, new { @id = "Bool_IS_EXPIRY_DATE" })
+                                        <label for="Bool_IS_EXPIRY_DATE" class="checkbox-inline" style="float:left;">
+                                            <span></span>
+                                            <div class="label-txt">&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                        </label>
+                                    </section>
+                                    <section class="chkFeild-wraper">
+                                        @Html.EditorFor(model => model.EXPIRY_DATE, new { htmlAttributes = new { @id = "EXPIRY_DATE", @Value = System.DateTime.Now.ToString(("yyyy/MM/dd")) } })
+                                        @*@Html.TextBox("EXPIRY_DATE")*@
+                                    </section>
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Meals_per_plan):</label>
+                                </section>
+                                <section class="feildWraper">
+                                    <section class="chk-wraper">
+                                        @Html.CheckBox("Bool_IsTotalMealsPerPlan", false, new { @id = "Bool_IsTotalMealsPerPlan" })
+                                        <label for="Bool_IsTotalMealsPerPlan" class="checkbox-inline" style="float:left;">
+                                            <span></span>
+                                            <div class="label-txt">&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                        </label>
+
+                                    </section>
+                                    <section class="chkFeild-wraper">
+                                        @Html.TextBox("TotalMealsPerPlan", "", new { @Value = "0" })
+                                        @Html.ValidationMessageFor(model => model.TotalMealsPerPlan, "", new { @class = "text-danger" })
+                                    </section>
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Meals_per_week):</label>
+                                </section>
+                                <section class="feildWraper">
+                                    <section class="chk-wraper">
+                                        @Html.CheckBox("Bool_IsTotalMealsPerWeek", false, new { @id = "Bool_IsTotalMealsPerWeek" })
+                                        <label for="Bool_IsTotalMealsPerWeek" class="checkbox-inline" style="float:left;">
+                                            <span></span>
+                                            <div class="label-txt">&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                        </label>
+                                    </section>
+                                    <section class="chkFeild-wraper">
+                                        @Html.TextBox("TotalMealsPerWeek", "", new { @Value = "0" })
+                                        @Html.ValidationMessageFor(model => model.TotalMealsPerWeek, "", new { @class = "text-danger" })
+                                    </section>
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Amount_perplan):</label>
+                                </section>
+                                <section class="feildWraper">
+                                    <section class="chk-wraper">
+                                        @Html.CheckBox("Bool_IsTotalAmountPerPlan", false, new { @id = "Bool_IsTotalAmountPerPlan" })
+                                        <label for="Bool_IsTotalAmountPerPlan" class="checkbox-inline" style="float:left;"><span></span><div class="label-txt">&nbsp;&nbsp;&nbsp;&nbsp;</div></label>
+                                    </section>
+                                    <section class="chkFeild-wraper">
+                                        @Html.TextBox("TotalAmountPerPlan", "", new { @Value = "0" })
+                                        @Html.ValidationMessageFor(model => model.TotalAmountPerPlan, "", new { @class = "text-danger" })
+                                    </section>
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.AntiPassback):</label>
+                                </section>
+                                <section class="feildWraper">
+                                    <section class="feildRow">
+                                        @Html.TextBox("PassBack", "", new { @Value = "0" })
+                                        @Html.ValidationMessageFor(model => model.PassBack, "", new { @class = "text-danger" })
+                                    </section>
+                                    <section class="feildRow">
+                                        @Html.CheckBox("Bool_EnableMultipleMeals", false, new { @id = "Bool_EnableMultipleMeals" })
+                                        <label for="Bool_EnableMultipleMeals" class="checkbox-inline" style="float:left;"><span></span><div class="label-txt">Enable Multiple Meals</div></label>
+                                        @Html.ValidationMessageFor(model => model.Bool_EnableMultipleMeals, "", new { @class = "text-danger" })
+                                    </section>
+                                    <section class="feildRow">
+                                        @Html.CheckBox("Bool_AuthorizationRequired", false, new { @id = "Bool_AuthorizationRequired" })
+                                        <label for="Bool_AuthorizationRequired" class="checkbox-inline" style="float:left;"><span></span><div class="label-txt">External Authorization</div></label>
+                                        @Html.ValidationMessageFor(model => model.Bool_AuthorizationRequired, "", new { @class = "text-danger" })
+                                    </section>
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Days_Per_Week):</label>
+                                </section>
+                                <section class="feildWraper">
+                                    @Html.TextBox("DaysPerWeek", "", new { @Value = "0" })
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Account):</label>
+                                </section>
+                                <section class="feildWraper">
+
+                                    <label class="customeFeild selectTag">
+                                        @Html.DropDownList("AccountID")
+                                    </label>
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Bonus)$:</label>
+                                </section>
+                                <section class="feildWraper">
+                                    <section class="feildRow">
+                                       @Html.TextBox("Bonus", "", new { @Value = "0" })
+                                    </section>
+                                </section>
+                         
+                            </section>
+                        </section>
+                        <section class="rightDiv half">
+                            <section class="fullwidth">
+                                <ul class="tabs">
+                                    <li class="tr first active" style="text-align:center;cursor:pointer;" id="dgroupsTwo"><a>Device Groups</a></li>
+                                    <li class="tr last" style="text-align:center;cursor:pointer;" id="dtypesTwo"><a>Device Types</a></li>
+                                </ul>
+                            </section>
+                            <section class="fullwidth feildRow" id="secDeviceType">
+                                @if (ViewBag.UniqueDevices != null && ViewBag.UniqueDevices.Count != 0)
+                                {
+                                    <table class="gridTable tabContent" width="100%" cellpadding="0" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <td>
+                                                    <input type="checkbox" name="DeviceTypeAll" id="DeviceTypeAll">
+                                                    <label class="checkbox-inline" for="DeviceTypeAll">
+                                                        <span></span>
+                                                        <div class="label-txt">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.SelectAll)</div>
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                        </thead>
+
+                                        @foreach (var item in ViewBag.UniqueDevices)
+                                        {
+                                            chkdeviceType = "type_" + item.CODE;
+                                            <tr>
+                                                <td>
+                                                    <section class="accordian-title" id="secModel">
+                                                        <section class="accordian-icon open" onclick="SlidUp(this);"></section>
+                                                        <input type="checkbox" name=chkdeviceType id=@chkdeviceType onclick="CheckDevices(this);">
+                                                        <label for=@chkdeviceType class="checkbox-inline">
+                                                            <span></span>
+                                                            <div class="label-txt">@item.deviceTypeName</div>
+                                                        </label>
+                                                        @foreach (var item1 in ViewBag.Devices)
+                                                        {
+                                                            if (@item.deviceTypeName == @item1.deviceTypeName)
+                                                            {
+                                                                deviceChkId = "deviceType_" + item1.CODE;
+                                                                <ul class="groupOptions" style="padding-left:25px;">
+                                                                    <li>
+                                                                        <input type="checkbox" name=@deviceChkId id=@deviceChkId>
+                                                                        <label for=@deviceChkId class="checkbox-inline">
+                                                                            <span></span>
+                                                                            <div class="label-txt">@item1.CODE - @item1.DSCR </div>
+                                                                        </label>
+                                                                    </li>
+                                                                </ul>
+                                                            }
+                                                        }
+
+                                                    </section>
+                                                </td>
+                                            </tr>
+                                        }
+
+                                    </table>
+                                }
+                            </section>
+                            <section class="fullwidth feildRow" id="secDeviceGroup">
+                                @if (ViewBag.UniqueDevice_Group != null && ViewBag.UniqueDevice_Group.Count != 0)
+                                {
+                                    <table class="gridTable tabContent" width="100%" cellpadding="0" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <td>
+                                                    <input type="checkbox" name="DeviceGroupAll" id="DeviceGroupAll">
+                                                    <label class="checkbox-inline" for="DeviceGroupAll">
+                                                        <span></span>
+                                                        <div class="label-txt">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.SelectAll)</div>
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                        </thead>
+
+                                        @foreach (var item in ViewBag.UniqueDevice_Group)
+                                        {
+                                            chkdeviceGroup = "group_" + item.GROUP_CODE;
+                                            <tr>
+                                                <td>
+                                                    <section class="accordian-title" id="secGroup">
+                                                        <section class="accordian-icon open" onclick="SlidUp(this);"></section>
+                                                        <input type="checkbox" name=chkdeviceGroup id=@chkdeviceGroup onclick="CheckGroup(this);">
+                                                        <label for=@chkdeviceGroup class="checkbox-inline"><span></span><div class="label-txt">@item.DSCR</div></label>
+
+                                                        @foreach (var item1 in ViewBag.Device_Group)
+                                                        {
+                                                            if (@item.DSCR == @item1.deviceTypeName)
+                                                            {
+                                                                groupChkId = "deviceGroup_" + item1.CODE;
+
+                                                                <ul class="groupOptions" style="padding-left:25px;">
+                                                                    <li>
+                                                                        <input type="checkbox" name=@groupChkId id=@groupChkId>
+                                                                        <label for=@groupChkId class="checkbox-inline">
+                                                                            <span></span>
+                                                                            <div class="label-txt">@item1.CODE - @item1.DSCR </div>
+                                                                        </label>
+                                                                    </li>
+                                                                </ul>
+                                                            }
+                                                        }
+
+                                                    </section>
+                                                </td>
+                                            </tr>
+                                        }
+
+                                    </table>
+                                }
+                            </section>
+
+                            <section class="fullwidth feildRow" id="secProfile">
+                                @if (ViewBag.AllowedProfiles != null && ViewBag.AllowedProfiles.Count != 0)
+                                {
+                                    <table class="cardInfo-table" width="100%" cellpadding="0" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Profilesallowedtopurchaseplanonline)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    @Html.CheckBox("chkselectall", false, new { @id = "chkselectall" })
+                                                    <label for="chkselectall" class="checkbox-inline" style="float:left;">
+                                                        <span></span>
+                                                        <div class="label-txt">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.SelectAll)</div>
+                                                    </label>
+                                                </td>
+                                            </tr>
+
+                                            @foreach (var item1 in ViewBag.AllowedProfiles)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @{
+                                                            tempid = "profile_" + item1.CODE;
+                                                        }
+                                                        @Html.CheckBox(tempid, false, new { @id = @tempid })
+                                                        <label for=@tempid class="checkbox-inline" style="float:left;">
+                                                            <span></span>
+                                                            <div class="label-txt">@item1.DSCR</div>
+                                                        </label>
+                                                    </td>
+                                                </tr>
+
+                                                            }
+
+                                        </tbody>
+                                    </table>
+                                                            }
+                            </section>
+                        </section>
+                    </section>
+
+                    <section class="formBox-row fullwidth">
+                        <section class="formBox-content">
+                            <section class="floatRight row">
+                                <section class="small-formBtn">
+                                    <input type="submit" class="pink-btn" value="@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Save)">
+                                </section>
+                                <section class="small-formBtn">                                  
+                                    <a href='@Url.Action("Index", "MealPlans")' class="blue-btn">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Cancel)</a>
+                                </section>
+                            </section>
+                        </section>
+                    </section>
+                  
+
+                </section>
+
+            </section>
+            <section class="clear"></section>
+        </section>
+
+
+                                                            }
+</section>

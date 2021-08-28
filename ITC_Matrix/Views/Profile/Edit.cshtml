@@ -1,0 +1,321 @@
+﻿@*
+    FileFor : Html For Editing Profile Record
+    FileName : Create.cshtml
+    Created Date : 22-11-2015
+    Created By : Sandip Katore
+    Modified Date :12-8-2015
+*@
+@using ITC_Matrix.Common;
+@model ITC_Matrix.Models.Profile
+@{
+    ViewBag.Title = "Clients";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Menu = "clients";
+    ViewBag.SubMenu = "profileNode";
+}
+
+@{
+    ViewBag.Title = "Edit";
+    var tempDaily = false;
+    var tempWeekly = false;
+    var tempMonthly = false;
+    short test = 0;
+}
+
+@using (Html.BeginForm())
+{
+    <script src="~/Assets/JS/CustomDialog.js"></script>
+    <script src="~/Assets/JS/Clients.js"></script>
+    <script src="~/Assets/JS/ClientProfileEdit.js"></script>
+    <script type="text/javascript" src="~/Assets/JS/CollapseExpand.js"></script>
+
+    <section class="mainTable-right">
+        @Html.AntiForgeryToken()
+
+        <section class="contentLimit-box content" id="content-1">
+            <section class="contentLimit-boxInner">
+
+                <section class="formBox-row fullwidth">
+                    <section class="heading">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.General_Information)</section>
+                    <section class="formBox-content">
+                        <section class="leftDiv half">
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Code)</label>
+                                </section>
+                                <section class="feildWraper">
+                                    @Html.EditorFor(model => model.CODE, new { htmlAttributes = new { @readOnly = true, @data_Val = false, @maxLength = 7 } })
+                                    @Html.ValidationMessageFor(model => model.CODE, "", new { @class = "text-danger" })
+                                </section>
+                            </section>
+                            <section class="feildRow">
+                                <section class="labelWraper">
+                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Description):</label>
+                                </section>
+                                <section class="feildWraper">
+                                    <section class="feildRow">
+                                        @Html.EditorFor(model => model.DSCR, new { htmlAttributes = new { @maxLength = 20 } })
+                                        @Html.ValidationMessageFor(model => model.DSCR, "", new { @class = "text-danger" })
+                                    </section>
+                                    <section class="feildRow">
+                                        @Html.EditorFor(model => model.SecondDSCR, new { htmlAttributes = new { @maxLength = 20 } })
+                                        @Html.ValidationMessageFor(model => model.SecondDSCR, "", new { @class = "text-danger" })
+                                    </section>
+                                </section>
+                            </section>
+                        </section>
+                        <section class="rightDiv half">
+                            <section class="fullwidth">
+
+                                @{
+                                    test = Model.ResetFrequency;
+                                    if (test == 0)
+                                    {
+                                        tempDaily = true;
+                                    }
+                                    else if (test == 1)
+                                    {
+                                        tempWeekly = true;
+                                    }
+                                    else if (test == 2)
+                                    {
+                                        tempMonthly = true;
+                                    }
+                                }
+
+                                <section class="feildRow">
+                                    @*<input id="ResetBalanceEnabledBool" type="checkbox"  name="ResetBalanceEnabledBool" >*@
+                                    @Html.CheckBox("ResetBalanceEnabledBool")
+                                    <label for="ResetBalanceEnabledBool" class="checkbox-inline"><span></span><div class="label-txt">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Enable_Reset_Balance)</div></label>
+                                </section>
+                                <section class="feildRow">
+                                    @Html.RadioButton("ResetFrequency", "0", tempDaily, new { @id = "Daily" })
+
+                                    <label for="Daily" class="radio-inline"><span></span><div class="label-txt">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Daily)</div></label>
+                                </section>
+                                <section class="feildRow">
+                                    @Html.RadioButton("ResetFrequency", "1", tempWeekly, new { @id = "Weekly" })
+
+                                    <label for="Weekly" class="radio-inline"><span></span><div class="label-txt">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Weekly)</div></label>
+                                </section>
+                                <section class="feildRow">
+                                    @Html.RadioButton("ResetFrequency", "2", tempMonthly, new { @id = "Monthly" })
+
+                                    <label for="Monthly" class="radio-inline"><span></span><div class="label-txt">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Monthly)</div></label>
+                                </section>
+
+                                <section class="feildRow" id="weekDays">
+                                    <section class="styled-select">
+                                        <label class="customeFeild selectTag">
+
+                                            @{  var DayOfWeek = new List<SelectListItem>();
+
+                                                DayOfWeek.AddRange(Enum.GetValues(typeof(DayOfWeek)).Cast<DayOfWeek>
+                                                                                     ().Select(
+                                                                                     (item, index) => new SelectListItem
+                                                                                     {
+                                                                                         Text = item.ToString(),
+                                                                                         Value = (index).ToString(),
+                                                                                     }).ToList());
+                                            }
+
+                                            @Html.DropDownList("ResetDayOfWeek")
+
+                                        </label>
+                                    </section>
+                                    <section class="labelWraper" style="width:auto;">
+                                        <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.DayoftheWeek):</label>
+                                    </section>
+                                </section>
+
+                                <!--added by sandip-->
+
+                                <section class="feildRow" id="resetMonth">
+                                    <section class="styled-select">
+                                        <label class="customeFeild selectTag">
+                                            @Html.DropDownList("ResetDayOfMonth")
+                                        </label>
+                                    </section>
+
+                                    <section class="labelWraper" style="width:auto;">
+                                        <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.DayoftheMonth)</label>
+                                    </section>
+                                </section>
+
+                            </section>
+                        </section>
+                    </section>
+                </section>
+
+                <section class="formBox-row fullwidth">
+                    <table class="tabContent" width="100%" cellpadding="0" cellspacing="0" style="border:none;">
+                        <tr>
+                            <td style="padding:0px;">
+                                <section class="accordian-title" style="padding:0px;">
+                                    <section class="accordian-icon close" onclick="SlidDown(this);" style="margin-top:14px;"></section>
+                                    <section class="heading" style="padding-left:25px;">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Reset_Balance_Time_and_Value)</section>
+                                    <section class="formBox-content" style="display:none;">
+                                        <section class="mediumDiv">
+                                            <section class="feildRow">
+                                                <section class="labelWraper">
+                                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Value) $:</label>
+                                                </section>
+                                                <section class="feildWraper">
+                                                    @if (Model.ResetBalanceValue > 0)
+                                                    {
+                                                        Model.ResetBalanceValue = Model.ResetBalanceValue / 100;
+                                                    }
+                                                    @Html.TextBoxFor(model => model.ResetBalanceValue)
+                                                    @Html.ValidationMessageFor(model => model.ResetBalanceValue, "", new { @class = "text-danger" })
+                                                </section>
+                                            </section>
+                                            <section class="feildRow">
+                                                <section class="labelWraper">
+                                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.From):</label>
+                                                </section>
+                                                <section class="feildWraper balanceTnV">
+                                                    <section class="row">
+                                                        <section class="balanceDate">
+                                                            <label class="customeFeild selectTag">
+                                                                @Html.DropDownList("FromHH")
+                                                            </label>
+                                                        </section>
+                                                        <section class="balanceDate">
+                                                            <label class="customeFeild selectTag">
+                                                                @Html.DropDownList("fromMM")
+                                                            </label>
+                                                        </section>
+                                                        <section class="balanceDate-lable">
+                                                            <section class="labelWraper">
+                                                                <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.To):</label>
+                                                            </section>
+                                                        </section>
+                                                        <section class="balanceDate">
+                                                            <label class="customeFeild selectTag">
+                                                                @Html.DropDownList("ToHH")
+                                                            </label>
+                                                        </section>
+                                                        <section class="balanceDate">
+                                                            <label class="customeFeild selectTag">
+                                                                @Html.DropDownList("ToMM")
+                                                            </label>
+                                                        </section>
+                                                    </section>
+                                                </section>
+                                            </section>
+                                            <section class="feildRow">
+                                                <section class="labelWraper">
+                                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Last_Reset):</label>
+                                                </section>
+                                                <section class="feildWraper">
+                                                    @Html.EditorFor(model => model.ResetBalanceLast, new { htmlAttributes = new { @readonly = true } })
+                                                </section>
+                                            </section>
+                                            <section class="feildRow">
+                                                <section class="labelWraper">
+                                                    <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Account):</label>
+                                                </section>
+                                                <section class="feildWraper">
+                                                    <label class="customeFeild selectTag">
+                                                        @Html.DropDownList("AccCode")
+                                                    </label>
+                                                </section>
+                                            </section>
+                                        </section>
+                                    </section>
+                                </section>
+                            </td>
+                        </tr>
+                    </table>
+                </section>               
+                <section class="formBox-row fullwidth">
+                    <table class="tabContent" width="100%" cellpadding="0" cellspacing="0" style="border:none;">
+                        <tr>
+                            <td style="padding:0px;">
+                                <section class="accordian-title" style="padding:0px;">
+                                    <section class="accordian-icon close" onclick="SlidDown(this);" style="margin-top:14px;"></section>
+                                    <section class="heading" style="padding-left:25px;">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Discount_UP_700_online_only):</section>
+                                    <section class="formBox-content" style="display:none;">
+                                        <section class="autoWidth-center">
+                                            <section class="styled-select">
+                                                <label class="customeFeild selectTag">
+                                                    @Html.DropDownList("ddlDiscountPercent")
+                                                </label>
+                                            </section>
+                                            <section class="labelWraper discountPerc">
+                                                <label>@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Discount_percentage_of_transaction_amount_will_be_treated_as_Coupon_Loyalty_amount_Real_charge_will_be_reduced_with_Coupon_Loyalty_amount).</label>
+                                            </section>
+                                        </section>
+                                    </section>
+                                </section>
+                            </td>
+                        </tr>
+                    </table>
+                </section>
+
+                <section class="formBox-row fullwidth">
+                    <table class="tabContent" width="100%" cellpadding="0" cellspacing="0" style="border:none;">
+                        <tr>
+                            <td style="padding:0px;">
+                                <section class="accordian-title" style="padding:0px;">
+                                    <section class="accordian-icon close" onclick="SlidDown(this);" style="margin-top:14px;"></section>
+                                    <section class="heading" style="padding-left:25px;">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Tax_Deletion_Feature_for_UDP800_only)</section>
+                                    <section class="formBox-content" style="display:none;">
+                                        <section class="feildRow">
+                                            <section class="row">
+                                                <section class="taxCol-checkbox">
+                                                    @Html.CheckBox("RemoveTax1Bool")
+                                                    <label for="RemoveTax1Bool" class="checkbox-inline"><span></span><div class="label-txt">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Tax1)</div></label>
+                                                </section>
+                                                <section class="taxCol-checkbox">
+                                                    @Html.CheckBox("RemoveTax2Bool")
+                                                    <label for="RemoveTax2Bool" class="checkbox-inline"><span></span><div class="label-txt">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Tax2)</div></label>
+                                                </section>
+                                                <section class="taxCol-checkbox">
+                                                    @Html.CheckBox("RemoveTax3Bool")
+                                                    <label for="RemoveTax3Bool" class="checkbox-inline"><span></span><div class="label-txt">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Tax3)</div></label>
+                                                </section>
+                                                <section class="taxCol-checkbox">
+                                                    @Html.CheckBox("RemoveTax4Bool")
+                                                    <label for="RemoveTax4Bool" class="checkbox-inline"><span></span><div class="label-txt">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Tax4)</div></label>
+                                                </section>
+                                                <section class="taxCol-checkbox">
+                                                    @Html.CheckBox("RemoveTax5Bool")
+                                                    <label for="RemoveTax5Bool" class="checkbox-inline"><span></span><div class="label-txt">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Tax5)</div></label>
+                                                </section>
+                                            </section>
+                                        </section>
+                                        <section class="feildRow" style="padding-top:15px;">
+                                            <em class="italicTitle">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Process_complete_transaction)</em>
+                                            @Html.CheckBox("ProCompleteNonTaxableAccountBool")
+                                            <label for="ProCompleteNonTaxableAccountBool" class="checkbox-inline"><span></span><div class="label-txt">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.To_taxable_account_for_insufficient_funds_on_non_taxable_account)</div></label>
+                                        </section>
+                                    </section>
+                                </section>
+                            </td>
+                        </tr>
+                    </table>
+                </section>
+
+                <section class="formBox-row fullwidth">
+                    <section class="formBox-content">
+                        <section class="floatRight row">
+                            <section class="small-formBtn">
+                                <input type="submit" value="@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Save)" class="pink-btn" />
+                            </section>
+                            <section class="small-formBtn">
+                                <a href='@Url.Action("Index", "Profile")' class="blue-btn">@ITC_Matrix.Common.Functions.GetTranslation((int)CommonEnum.Translation.Cancel)</a>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+
+            </section>
+            <section class="clear"></section>
+        </section>
+
+    </section>
+                                                }
+
+
+

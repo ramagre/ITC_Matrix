@@ -1,0 +1,242 @@
+body {color:#fff; #SiteBackgroundColor# #SiteBackgroundImage# font-family: 'Raleway', sans-serif; background-size:cover; background-attachment:fixed;}
+input, select{background:url(/Assets/images/grid_main_bg.png) repeat 0 0; border:1px solid; #FormControlBorderColor# color:#c4c4c4; -webkit-appearance: none; -moz-appearance: none; appearance: none;border-radius: 0;}
+select option{background: #000;}
+textarea{color:#c4c4c4; background:url(/Assets/images/grid_main_bg.png) repeat 0 0; border:1px solid; #FormControlBorderColor# border-radius: 0;}
+::-webkit-input-placeholder{color: #c4c4c4; opacity:1;}
+:-moz-placeholder{color: #c4c4c4; opacity:1;} /* Firefox 18- */ 
+::-moz-placeholder{color: #c4c4c4; opacity:1;} /* Firefox 19+ */
+:-ms-input-placeholder{color: #c4c4c4; opacity:1;}
+.selectTag:after{background:#00BBCB url(/Assets/images/dropdown2.png) no-repeat 0 0;}
+input[type="checkbox"] + label,
+input[type="hidden"] + label{#FormControlFontColor#}
+input[type="checkbox"] + label span,
+input[type="hidden"] + label span{background-image:url(/Assets/images/checkbox.png); background-repeat:no-repeat; background-position: 0 0;}
+input[type="checkbox"]:checked + label span,
+input[type="checkbox"]:checked + input[type="hidden"] + label span{background-image:url(/Assets/images/checkbox.png); background-repeat:no-repeat; background-position: -24px -1px;}
+
+input[type="radio"] + label{#FormControlFontColor#}
+input[type="radio"] + label span{background-image:url(/Assets/images/checkbox.png); background-repeat:no-repeat; background-position: -50px 0;}
+input[type="radio"]:checked + label span { background-image:url(/Assets/images/checkbox.png); background-repeat:no-repeat; background-position: -73px 0;}
+
+.loginBox-content{#SiteBackgroundColor#}
+.loginBox-content .userName:after{background:url(/Assets/images/user.png) no-repeat 0 0;}
+.loginBox-content .password:after{background:url(/Assets/images/password.png) no-repeat 0 0;}
+.loginBox-content .selectTag select{background:rgba(0,0,0,0.25); color:#c4c4c4; border:1px solid; #FormControlBorderColor# -webkit-appearance: none; -moz-appearance: none; appearance: none;}
+.loginBox-content input{background:rgba(0,0,0,0.25); border:1px solid; #FormControlBorderColor#}
+.loginBox-content .selectTag select option{color:#fff;}
+.loginBox-content .selectTag:after{background:url(/Assets/images/select-dropdown.png) no-repeat 0 0;}
+.loginBox-content input.login-btn{background:url(/Assets/images/login_btn_bg.jpg) repeat-x 0 0; color:#fff; font-size:26px; font-weight:400; font-family: 'Raleway', sans-serif;}
+
+.mainFooter{color: rgba(255, 255, 255, 0.5); font-size:13px;}
+.layoutFooter{color: rgba(255, 255, 255, 0.5); font-size:13px;}
+
+.blueHeading-bg{#HeaderBackgroundColor#}
+.blueHeading-bg a.logout-btn{color:#fff; background:url(/Assets/images/logout.png) no-repeat right 15px; font-size:18px; font-weight:400;}
+.mainTable-left{#MenuBackgroundColor#}
+.dashSchedule-icon, .dashAccount-icon, .dashAdmin-icon, .dashAppearences-icon, .dashClient-icon, .dashDevices-icon, .dashMeal-icon, .dashReports-icon,.dashRoles-icon{ background: url(/Assets/images/sprites-dashboard.png) no-repeat; display:inline-block; position:relative; z-index:2;}
+.dashSchedule-icon{ background-position: -564px 0; width: 54px; height: 55px;}
+.dashAccount-icon{ background-position: -490px 0; width: 54px; height: 55px;}
+.dashAdmin-icon{ background-position: -429px 0; width: 45px; height: 54px;}
+.dashAppearences-icon{ background-position: -363px -4px; width: 46px; height: 47px;}
+.dashClient-icon{ background-position: -293px -1px; width: 44px; height: 55px;}
+.dashDevices-icon{ background-position: -228px -1px; width: 38px; height: 55px;}
+.dashMeal-icon{ background-position: -148px -2px; width: 53px; height: 55px;}
+.dashReports-icon{ background-position: -71px -1px; width: 54px; height: 55px;}
+.dashRoles-icon{ background-position: 0 0; width: 54px; height: 55px;}
+
+.dashProfile-icon{background:url(/Assets/images/profile-icon.png) no-repeat 0 0; width: 61px; height: 55px; display: inline-block; position:relative; z-index:2;}
+.dashTools-icon{background:url(/Assets/images/dashTools-icon.png) no-repeat 0 0; width: 54px; height: 54px; display: inline-block; position:relative; z-index:2;}
+
+.dashClient{#ClientTileBackgroundImage# #ClientTileBackgroundColor#}
+.dashSchedule{#ToolsTileBackgroundImage# #ToolsTileBackgroundColor#}
+.dashRoles{#RolesTileBackgroundImage# #RolesTileBackgroundColor#}
+.dashAccount{#AccountsTileBackgroundImage# #AccountsTileBackgroundColor#}
+.dashDevices{#DevicesTileBackgroundImage# #DevicesTileBackgroundColor#}
+.dashAppearences{#AppearanceTileBackgroundImage# #AppearanceTileBackgroundColor#}
+.dashReports{#ReportsTileBackgroundImage# #ReportsTileBackgroundColor#}
+.dashMeal-plans{#PrivilegesTileBackgroundImage# #PrivilegesTileBackgroundColor#}
+.dashSystem-admin{#AdministrationTileBackgroundImage# #AdministrationTileBackgroundColor#}
+.dashReadmore{background:url(/Assets/images/dash_read_more.png) no-repeat right bottom;}
+
+
+
+.navigation ul > li.has-sub > a:after, .navigation ul > li.has-sub > a:before{background: #ffffff;}
+.navigation ul ul > li.has-sub > a:after, .navigation ul ul > li.has-sub > a:before{background: #dddddd;}
+.navigation ul ul{#SubmenuBackgroundColor#}
+.navigation li{border-top:1px solid #38363B;}
+.navigation li.open > a { border-bottom: 1px solid #3f3f3f; color:#60bfbf;}
+.navigation li a{#MenuFontStyleFontSize# #MenuFontStyleFontWight# #MenuFontStyleFontFamily# #MenuFontStyleFontColor#}
+.navigation li a:hover, .navigation li a.active{color:#60bfbf;}
+.navigation li a.home{background:url(/Assets/images/home-icon.png) no-repeat 0 center;}
+.navigation li a.clients{background:url(/Assets/images/clients-icon.png) no-repeat 0 center;}
+.navigation li a.accounts{background:url(/Assets/images/account-icon.png) no-repeat 0 center;}
+.navigation li a.devices{background:url(/Assets/images/devices-icon.png) no-repeat 0 center;}
+.navigation li a.plans{background:url(/Assets/images/meal_plan-icon.png) no-repeat 0 center;}
+.navigation li a.report{background:url(/Assets/images/reports-icon.png) no-repeat 0 center;}
+.navigation li a.admin{background:url(/Assets/images/admin-icon.png) no-repeat 0 center;}
+.navigation li a.tools{background:url(/Assets/images/tools-icon.png) no-repeat 0 center;}
+.navigation li a.help{background:url(/Assets/images/help-icon.png) no-repeat 0 center;}
+.navigation li.open > a { border-bottom: 1px solid #3f3f3f; font-weight:600;}
+
+.pink-btn{background:url(/Assets/images/login_btn_bg.jpg) repeat-x 0 0; background-size:100% 100%; color:#fff; font-size:14px;}
+.blue-btn, a.blue-btn,
+.ui-dialog .ui-dialog-buttonpane button{background:url(/Assets/images/blue_btn_bg30.jpg) repeat-x 0 0; background-size:100% 100%; color:#fff; font-size:14px;}
+.orange-btn{background:url(/Assets/images/orange_btn_bg.jpg) repeat-x 0 0; background-size:100% 100%; color:#fff; font-size:14px;}
+.green-btn{background:url(/Assets/images/green_btn_bg40.jpg) repeat-x 0 0; background-size:100% 100%; color:#fff; font-size:14px;}
+
+.ac_details, .card_icon, .delete_icon, .edit_icon, .mealplan_icon{ background: url(/Assets/images/sprites_grey-icons.png) no-repeat;display: block;}
+.ac_details{ background-position: -201px -4px; width: 24px; height: 19px; margin:0 auto;}
+.card_icon{ background-position: -153px -4px; width: 20px; height: 16px; margin:0 auto;}
+.delete_icon{ background-position: -105px -3px; width: 14px; height: 19px; margin:0 auto;}
+.edit_icon{ background-position: -54px -2px; width: 21px; height: 21px; margin:0 auto;}
+.mealplan_icon{ background-position: 0 0; width: 25px; height: 25px; margin:0 auto;}
+
+.scroll-btns a {color:#fff;}
+.scroll-btns a.prev{background:url(/Assets/images/arrow1.png) no-repeat left center;}
+.scroll-btns a.next{background:url(/Assets/images/arrow2.png) no-repeat right center;}
+.gridFooter{background:url(/Assets/images/grid_header_bg.png) repeat 0 0; #GridFooterBackgroundColor#}
+.gridTable{border:1px solid; #FormControlBorderColor# background:url(/Assets/images/grid_main_bg.png) repeat 0 0;}
+.gridTable td, .gridTable th{border-left:1px solid rgba(0,0,0,0.5);}
+.gridTable th{background:url(/Assets/images/grid_header_bg.png) repeat 0 0; #GridHeaderBackgroundColor# #FormHeaderFontStyleFontWight# #FormHeaderFontStyleFontSize# #FormHeaderFontStyleFontFamily# #FormHeaderFontStyleFontColor#}
+.gridTable th a { #FormHeaderFontStyleFontColor#}
+.gridTable td{border-top:1px solid rgba(0,0,0,0.5); #FormControlFontColor#  #FormControlFontStyleFontColor# #FormControlFontStyleFontSize# #FormControlFontStyleFontWight# #FormControlFontStyleFontFamily#}
+.gridTable > tbody > tr:nth-child(even){background:url(/Assets/images/grid_white_bg.png) repeat 0 0; #GridRowBackgroundColor#}
+.gridTable > tbody > tr:nth-child(odd){background:url();}
+
+.contentLimit-boxInner{background: url(/Assets/images/grid_main_bg.png) repeat 0 0; border: 1px solid; #FormControlBorderColor#}
+.formBox-row .heading{background: url(/Assets/images/grid_header_bg.png) repeat 0 0; background: rgba(22,22,30,0.7);font-size: 18px; font-weight: 600; font-family: 'Raleway', sans-serif;}
+.formBox-content{#FormControlFontColor#}
+.formBox-content .half .labelWraper label{#FormControlFontColor#}
+.formBox-content .half .feildWraper{color:#fff;}
+.departCode-box{border:1px solid; #FormControlBorderColor#}
+.departCode-box h4{background: url(/Assets/images/grid_header_bg.png) repeat 0 0; background: rgba(22,22,30,0.7); font-size:16px; font-weight:500;}
+.departCode-row:nth-child(odd){#GridRowAlternateBackgroundColor#}
+.departCode-box .headTitle{#FormControlFontColor# background:url(/Assets/images/grid_white_bg.png) repeat 0 0;}
+.departCode-box .headTitle .half{background:url(/Assets/images/grid_white_bg.png) repeat 0 0;}
+.departCode-terms{border-top:1px solid; #FormControlBorderColor#}
+.dashInner-box, .dashInner-box > a{color:#fff;}
+.acInfo-feilds .labelWraper{#FormControlFontColor#}
+
+.gridTable2{ background: url(/Assets/images/grid_main_bg.png) repeat 0 0; border: 1px solid; #FormControlBorderColor#}
+.gridTable2 th{ background: url(/Assets/images/grid_header_bg.png) repeat 0 0; font-size: 14px; font-weight: 600; font-family: 'Raleway', sans-serif;}
+.gridTable2 > tbody > tr:nth-child(odd){background:url(/Assets/images/grid_white_bg.png) repeat 0 0;}
+.gridTable2 td{ border-top:1px solid rgba(0,0,0,0.5); #FormControlFontColor# font-size:14px; font-weight:400; font-family: 'Raleway', sans-serif;}
+.gridTable2 th h3{color:#fff; font-weight:700; font-size:20px; font-family: 'Raleway', sans-serif;}
+.gridTable2 .heading{color:#fff; font-weight:400; font-size:18px; font-family: 'Raleway', sans-serif;}
+
+.lock_icon{background:url(/Assets/images/lock-icon.png) no-repeat 0 0;}
+.lock_icon_w{background:url(/Assets/images/lock_icon_w.png) no-repeat 0 0;}
+.reactive-icon{background:url(/Assets/images/reactive-icon.png) no-repeat 0 0;}
+
+.formBox-content .mediumDiv .labelWraper label{#FormControlFontColor#}
+.formBox-content .mediumDiv .feildWraper{color:#fff;}
+.italicTitle{color:#fff;}
+.cardInfo-table{background: url(/Assets/images/grid_main_bg.png) repeat 0 0; border: 1px solid; #FormControlBorderColor#}
+.cardInfo-table td, .cardInfo-table th{border-left:1px solid; #FormControlBorderColor#}
+.cardInfo-table th{background:url(/Assets/images/grid_header_bg.png) repeat 0 0; color:#fff; font-family: 'Raleway', sans-serif; font-weight:600; font-size:14px;}
+.cardInfo-table td{border-top:1px solid; #FormControlBorderColor# #FormControlFontColor# font-size:13px; font-weight:400; font-family: 'Raleway', sans-serif;}
+.cardInfo-table > tbody > tr:nth-child(odd){background:url(/Assets/images/grid_white_bg.png) repeat 0 0;}
+.cardNo-btn{background:url(/Assets/images/card-no.jpg) no-repeat 0 0;}
+.largeForm .labelWraper{#FormControlFontColor#}
+hr{background:#3b2d24;}
+.numberTag::after { background: #00bbcb url(/Assets/images/number-btn.png) repeat 0 0;}
+
+.mb-modal {#MenuBackgroundColor# border: 1px solid;}
+.mb-modal .blueHeading-bg .close-modal{ background: url(/Assets/images/close.png) no-repeat right center; color: #ffffff;}
+.mb-modelContent .blackForm-box{background:url(/Assets/images/grid_main_bg.png) repeat 0 0; border:1px solid; #FormControlBorderColor#}
+.mb-modelContent .cardInfo-table > tbody > tr:nth-child(even){background:url(/Assets/images/grid_white_bg.png) repeat 0 0;}
+.mb-modelContent .half .labelWraper{#FormControlFontColor#}
+.mb-modelContent .half .feildWraper{color: #ffffff;}
+
+.bloc{border: 1px solid; #FormControlBorderColor#}
+select.multiple{background: url(/Assets/images/grid_main_bg.png) repeat 0 0; color: #c4c4c4;}
+select.multiple option{#FormControlFontColor# font-size: 14px; font-weight: 400;}
+select.multiple option:nth-child(even){background:url(/Assets/images/grid_white_bg.png) repeat 0 0;}
+.initialized_ac .green-btn.add{ background:url(/Assets/images/add-list.png) no-repeat right 10px center, url(/Assets/images/green_btn_bg40.jpg) repeat-x 0 0 / 100% 100%;}
+.initialized_ac .green-btn.remove{ background:url(/Assets/images/remove-list.png) no-repeat left 10px center, url(/Assets/images/green_btn_bg40.jpg) repeat-x 0 0 / 100% 100%;}
+.tabs li{border:1px solid; #FormControlBorderColor# background:url(/Assets/images/grid_header_bg.png) repeat 0 0;}
+.tabs li.active { border: 1px solid; #HeaderBackgroundColor#}
+.tabs a{color: #fff;}
+.tabs .active a, .tabs .active a:hover{#HeaderBackgroundColor# color: #ffffff;}
+.tabContent td{border-top:1px solid; #FormControlBorderColor#}
+.tabContent .accordian-icon.close{background:url(/Assets/images/accord-close.png) no-repeat center center;}
+.tabContent .accordian-icon.open{background:url(/Assets/images/accord-open.png) no-repeat center center;}
+.scheduler{border:1px solid; #FormControlBorderColor#}
+.scheduler thead td{background:rgba(22, 22, 30, 0.7); color:#fff; font-size: 14px; font-weight: 600;}
+.scheduler th{color:#fff; background:url(/Assets/images/grid_header_bg.png) repeat 0 0;}
+.scheduler th, .scheduler td{border-left:1px solid; #FormControlBorderColor#}
+.scheduler td, .scheduler th{border-top:1px solid; #FormControlBorderColor#}
+.scheduler a{background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.15);}
+.scheduler a .icon .fa-times{color:#cf4b4b;font-size:16px;}
+.scheduler a .icon .fa-check{color:#00D7B0;font-size:16px;}
+.error-msg{background: #D6002E; background:rgba(214, 0, 46, 0.5); border: 1px solid #ea1442; border:1px solid rgba(234, 20, 66, 0.5); color:#fff;}
+.success-msg{background: #00bc96; background:rgba(0, 188, 150, 0.5); border: 1px solid; #HeaderBackgroundColor# border:1px solid rgba(0, 214, 176, 0.5); color:#fff;}
+.addNremove-wraper .green-btn.addList{background:url(/Assets/images/add-list.png) no-repeat center center, url(/Assets/images/green_btn_bg40.jpg) repeat-x 0 0; background-size:auto, 100% 100%;}
+.addNremove-wraper .green-btn.removeList{background:url(/Assets/images/remove-list.png) no-repeat center center, url(/Assets/images/green_btn_bg40.jpg) repeat-x 0 0; background-size:auto, 100% 100%;}
+
+.setting-dropdown{#MenuBackgroundColor# border:1px solid; #FormControlBorderColor# border-top:0px;}
+.setting-dropdown:after{#MenuBackgroundColor#}
+.setting-dropdown li{border-top:1px solid #38363b;}
+.setting-dropdown li a{color:#c4c4c4;}
+.setting-dropdown li a:hover{color: #60bfbf;}
+
+
+
+/* 24-12-2015 */
+/*.dashAccount::after{ background: rgba(75, 42, 166, 0.85);}
+.dashSchedule::after{ background: rgba(97, 61, 188, 0.85);}
+.dashMeal-plans::after{ background: rgba(10, 89, 194, 0.85);}*/
+
+.setting-btn{background:url(/Assets/images/setting_icon.png) no-repeat right center;}
+.text-danger{background: rgba(0, 0, 0, 0.5); border: 1px solid #ff0000; color: #ff0000;}
+.dropMenus{background: rgba(0,0,0,0.9);}
+.dropMenus .children li a{color:#c4c4c4; border-top: 1px solid #38363b;font-size: 14px;}
+.dropMenus .children li a:hover{color:#60bfbf;}
+input[type="file"]{background: url(/Assets/images/grid_main_bg.png) repeat 0 0; border: 1px solid; #FormControlBorderColor# color: #c4c4c4;}
+.custom-file-upload{ background: url(/Assets/images/blue_btn_bg30.jpg) repeat-x 0 0; color:#fff; font-size:13px;}
+
+
+/* 11-01-2016 */
+.themeChange-box{padding:15px 30px; color:#fff!important;}
+.themeChange-box h4{color:#fff; text-transform:uppercase;}
+.themePreview{margin-bottom:15px;}
+.colorPicker-wraper{ display:block; float:left; width:100%; padding:15px 0; border-bottom:1px solid; #FormControlBorderColor# font-size:13px;}
+.colorPicker-wraper h6{color:#01D7B1; text-decoration:underline; text-transform:uppercase; font-weight:400; font-size:13px; display:block; margin-bottom:10px;}
+.colorPicker-wraper .row{margin:0 -10px;}
+.colorPicker-wraper .half{width:50%; padding:5px 10px; padding-right:105px; display:block; float:left; position:relative; height:40px;}
+.colorPicker-wraper .colorInner{display:block; width:90px; position:absolute; right:10px; top:0; height:28px; background:#24AFB2; border:0;padding: 5px;font-weight: bold;}
+.hide{display:none !important;}
+.btn-choose{display: inline-block; padding: 8px 12px; margin-bottom: 0; font-size: 10px; color: #000; text-align: center; cursor: pointer; background:url(/Assets/images/blue_btn_bg30.jpg) repeat-x 0 0; text-transform:uppercase; height:28px; position:absolute; right:10px; top:0; width:90px; font-weight:600;}
+#imagePreview{margin-top:10px;}
+.colorPicker-row{margin-bottom:10px;}
+.btn-edit{display: inline-block; padding: 8px 12px; margin-bottom: 0; font-size: 10px; color: #000; text-align: center; cursor: pointer; background:url(/Assets/images/blue_btn_bg30.jpg) repeat-x 0 0; text-transform:uppercase; height:28px; position:absolute; right:10px; top:0; width:90px; font-weight:600;}
+.colorPicker-wraper p span{font-size:10px;}
+.btn-addImg{display: inline-block; padding: 8px 12px; margin-bottom: 0; font-size: 10px; color: #000; text-align: center; cursor: pointer; background:url(/Assets/images/blue_btn_bg30.jpg) repeat-x 0 0; text-transform:uppercase; height:28px; position:absolute; right:110px; top:0; width:90px; font-weight:600;}
+.btn-addImg + .filename{padding-right:110px;}
+.largeForm .feildWraper .colorInner{display:block; width:90px; height:28px; background:#24AFB2; border:0;padding: 5px;font-weight: bold;top: 2px;right: 99px;position: absolute;}
+.hide{display:none !important;}
+
+
+
+/* 12-01-2016 */
+.mainHeader .logo{#SiteLogo# background-size:auto 100px;}
+.blueHeading-bg h2{font-size:24px; text-transform:uppercase; font-weight:700; font-family: 'Raleway', sans-serif; color:#fff;}
+.navigation li li a{text-transform: capitalize; #SubmenuFontStyleFontSize# #SubmenuFontStyleFontWight# #SubmenuFontStyleFontFamily# #SubmenuFontStyleFontColor#}
+.mainHeader .exclusiveDiv{font-weight:700; font-size:24px; font-family: 'Raleway', sans-serif;}
+.mainHeader .exclusiveDiv span{font-weight:300; display:block; font-size:23px;}
+.blueHeading-bg h3{#HeaderFontStyleFontSize# #HeaderFontStyleFontWight# #HeaderFontStyleFontFamily# #HeaderFontStyleFontColor#}
+.blueHeading-bg h3 span{font-weight:700; font-family: 'Raleway', sans-serif;}
+.mainTable-right{#SiteBackgroundColor#}
+.mainTable-right h3{font-weight:700; font-size:20px; font-family: 'Raleway', sans-serif;}
+.dashInner-box{font-size: 18px; font-weight: 500; font-family: 'Raleway', sans-serif;}
+h3.headTitle2{font-weight:400; font-size:18px; font-family: 'Raleway', sans-serif;}
+.gridTable2 input.blue-btn[type="button"]{font-size:14px;}
+.mb-modal input[type="button"]{ font-size: 14px; height: 30px;}
+.filterRow h4{#FormLableFontStyleFontWight# #FormLableFontStyleFontFamily# #FormLableFontStyleFontColor#}
+
+/* 03-02-2016 */
+.ui-tooltip{#MenuBackgroundColor# border: 1px solid #00d6b0; padding: 5px 10px;color: white; border-radius: 0px; font: 400 13px 'Raleway', sans-serif; box-shadow: 0 0 7px black; position:relative;}
+.loginBox .blueHeading-bg h2{margin-top:15px;}
+.ui-widget-header{#HeaderBackgroundColor#}
+.ui-dialog .ui-dialog-title{#HeaderFontStyleFontSize# #HeaderFontStyleFontWight# #HeaderFontStyleFontFamily# #HeaderFontStyleFontColor#}
+/* // 03-02-2016 */

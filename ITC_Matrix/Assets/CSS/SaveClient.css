@@ -1,0 +1,41 @@
+﻿body {
+    color: black;
+}
+
+.textField {
+    width: 24%;
+    float: left;
+}
+
+.label {
+    width: 24%;
+    color: black;
+    float: left;
+}
+
+.form-group {
+    width: 100%;
+    float: left;
+}
+
+.border {
+    width: 100%;
+    float: left;
+    border-top: 1px solid green;
+    border-bottom: 1px solid green;
+    height: 30px;
+}
+
+.half-width {
+    width: 50%;
+    float: left;
+}
+
+
+.weekDays {
+    /*display: none;*/
+}
+.resetMonth {
+    /*display: none;*/
+}
+

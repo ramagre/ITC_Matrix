@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="355a4b3124e745e2a2edd6ec9904d35e" Name="Diagram1" ZoomLevel="33">
+        <EntityTypeShape EntityType="MultiplanModel.AccountCode" Width="1.5" PointX="8.75" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.Account" Width="1.5" PointX="0.75" PointY="19.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.AccProfileWebDeposit" Width="1.5" PointX="5.75" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.Audit" Width="1.5" PointX="8.75" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.BalanceTransfer" Width="1.5" PointX="10.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.BeanStreamSession" Width="1.5" PointX="10.75" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.ClientAccountCode" Width="1.5" PointX="10.75" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.ClientAccount" Width="1.5" PointX="3" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.ClientPlan" Width="1.5" PointX="10.75" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.ClientPlansUnlimited" Width="1.5" PointX="6" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.Client" Width="1.5" PointX="0.75" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.corClientPicture" Width="1.5" PointX="2.75" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.corTransDevice" Width="1.5" PointX="12.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.CostCentre" Width="1.5" PointX="4.75" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.cpyDevicePaper" Width="1.5" PointX="12.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.cpyPaper" Width="1.5" PointX="6.75" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.cpyTransaction" Width="1.5" PointX="12.75" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.Credential" Width="1.5" PointX="8" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.CredentialType" Width="1.5" PointX="5.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.CustomField" Width="1.5" PointX="8.75" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.CustomUserData" Width="1.5" PointX="10.75" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.DailyLimit" Width="1.5" PointX="12.75" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.DelClient" Width="1.5" PointX="14.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.DeviceGroupProfile" Width="1.5" PointX="2.75" PointY="16.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.Meal" Width="1.5" PointX="16.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.Operator" Width="1.5" PointX="16.75" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.Param" Width="1.5" PointX="6.75" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.ParamsExport" Width="1.5" PointX="16.75" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.ParkingGroup" Width="1.5" PointX="8.75" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.ParkingPrice" Width="1.5" PointX="16.75" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.PayMethod" Width="1.5" PointX="16.75" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.PlanLimit" Width="1.5" PointX="16.75" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.PlanProfileWebDeposit" Width="1.5" PointX="12.75" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.Plan" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.Port" Width="1.5" PointX="18.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.ProfileDepositLimit" Width="1.5" PointX="2.75" PointY="19.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.prtMachine" Width="1.5" PointX="18.75" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.prtPrinter" Width="1.5" PointX="18.75" PointY="16.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.prtPrinterGroup" Width="1.5" PointX="18.75" PointY="19.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.prtTransaction" Width="1.5" PointX="4.75" PointY="20.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.RegisterGroupPlanLimit" Width="1.5" PointX="6.75" PointY="20.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.RegisterGroup" Width="1.5" PointX="20.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.Register" Width="1.5" PointX="20.75" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.Report" Width="1.5" PointX="8.75" PointY="21.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.RightGroup" Width="1.5" PointX="20.75" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.sysdiagram" Width="1.5" PointX="10.75" PointY="21.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.tblEvent" Width="1.5" PointX="12.75" PointY="21.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.TMP_Profiles" Width="1.5" PointX="20.75" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.TrnDep" Width="1.5" PointX="20.75" PointY="20.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.TrnPayrol" Width="1.5" PointX="14.75" PointY="22.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.TrnPlan" Width="1.5" PointX="16.75" PointY="22.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.TrnReg" Width="1.5" PointX="22.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.TrnRegNoClient" Width="1.5" PointX="22.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.vndItem" Width="1.5" PointX="22.75" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.vndMachineItem" Width="1.5" PointX="22.75" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.vndTransaction" Width="1.5" PointX="22.75" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.AccountTriger" Width="1.5" PointX="0.75" PointY="24.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.CardIssue" Width="1.5" PointX="2.75" PointY="24.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.CngClientAccount" Width="1.5" PointX="4.75" PointY="24.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.IDMS_Link" Width="1.5" PointX="8.75" PointY="24.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.JobType" Width="1.5" PointX="10.75" PointY="24.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.ParkingCalendar" Width="1.5" PointX="24.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MultiplanModel.SiteKey" Width="1.5" PointX="24.75" PointY="6.375" IsExpanded="true" />
+        <AssociationConnector Association="MultiplanModel.FK_ClientAccounts_Accounts" ManuallyRouted="false" />
+        <AssociationConnector Association="MultiplanModel.FK_ClientAccounts_Clients" ManuallyRouted="false" />
+        <AssociationConnector Association="MultiplanModel.FK_ClientPlans_Clients" ManuallyRouted="false" />
+        <AssociationConnector Association="MultiplanModel.FK_ClientPlans_Plans" ManuallyRouted="false" />
+        <AssociationConnector Association="MultiplanModel.FK_Credentials_CredentialType" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="MultiplanModel.AlertGroup" Width="1.5" PointX="25.375" PointY="9.875" />
+        <EntityTypeShape EntityType="MultiplanModel.Alert" Width="1.5" PointX="27.625" PointY="9" />
+        <EntityTypeShape EntityType="MultiplanModel.AlertType" Width="1.5" PointX="25.375" PointY="12.875" />
+        <EntityTypeShape EntityType="MultiplanModel.CreditCardProcessSession" Width="1.5" PointX="13.375" PointY="25.75" />
+        <EntityTypeShape EntityType="MultiplanModel.FieldPicker" Width="1.5" PointX="25.375" PointY="15.75" />
+        <EntityTypeShape EntityType="MultiplanModel.ClientAlert" Width="1.5" PointX="3" PointY="27.375" />
+        <AssociationConnector Association="MultiplanModel.FK_Alerts_AlertGroups" />
+        <AssociationConnector Association="MultiplanModel.FK_Alerts_AlertTypes" />
+        <AssociationConnector Association="MultiplanModel.FK_ClientAlerts_Clients" />
+        <EntityTypeShape EntityType="MultiplanModel.Profile" Width="1.5" PointX="23.375" PointY="21.75" />
+        <EntityTypeShape EntityType="MultiplanModel.CommMessage" Width="1.5" PointX="25.375" PointY="18.75" />
+        <EntityTypeShape EntityType="MultiplanModel.Language" Width="1.5" PointX="19.375" PointY="25.75" />
+        <EntityTypeShape EntityType="MultiplanModel.ArchiveCommMessage" Width="1.5" PointX="25.375" PointY="22.75" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
