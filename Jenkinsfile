@@ -59,12 +59,12 @@ stage('SonarQube analysis') {
                 withSonarQubeEnv('SonarQube') {
                     sh "./gradlew sonarqube"
                 }
-            }
+            
         }
         stage("Quality gate") {
             steps {
                 waitForQualityGate abortPipeline: true
-            }
+            
         }
 
 }
