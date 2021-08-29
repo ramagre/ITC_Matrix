@@ -54,21 +54,18 @@ pipeline {
 
 }
 
-stage('BUILD AND RUN TESTS') {
-
-    steps {
-
-        withCredentials([usernamePassword(credentialsId: 'sonar-publisher', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-
-            bat '''
-            
-            C: /Windows/Microsoft.NET / Framework / v4 .0 .30319 / MSBuild.exe ITC_Matrix.ITC_UnitTest / ITC_Matrix.UnitTest.Test.csproj / p: Configuration = Release / p: DebugType = Full / p: VisualStudioVersion = 15.0
-
-            '''            
-            bat "packages\\NUnit.ConsoleRunner.3.5.0\\tools\\nunit3-console.exe DIOnline.UnitTest.Test/bin/Release/DIOnlineUnitTest.Test.dll --result=TestResult.xml;format=nunit3"
+stage('SonarQube analysis') {
+            steps {
+                withSonarQubeEnv('SonarQube') {
+                    sh "./gradlew sonarqube"
+                }
+            }
         }
-
-    }
+        stage("Quality gate") {
+            steps {
+                waitForQualityGate abortPipeline: true
+            }
+        }
 
 }
 
